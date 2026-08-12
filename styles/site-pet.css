@@ -1,0 +1,266 @@
+.site-pet {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  /* Needs to sit above every full-screen overlay in the site (page
+     transitions, project detail view, contact reveal, etc. all use
+     z-index values up in the ~20000-30035 range), so the pet stays
+     visible on top of the whole page. */
+  z-index: 99999;
+  pointer-events: none;
+  transform: translate3d(var(--pet-x), calc(var(--pet-lift) * -1), 0);
+  will-change: transform;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+.site-pet--hidden {
+  opacity: 0;
+}
+
+.site-pet--hidden .site-pet__hit {
+  pointer-events: none;
+}
+
+.site-pet__hit {
+  position: relative;
+  display: block;
+  padding: 12px;
+  margin: -12px;
+  border: 0;
+  background: transparent;
+  cursor: grab;
+  pointer-events: auto;
+  touch-action: none;
+  transform: scaleX(var(--pet-flip));
+  color: inherit;
+}
+
+.site-pet__hit:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 7px;
+  border-radius: 12px;
+}
+
+.site-pet[data-mode=dragging] .site-pet__hit {
+  cursor: grabbing;
+}
+
+.site-pet__svg {
+  display: block;
+  overflow: visible;
+}
+
+.site-pet__bob {
+  display: block;
+  animation: pet-bob .5s ease-in-out infinite;
+}
+
+.site-pet__leg {
+  transform-origin: 50% 100%;
+  animation: pet-leg .46s steps(2, end) infinite;
+}
+
+.site-pet__leg--right {
+  animation-delay: .23s;
+}
+
+.site-pet[data-mode=dragging] .site-pet__bob {
+  animation: none;
+}
+
+.site-pet[data-mode=hop] .site-pet__bob {
+  animation: pet-hop .5s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.site-pet[data-mode=bump] .site-pet__bob {
+  animation: pet-bump .4s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.site-pet__eyes {
+  animation: pet-blink 4s step-end infinite;
+  transform-origin: center;
+}
+
+.site-pet__eye-track {
+  transform: translate(var(--eye-x, 0px), var(--eye-y, 0px));
+  transition: transform .12s ease-out;
+}
+
+.pet-hat,
+.pet-board {
+  display: none;
+}
+
+.site-pet[data-hat=skateboard] .pet-board {
+  display: block;
+}
+
+.site-pet[data-hat=skateboard] .site-pet__leg {
+  display: none;
+}
+
+.site-pet[data-mode=skating] .site-pet__bob {
+  animation: pet-glide .8s ease-in-out infinite;
+}
+
+.site-pet[data-hat=bucket] .pet-hat--bucket,
+.site-pet[data-hat=top] .pet-hat--top,
+.site-pet[data-hat=cap] .pet-hat--cap,
+.site-pet[data-hat=sprout] .pet-hat--sprout,
+.site-pet[data-hat=party] .pet-hat--party {
+  display: block;
+}
+
+.site-pet__bubble {
+  position: absolute;
+  bottom: 68px;
+  left: 50%;
+  min-width: max-content;
+  max-width: 160px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 4px;
+  background: rgba(5, 7, 15, .95);
+  color: #f0f0f0;
+  font: 13px/1.4 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  text-align: center;
+  white-space: pre-line;
+  opacity: 0;
+  transform: translate(-50%, 5px);
+  transition: .2s ease;
+  pointer-events: none;
+}
+
+.site-pet__bubble:not(:empty) {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.site-pet__hat-rack {
+  position: absolute;
+  bottom: 18px;
+  left: 58px;
+  pointer-events: auto;
+}
+
+.site-pet__hat-toggle,
+.site-pet__hat-option {
+  border: 0;
+  cursor: pointer;
+  font: 400 14px/1 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+
+.site-pet__hat-toggle {
+  color: #f0f0f0;
+  background: rgba(5, 7, 15, .8);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  transition: background .2s;
+}
+
+.site-pet__hat-menu[hidden] {
+  display: none !important;
+}
+
+.site-pet__hat-menu {
+  position: absolute;
+  bottom: 31px;
+  left: -8px;
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 6px;
+  background: rgba(5, 7, 15, .95);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .5);
+}
+
+.site-pet__hat-option {
+  width: 28px;
+  height: 28px;
+  color: #f0f0f0;
+  background: transparent;
+  border-radius: 4px;
+}
+
+.site-pet__hat-option:hover {
+  background: rgba(255, 255, 255, .1);
+}
+
+.site-pet__hat-option--bucket {
+  color: #e8c84a;
+}
+
+.site-pet__hat-option--cap {
+  color: #168b9d;
+}
+
+.site-pet__hat-option--party {
+  color: #bf5a7a;
+}
+
+.site-pet__hat-option--sprout {
+  color: #3ca564;
+}
+
+.site-pet__hat-option--skateboard {
+  color: #c96536;
+}
+
+@keyframes pet-glide {
+  50% {
+    transform: translateY(-2px) rotate(-1.2deg);
+  }
+}
+
+@keyframes pet-bob {
+  50% {
+    transform: translateY(-1.5px);
+  }
+}
+
+@keyframes pet-leg {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes pet-hop {
+  40% {
+    transform: translateY(-18px) rotate(-6deg);
+  }
+}
+
+@keyframes pet-bump {
+  30% {
+    transform: translateX(3px) rotate(-6deg);
+  }
+}
+
+@keyframes pet-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+  94%,
+  96% {
+    transform: scaleY(.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-pet__bob,
+  .site-pet__leg,
+  .site-pet__eyes {
+    animation: none !important;
+  }
+  .site-pet {
+    transition: none;
+  }
+  .site-pet__eye-track {
+    transition: none;
+  }
+}

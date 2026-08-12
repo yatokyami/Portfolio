@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Aditya Sharma</title>
+<link rel="icon" href="../assets/favicon/favicon.ico">
+<link rel="preload" href="../assets/fonts/Breton.woff2" as="font" crossorigin>
+<link rel="preload" href="../assets/fonts/Machine.otf" as="font" crossorigin>
+<link rel="stylesheet" href="../styles/contact.css"><link rel="stylesheet" href="../styles/site-pet.css">
+</head>
+<body>
+<div class="page-fade" id="page-fade"></div><div class="contact-bg" id="contact-bg"></div><div class="contact-noise"></div>
+<header class="page-header">
+  <a href="../index.html" class="back-btn chr-hover" data-chr="Back" id="back-btn"></a>
+</header>
+
+<main>
+<section class="contact-collab">
+  <svg class="fluid-line" viewBox="0 0 1400 1200" preserveAspectRatio="none"><path d="M-100 100 C 350 -20 700 280 520 510 C360 730 50 650 320 960 C600 1280 850 900 1550 1120"/></svg>
+  <div class="collab-copy">
+    <h2>I'm currently looking for <em>Product Design</em> opportunities, freelance projects and interesting collaborations.</h2>
+    <p>No elaborate brief needed. Send me the rough idea and we can figure out the rest.</p>
+  </div>
+  <a class="contact-email magnetic" href="mailto:sharmaaditya4848@gmail.com"><span>sharmaaditya4848@gmail.com</span><b>↗</b></a>
+</section>
+
+<section class="contact-details">
+  <div class="detail-head"><span>Find me elsewhere</span><span>02 / 03</span></div>
+  <div class="detail-links">
+    <a href="https://www.linkedin.com/in/adityasharma9940/" target="_blank" rel="noopener"><span>LinkedIn</span><b>↗</b></a>
+    <a href="https://github.com/yatokyami" target="_blank" rel="noopener"><span>GitHub</span><b>↗</b></a>
+    <a href="../assets/resume/Aditya_Sharma_Resume.pdf" download><span>Resume</span><b>↓</b></a>
+  </div>
+</section>
+
+<section class="contact-final" id="contact-form">
+  <div class="final-frame">
+    <img src="../assets/images/profile/me.avif" alt="Aditya Sharma">
+    <span class="frame-corner tl"></span><span class="frame-corner tr"></span>
+    <span class="frame-corner bl"></span><span class="frame-corner br"></span>
+    <div class="frame-tag">AD / 03 — LET'S TALK</div>
+  </div>
+  <div class="final-copy">
+    <div class="eyebrow"><i></i> Say hello</div>
+    <h2>Tell me what<br><em>you're building.</em></h2>
+    <form class="hello-form" id="hello-form">
+      <label><span>01 / Your name</span><input name="name" type="text" placeholder="Jane Doe" autocomplete="name" required></label>
+      <label><span>02 / Email</span><input name="email" type="email" placeholder="jane@studio.com" autocomplete="email" required></label>
+      <label class="hello-message"><span>03 / Message</span><textarea name="message" rows="3" placeholder="Tell me about the project..." required></textarea></label>
+      <div class="hello-form-bottom">
+        <span id="hello-status" aria-live="polite"></span>
+        <button type="submit" class="hello-submit magnetic" data-magnetic-strength=".1">Send message <b>↗</b></button>
+      </div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer class="mini-footer"><a class="work-footer-link" href="../index.html#projects">Work ↗</a>
+<a class="chr-hover" data-chr="sharmaaditya4848@gmail.com" href="mailto:sharmaaditya4848@gmail.com"></a>
+<span>© 2026 — ADITYA SHARMA</span>
+</footer>
+<script defer src="../js/i18n.js"></script>
+<script defer src="../js/vendor/gsap.min.js"></script>
+<script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+<script defer src="../js/gsap-page.js"></script>
+<script defer src="../js/contact.js"></script>
+<script src="../js/site-pet.js"></script>
+<script>
+  // Load the WebGL background after the entrance animation has played,
+  // so shader compilation doesn't block first paint.
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var s1 = document.createElement('script');
+      s1.src = '../js/core-renderer.js';
+      s1.onload = function() {
+        var s2 = document.createElement('script');
+        s2.src = '../js/hero-project.js';
+        s2.onload = function() {
+          var s3 = document.createElement('script');
+          s3.src = '../js/page-background.js';
+          document.head.appendChild(s3);
+        };
+        document.head.appendChild(s2);
+      };
+      document.head.appendChild(s1);
+    }, 400);
+  });
+</script>
+</body></html>

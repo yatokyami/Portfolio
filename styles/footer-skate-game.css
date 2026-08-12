@@ -1,0 +1,458 @@
+/* The footer skate course intentionally inherits the portfolio's existing
+   type, blue accent and dark shader background so it reads as part of the page. */
+.footer .footer-ascii-wrap {
+  opacity: 0.13;
+  filter: blur(0.2px);
+}
+
+.skate-game {
+  --skate-blue: #1e6bff;
+  --skate-white: #f0f0f0;
+  position: absolute;
+  inset: 22vh 0 0;
+  z-index: 3;
+  color: var(--skate-white);
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  pointer-events: none;
+}
+
+.skate-game.is-active {
+  pointer-events: auto;
+}
+
+.skate-game__header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 3rem;
+  pointer-events: none;
+}
+
+.skate-game__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.7rem;
+  color: rgba(240, 240, 240, 0.58);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.skate-game__eyebrow > span {
+  width: 1.8rem;
+  height: 1px;
+  background: var(--skate-blue);
+}
+
+.skate-game__title {
+  margin: 0;
+  font-family: 'Breton', sans-serif;
+  font-size: clamp(2.5rem, 5.4vw, 6rem);
+  font-weight: 300;
+  line-height: 0.85;
+  letter-spacing: -0.055em;
+}
+
+.skate-game__title em {
+  color: var(--skate-blue);
+  font-family: 'other', sans-serif;
+  font-style: normal;
+}
+
+.skate-game__hud {
+  display: flex;
+  gap: clamp(1.8rem, 4vw, 5rem);
+  padding-bottom: 0.35rem;
+}
+
+.skate-game__hud > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+
+.skate-game__hud span {
+  color: rgba(240, 240, 240, 0.48);
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.skate-game__hud strong {
+  font: 400 clamp(1.1rem, 1.8vw, 1.65rem)/1 'Machine', 'Courier New', monospace;
+  letter-spacing: 0.08em;
+}
+
+.skate-game__course {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 47vh;
+  min-height: 280px;
+  overflow: hidden;
+  cursor: pointer;
+  touch-action: manipulation;
+  outline: none;
+}
+
+.skate-game__course:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--skate-blue);
+}
+
+.skate-game__course::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 0 49.9%, rgba(255,255,255,.035) 50%, transparent 50.1%),
+    linear-gradient(0deg, transparent 0 49.9%, rgba(255,255,255,.03) 50%, transparent 50.1%);
+  background-size: 13vw 100%, 100% 9rem;
+  mask-image: linear-gradient(to bottom, transparent, #000 72%);
+  pointer-events: none;
+}
+
+.skate-game__speed-lines {
+  position: absolute;
+  inset: auto 0 39px;
+  height: 1px;
+  opacity: 0;
+  background: repeating-linear-gradient(90deg, transparent 0 7vw, rgba(30, 107, 255, 0.8) 7vw 11vw, transparent 11vw 18vw);
+  transition: opacity 0.3s ease;
+}
+
+.skate-game.is-running .skate-game__speed-lines {
+  opacity: 0.55;
+  animation: skate-speed-lines 0.8s linear infinite;
+}
+
+.skate-game__ground {
+  position: absolute;
+  right: 0;
+  bottom: 35px;
+  left: 0;
+  height: 4px;
+  background: var(--skate-white);
+  box-shadow: 0 0 20px rgba(30, 107, 255, 0.28);
+}
+
+.skate-game__ground::before {
+  content: '';
+  position: absolute;
+  inset: 4px 0 auto;
+  height: 34px;
+  opacity: 0.34;
+  background: repeating-linear-gradient(105deg, rgba(255,255,255,.13) 0 1px, transparent 1px 19px);
+}
+
+.skate-game__ground span {
+  position: absolute;
+  top: -3px;
+  width: 5px;
+  height: 10px;
+  background: var(--skate-blue);
+}
+
+.skate-game__ground span:nth-child(1) { left: 8%; }
+.skate-game__ground span:nth-child(2) { left: 52%; }
+.skate-game__ground span:nth-child(3) { left: 88%; }
+
+.skate-game__obstacles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.skate-obstacle {
+  position: absolute;
+  left: 0;
+  bottom: 39px;
+  will-change: transform;
+}
+
+.skate-obstacle--ramp {
+  width: 94px;
+  height: 48px;
+  border: 2px solid var(--skate-white);
+  background: linear-gradient(145deg, rgba(30,107,255,.64), rgba(30,107,255,.1));
+  clip-path: polygon(100% 0, 100% 100%, 0 100%);
+}
+
+.skate-obstacle__ramp-line {
+  position: absolute;
+  right: 8px;
+  bottom: 7px;
+  width: 55px;
+  height: 1px;
+  background: rgba(255,255,255,.55);
+  transform: rotate(-26deg);
+  transform-origin: right;
+}
+
+.skate-obstacle--rail {
+  width: 154px;
+  height: 36px;
+}
+
+.skate-obstacle__bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 5px;
+  background: var(--skate-white);
+  box-shadow: 0 0 12px rgba(255,255,255,.25);
+}
+
+.skate-obstacle__leg {
+  position: absolute;
+  top: 2px;
+  width: 3px;
+  height: 34px;
+  background: rgba(240,240,240,.62);
+}
+
+.skate-obstacle__leg::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -7px;
+  width: 17px;
+  height: 2px;
+  background: rgba(240,240,240,.62);
+}
+
+.skate-obstacle__leg--a { left: 19px; }
+.skate-obstacle__leg--b { right: 19px; }
+
+.skate-obstacle__sparks {
+  position: absolute;
+  top: -7px;
+  left: 40%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  opacity: 0;
+  background: #ffb82e;
+  box-shadow: 9px 4px #ff713d, 17px -1px #ffdb66, 24px 6px #ff713d;
+}
+
+.skate-obstacle--rail.is-grinding .skate-obstacle__sparks {
+  opacity: 1;
+  animation: skate-sparks 0.14s steps(2) infinite;
+}
+
+.skate-obstacle--low {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  width: 34px;
+  height: 27px;
+  padding: 3px;
+  border: 2px solid var(--skate-white);
+  background: rgba(30,107,255,.82);
+}
+
+.skate-obstacle--low span {
+  width: 3px;
+  height: 100%;
+  background: rgba(255,255,255,.64);
+  transform: skew(-15deg);
+}
+
+.skate-game__prompt {
+  position: absolute;
+  left: 50%;
+  bottom: 72px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transform: translateX(-50%);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.skate-game__prompt button {
+  min-width: 112px;
+  padding: 0.72rem 1rem 0.65rem;
+  border: 1px solid var(--skate-white);
+  border-radius: 999px;
+  color: var(--skate-white);
+  background: rgba(5, 7, 15, 0.72);
+  font: 500 0.68rem/1 'Inter', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(9px);
+  transition: color .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.skate-game__prompt button:hover,
+.skate-game__prompt button:focus-visible {
+  color: #fff;
+  border-color: var(--skate-blue);
+  background: var(--skate-blue);
+  outline: none;
+}
+
+.skate-game__prompt p {
+  margin: 0;
+  color: rgba(240,240,240,.57);
+  font-size: 0.68rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.skate-game__prompt kbd {
+  padding: 0.2rem 0.36rem;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 3px;
+  color: rgba(255,255,255,.86);
+  font: inherit;
+}
+
+.skate-game.is-running .skate-game__prompt {
+  left: auto;
+  right: 3rem;
+  bottom: 67px;
+  transform: none;
+}
+
+.skate-game.is-running .skate-game__prompt button {
+  display: none;
+}
+
+.skate-game.is-crashed .skate-game__prompt {
+  animation: skate-prompt-pop .38s cubic-bezier(.2,.85,.25,1.25);
+}
+
+.site-pet--in-game .site-pet__hat-rack {
+  display: none;
+}
+
+.site-pet--in-game .site-pet__hit {
+  pointer-events: none;
+  cursor: default;
+}
+
+.site-pet--in-game .site-pet__bubble {
+  bottom: 74px;
+}
+
+.site-pet[data-mode=ollie] .site-pet__bob {
+  animation: pet-ollie-spin .5s ease-out infinite alternate;
+}
+
+.site-pet[data-mode=launching] .site-pet__bob {
+  animation: pet-ramp-launch .42s cubic-bezier(.2,.8,.2,1) infinite alternate;
+}
+
+.site-pet[data-mode=grinding] .site-pet__bob {
+  animation: pet-grind .09s steps(2) infinite;
+}
+
+.site-pet[data-mode=grinding] .pet-board {
+  transform-origin: center;
+  transform: rotate(-3deg);
+}
+
+.site-pet[data-mode=crashed] .site-pet__bob {
+  animation: pet-crash .55s cubic-bezier(.2,.7,.3,1) forwards;
+}
+
+.site-pet--in-game .site-pet__shadow {
+  opacity: .13;
+}
+
+@keyframes skate-speed-lines {
+  to { background-position-x: -18vw; }
+}
+
+@keyframes skate-sparks {
+  50% { transform: translate(8px, 5px) scale(.65); opacity: .55; }
+}
+
+@keyframes skate-prompt-pop {
+  50% { transform: translateX(-50%) scale(1.08); }
+}
+
+@keyframes pet-ollie-spin {
+  to { transform: rotate(8deg) translateY(-2px); }
+}
+
+@keyframes pet-ramp-launch {
+  to { transform: rotate(-12deg) translateY(-3px); }
+}
+
+@keyframes pet-grind {
+  50% { transform: translateY(1px) rotate(-2deg); }
+}
+
+@keyframes pet-crash {
+  45% { transform: translate(9px, -7px) rotate(18deg); }
+  100% { transform: translate(14px, 4px) rotate(78deg); }
+}
+
+@media (max-width: 768px) {
+  .skate-game {
+    inset: 25vh 0 0;
+  }
+
+  .skate-game__header {
+    padding: 0 1.5rem;
+  }
+
+  .skate-game__title {
+    font-size: clamp(2.25rem, 12vw, 4rem);
+  }
+
+  .skate-game__hud {
+    gap: 1.15rem;
+  }
+
+  .skate-game__course {
+    height: 48vh;
+    min-height: 250px;
+  }
+
+  .skate-game__prompt {
+    bottom: 78px;
+    flex-direction: column;
+    gap: .65rem;
+  }
+
+  .skate-game.is-running .skate-game__prompt {
+    right: 1.25rem;
+    bottom: 66px;
+  }
+
+  .skate-game.is-running .skate-game__prompt p {
+    font-size: .58rem;
+  }
+
+  .footer .footer-ascii-wrap {
+    opacity: .06;
+  }
+}
+
+@media (max-width: 520px) {
+  .skate-game__eyebrow { display: none; }
+  .skate-game__hud span { font-size: .52rem; }
+  .skate-game__hud strong { font-size: .95rem; }
+  .skate-game__prompt p { font-size: .59rem; }
+  .skate-game.is-running .skate-game__prompt p { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skate-game__speed-lines,
+  .skate-obstacle__sparks,
+  .site-pet--in-game .site-pet__bob {
+    animation: none !important;
+  }
+}

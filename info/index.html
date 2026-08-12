@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Aditya Sharma</title>
+<link rel="icon" href="../assets/favicon/favicon.ico">
+<link rel="preload" href="../assets/fonts/Breton.woff2" as="font" crossorigin>
+<link rel="preload" href="../assets/fonts/Machine.otf" as="font" crossorigin>
+<link rel="stylesheet" href="../styles/info.css"><link rel="stylesheet" href="../styles/site-pet.css">
+</head>
+<body>
+<div class="page-fade" id="page-fade"></div>
+<div class="about-bg" id="about-bg"></div>
+<div class="about-noise"></div>
+
+<header class="page-header">
+  <a href="../index.html" class="back-btn chr-hover" data-chr="Back" id="back-btn"></a>
+</header>
+
+<main>
+<section class="about-intro">
+  <div class="intro-copy">
+
+    <h1 class="hero-split-title">
+      <span class="hst-line">Designer</span>
+      <span class="hst-line hst-em"><em>with a</em></span>
+      <span class="hst-line hst-em"><em>developer's</em></span>
+      <span class="hst-line">brain.</span>
+    </h1>
+    <p class="intro-lede">I design digital products by moving between <span>structure, visuals and interaction</span> — then use code to understand how the idea actually behaves.</p>
+  </div>
+  <div class="intro-identity">
+    <div class="identity-roles">
+      <span class="role-outline">Design</span>
+      <span class="role-outline">Code</span>
+      <span class="role-outline">Ship</span>
+    </div>
+    <div class="identity-divider"></div>
+    <div class="identity-stats">
+      <div class="istat"><b>CS</b><span>Background</span></div>
+      <div class="istat"><b>Product</b><span>Focus</span></div>
+      <div class="istat"><b>Mumbai</b><span>India</span></div>
+    </div>
+  </div>
+  <div class="intro-bottom"><span>Scroll to explore</span><span>↓</span></div>
+</section>
+
+<section class="about-manifesto">
+  <svg class="fluid-line" viewBox="0 0 1400 1100" preserveAspectRatio="none"><path d="M-100 50 C 350 -20 650 250 540 470 C430 690 40 630 290 920 C520 1180 840 910 1550 1060"/></svg>
+  <div class="manifesto-inner">
+    <div class="eyebrow"><i></i> The short version</div>
+    <p class="manifesto-big">I like taking complicated things and making them feel <em>obvious.</em></p>
+    <div class="manifesto-grid">
+      <p>My Computer Science background taught me to think in systems. Design taught me to question the system before polishing it.</p>
+      <p>I care about the little things: hierarchy, motion, feedback, the moment an interaction feels natural instead of explained.</p>
+    </div>
+    <div class="manifesto-stamp">ADITYA<br><span>V3.0</span></div>
+  </div>
+</section>
+
+<section class="about-toolkit">
+  <div class="toolkit-left">
+    <div class="eyebrow"><i></i> Skills &amp; Tech Stack</div>
+    <h2>Design<br><em>meets</em><br>build.</h2>
+    <p>A hybrid toolkit lets me move from research and wireframes to polished interfaces and working front-end code.</p>
+    <a class="chr-hover about-cta" data-chr="Let's work together" href="../contact/index.html"></a>
+  </div>
+  <div class="toolkit-right">
+    <div class="skill-group"><div class="skill-group-label"><span></span>Product Design</div><div class="chips"><span>UX Research</span><span>User Flows</span><span>Wireframing</span><span>Prototyping</span><span>UI Design</span><span>Design Systems</span></div></div>
+    <div class="skill-group"><div class="skill-group-label"><span></span>Development</div><div class="chips"><span>React</span><span>TypeScript</span><span>HTML / CSS</span><span>Git</span><span>Node.js</span><span>Responsive UI</span></div></div>
+    <div class="skill-group"><div class="skill-group-label"><span></span>Visual / Motion</div><div class="chips"><span>Figma</span><span>GSAP</span><span>Blender</span><span>3D</span><span>Interaction</span><span>Art Direction</span></div></div>
+  </div>
+</section>
+
+
+<section class="about-favorites">
+  <div class="fav-title-row">
+    <h2>Some of my favourite <em class="fav-cat-word">games.</em></h2>
+    <nav class="fav-tabs" id="fav-tabs" aria-label="Favourite categories"></nav>
+  </div>
+  <div class="favorite-grid" id="fav-grid"></div>
+</section>
+
+<section class="about-end">
+  <span>Want to know what I'm working on?</span>
+  <a href="../works/index.html" class="big-link magnetic">See the work <em>&#8599;</em></a>
+</section>
+</main>
+
+<footer class="mini-footer"><a class="work-footer-link" href="../index.html#projects">Work &#8599;</a>
+  <a class="chr-hover" data-chr="sharmaaditya4848@gmail.com" href="mailto:sharmaaditya4848@gmail.com"></a>
+  <span>&#169; 2026 &#8212; ADITYA SHARMA</span>
+</footer>
+
+<script defer src="../js/i18n.js"></script>
+<script defer src="../js/vendor/gsap.min.js"></script>
+<script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+<script defer src="../js/gsap-page.js"></script>
+<script defer src="../js/info.js"></script>
+<script src="../js/site-pet.js"></script>
+<script>
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var s1 = document.createElement('script');
+      s1.src = '../js/core-renderer.js';
+      s1.onload = function() {
+        var s2 = document.createElement('script');
+        s2.src = '../js/hero-project.js';
+        s2.onload = function() {
+          var s3 = document.createElement('script');
+          s3.src = '../js/page-background.js';
+          document.head.appendChild(s3);
+        };
+        document.head.appendChild(s2);
+      };
+      document.head.appendChild(s1);
+    }, 400);
+  });
+</script>
+</body></html>

@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — Case Study · Aditya Sharma</title>
+  <meta name="description" content="A comprehensive case study on how Aditya Sharma's personal portfolio was designed and built — covering architecture, animation systems, performance and every technical decision.">
+  <link rel="icon" href="../assets/favicon/favicon.ico">
+  <link rel="preload" href="../assets/fonts/Breton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/Machine.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="../styles/works-new.css">
+  <link rel="stylesheet" href="../styles/site-pet.css">
+  <style>
+    /* ── Case study overrides & extensions ──────────────────────────── */
+
+    @font-face {
+      font-family: 'other';
+      src: url('../assets/fonts/Machine.otf') format('opentype');
+      font-display: swap;
+    }
+
+    :root {
+      --blue: #1e6bff;
+      --blue-dim: rgba(30, 107, 255, 0.12);
+      --text: #f0f0f0;
+      --text-dim: rgba(240, 240, 240, 0.48);
+      --text-faint: rgba(240, 240, 240, 0.22);
+      --border: rgba(255, 255, 255, 0.1);
+      --bg: #05070f;
+    }
+
+    /* hero */
+    .cs-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 8vw 7vh;
+      overflow: hidden;
+    }
+
+    .cs-hero-cover {
+      position: absolute;
+      inset: 0;
+      background: url('../assets/images/projects/Covers/Portfolio.jpg') center center / cover no-repeat;
+      filter: brightness(0.22) saturate(0.6);
+      z-index: 0;
+    }
+
+    .cs-hero-cover::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #05070f 0%, transparent 60%);
+    }
+
+    .cs-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 72rem;
+    }
+
+    .cs-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .cs-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--blue);
+    }
+
+    .cs-hero h1 {
+      font-family: 'Breton', sans-serif;
+      font-weight: 300;
+      font-size: clamp(3.2rem, 8vw, 9rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin: 0 0 3rem;
+    }
+
+    .cs-hero h1 em {
+      font-style: normal;
+      font-family: 'other', sans-serif;
+      font-size: 0.78em;
+      color: rgba(240, 240, 240, 0.55);
+    }
+
+    .cs-hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+
+    .cs-meta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cs-meta-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .cs-meta-value {
+      font-family: 'Breton', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* body layout */
+    .cs-body {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 10vh 8vw 16vh;
+    }
+
+    /* section headers */
+    .cs-section {
+      margin-top: 12vh;
+    }
+
+    .cs-section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .cs-section-label::before {
+      content: '';
+      display: inline-block;
+      width: 1.5rem;
+      height: 1px;
+      background: var(--blue);
+    }
+
+    .cs-section h2 {
+      font-family: 'Breton', sans-serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin: 0 0 2.4rem;
+    }
+
+    .cs-section h2 em {
+      font-style: normal;
+      font-family: 'other', sans-serif;
+      font-size: 0.82em;
+      color: rgba(240, 240, 240, 0.5);
+    }
+
+    /* prose */
+    .cs-prose {
+      font-family: 'Breton', sans-serif;
+      font-size: clamp(1rem, 1.15vw, 1.12rem);
+      line-height: 1.85;
+      color: var(--text-dim);
+      max-width: 60ch;
+    }
+
+    .cs-prose + .cs-prose {
+      margin-top: 1.4rem;
+    }
+
+    .cs-prose strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .cs-prose a {
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(30, 107, 255, 0.3);
+      transition: border-color 0.3s;
+    }
+
+    .cs-prose a:hover {
+      border-color: var(--blue);
+    }
+
+    /* two-col layout */
+    .cs-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 4vw, 5rem);
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .cs-two-col.reverse {
+      direction: rtl;
+    }
+
+    .cs-two-col.reverse > * {
+      direction: ltr;
+    }
+
+    /* stat cards */
+    .cs-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+      gap: 1.5px;
+      margin-top: 3rem;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .cs-stat {
+      background: var(--bg);
+      padding: 2rem 1.8rem;
+    }
+
+    .cs-stat-num {
+      font-family: 'other', sans-serif;
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .cs-stat-num span {
+      font-size: 0.6em;
+      color: var(--blue);
+    }
+
+    .cs-stat-desc {
+      font-family: 'Breton', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+
+    /* feature blocks */
+    .cs-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+    }
+
+    .cs-feature {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr;
+      gap: 1.5rem;
+      padding: 2rem 2rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s ease;
+    }
+
+    .cs-feature:last-child {
+      border-bottom: none;
+    }
+
+    .cs-feature:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .cs-feature-num {
+      font-family: 'other', sans-serif;
+      font-size: 0.85rem;
+      color: var(--blue);
+      padding-top: 0.2rem;
+      opacity: 0.7;
+    }
+
+    .cs-feature-title {
+      font-family: 'Breton', sans-serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+    }
+
+    .cs-feature-desc {
+      font-family: 'Breton', sans-serif;
+      font-size: 0.9rem;
+      line-height: 1.75;
+      color: var(--text-dim);
+    }
+
+    /* code block */
+    .cs-code-wrap {
+      margin-top: 2rem;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .cs-code-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.7rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cs-code-filename {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .cs-code-dots {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .cs-code-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+
+    .cs-code-dots span:first-child { background: rgba(255, 95, 86, 0.5); }
+    .cs-code-dots span:nth-child(2) { background: rgba(255, 189, 46, 0.5); }
+    .cs-code-dots span:last-child { background: rgba(39, 201, 63, 0.5); }
+
+    pre.cs-code {
+      margin: 0;
+      padding: 1.4rem 1.6rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.82rem;
+      line-height: 1.75;
+      color: rgba(240, 240, 240, 0.7);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    pre.cs-code .kw  { color: #b39ddb; }
+    pre.cs-code .fn  { color: #80cbc4; }
+    pre.cs-code .str { color: #a5d6a7; }
+    pre.cs-code .cm  { color: rgba(240, 240, 240, 0.28); font-style: italic; }
+    pre.cs-code .num { color: #ffcc80; }
+
+    /* callout box */
+    .cs-callout {
+      margin-top: 2.5rem;
+      border-left: 2px solid var(--blue);
+      padding: 1.4rem 1.8rem;
+      background: var(--blue-dim);
+    }
+
+    .cs-callout p {
+      font-family: 'Breton', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    .cs-callout p strong {
+      color: var(--text);
+    }
+
+    /* tech stack grid */
+    .cs-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .cs-stack-chip {
+      padding: 0.55em 1em;
+      border: 1px solid var(--border);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      transition: border-color 0.35s, color 0.35s;
+    }
+
+    .cs-stack-chip:hover {
+      border-color: rgba(30, 107, 255, 0.4);
+      color: var(--text);
+    }
+
+    .cs-stack-chip.highlight {
+      border-color: rgba(30, 107, 255, 0.5);
+      color: #7faeff;
+      background: rgba(30, 107, 255, 0.07);
+    }
+
+    /* timeline */
+    .cs-timeline {
+      margin-top: 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .cs-tl-item {
+      display: grid;
+      grid-template-columns: 8rem 1fr;
+      gap: 2rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .cs-tl-item:first-child { border-top: 1px solid var(--border); }
+
+    .cs-tl-date {
+      font-family: 'other', sans-serif;
+      font-size: 0.78rem;
+      color: var(--blue);
+      padding-top: 0.25rem;
+      opacity: 0.7;
+    }
+
+    .cs-tl-title {
+      font-family: 'Breton', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .cs-tl-desc {
+      font-family: 'Breton', sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-dim);
+    }
+
+    /* section divider */
+    .cs-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin-top: 12vh;
+    }
+
+    /* big quote */
+    .cs-quote {
+      margin-top: 8vh;
+      padding: 6vh 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cs-quote blockquote {
+      margin: 0;
+      font-family: 'Breton', sans-serif;
+      font-weight: 300;
+      font-size: clamp(1.5rem, 2.8vw, 2.6rem);
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+      color: var(--text);
+    }
+
+    .cs-quote blockquote em {
+      font-style: normal;
+      font-family: 'other', sans-serif;
+      font-size: 0.85em;
+      color: rgba(240, 240, 240, 0.45);
+    }
+
+    /* cover image */
+    .cs-cover-img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      margin-top: 3rem;
+      border: 1px solid var(--border);
+    }
+
+    /* nav footer */
+    .cs-nav-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 8vw 4rem;
+      border-top: 1px solid var(--border);
+      gap: 2rem;
+    }
+
+    .cs-nav-footer a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .cs-nav-footer a:hover { color: var(--text); }
+
+    .cs-nav-footer .cs-nav-back::before { content: '←'; color: var(--blue); }
+    .cs-nav-footer .cs-nav-live::after  { content: '↗'; color: var(--blue); }
+
+    /* scroll progress bar */
+    .cs-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--blue);
+      z-index: 9999;
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.1s linear;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .cs-hero { padding: 0 6vw 6vh; }
+      .cs-body { padding: 8vh 6vw 12vh; }
+      .cs-two-col { grid-template-columns: 1fr; }
+      .cs-two-col.reverse { direction: ltr; }
+      .cs-stats { grid-template-columns: 1fr 1fr; }
+      .cs-tl-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .cs-nav-footer { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 600px) {
+      .cs-stats { grid-template-columns: 1fr; }
+      .cs-hero-meta { gap: 1.8rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cs-progress" id="cs-progress"></div>
+  <div class="page-fade" id="page-fade"></div>
+
+  <!-- ── Header ──────────────────────────────────────────────────────── -->
+  <header class="page-header">
+    <a href="index.html" class="back-btn chr-hover" data-chr="Back" id="back-btn"></a>
+    <span class="work-counter">Case Study</span>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ────────────────────────────────────────────────────────── -->
+    <section class="cs-hero">
+      <div class="cs-hero-cover" aria-hidden="true"></div>
+      <div class="cs-hero-content">
+        <div class="cs-eyebrow">Case Study &mdash; Personal Site</div>
+        <h1>Portfolio<br><em>V3.0</em></h1>
+        <div class="cs-hero-meta">
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Timeline</span>
+            <span class="cs-meta-value">Jan 2026 &mdash; Ongoing</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Role</span>
+            <span class="cs-meta-value">Design &amp; Engineering</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Stack</span>
+            <span class="cs-meta-value">HTML · CSS · JavaScript · GSAP</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Status</span>
+            <span class="cs-meta-value">Live &amp; iterating</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Body ────────────────────────────────────────────────────────── -->
+    <div class="cs-body">
+
+      <!-- Overview -->
+      <section class="cs-section" id="overview">
+        <div class="cs-section-label">01 — Overview</div>
+        <h2>Built to move,<br><em>not just exist.</em></h2>
+        <p class="cs-prose">
+          Most portfolios are static pages dressed with a few hover effects. I wanted something that felt
+          alive — where <strong>every scroll gesture, every click, every page load was part of a deliberate motion language</strong>.
+          This site is that attempt: a fully hand-coded personal portfolio with no framework, no UI library,
+          no shortcuts.
+        </p>
+        <p class="cs-prose">
+          Version 3 is a ground-up rebuild. Earlier versions were over-engineered with React and too many
+          dependencies. Stripping back to <strong>vanilla HTML, CSS and JavaScript</strong> turned out to be
+          the right call — faster, more controllable, and honestly more fun to build.
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <div class="cs-stat-num">90<span>frames</span></div>
+            <div class="cs-stat-desc">Hero scroll animation — hand-extracted JPEG sequence driven by ScrollTrigger</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">0<span>frameworks</span></div>
+            <div class="cs-stat-desc">Pure HTML, CSS and JavaScript — no React, Vue, or build toolchain</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">6<span>systems</span></div>
+            <div class="cs-stat-desc">Preloader · Scroll animations · Page transitions · Carousel · Case study overlay · Footer game</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">1<span>canvas</span></div>
+            <div class="cs-stat-desc">Interactive footer skate game rendered entirely in a 2D canvas</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why no framework -->
+      <section class="cs-section" id="no-framework">
+        <div class="cs-section-label">02 — The decision</div>
+        <h2>Why no<br><em>framework?</em></h2>
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose">
+              V2 used React. It came with a fast dev experience but also a 130 KB+ bundle, hydration delays,
+              and the constant friction of mapping animation libraries to component lifecycles. GSAP and React
+              are a workable combination — but they fight each other's mental models.
+            </p>
+            <p class="cs-prose">
+              Going vanilla meant <strong>full control over the DOM</strong>. GSAP's ScrollTrigger works against
+              real DOM elements with no virtual-DOM indirection. Transitions happen in plain JS with no
+              re-render cycles. The browser does exactly what I tell it to, nothing more.
+            </p>
+          </div>
+          <div>
+            <div class="cs-callout">
+              <p>
+                <strong>The constraint became the feature.</strong> Without a framework's abstractions, every
+                animation, every scroll interaction and every transition had to be explicitly designed.
+                That's what makes the motion feel intentional rather than incidental.
+              </p>
+            </div>
+            <div class="cs-stack" style="margin-top: 2rem;">
+              <span class="cs-stack-chip highlight">HTML5</span>
+              <span class="cs-stack-chip highlight">CSS3</span>
+              <span class="cs-stack-chip highlight">JavaScript ES6+</span>
+              <span class="cs-stack-chip highlight">GSAP 3</span>
+              <span class="cs-stack-chip highlight">ScrollTrigger</span>
+              <span class="cs-stack-chip highlight">Lenis</span>
+              <span class="cs-stack-chip">Canvas 2D API</span>
+              <span class="cs-stack-chip">SVG</span>
+              <span class="cs-stack-chip">IntersectionObserver</span>
+              <span class="cs-stack-chip">Web Fonts</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hero sequence -->
+      <section class="cs-section" id="hero-sequence">
+        <div class="cs-section-label">03 — Hero animation</div>
+        <h2>The 90-frame<br><em>scroll sequence.</em></h2>
+        <p class="cs-prose">
+          The hero is a <strong>canvas-rendered image sequence</strong> — 90 JPEG frames extracted from a
+          video at 30 fps, covering roughly 3 seconds of footage. As the user scrolls, ScrollTrigger maps
+          scroll progress to a frame index and draws the correct image onto a full-viewport canvas.
+        </p>
+
+        <div class="cs-code-wrap">
+          <div class="cs-code-bar">
+            <span class="cs-code-filename">indexa9ea.js — frame rendering</span>
+            <div class="cs-code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <pre class="cs-code"><span class="cm">// Map scroll progress → frame index → canvas draw</span>
+<span class="kw">function</span> <span class="fn">drawFrameAtProgress</span>(progress) {
+  <span class="kw">const</span> clamped = Math.min(<span class="num">1</span>, Math.max(<span class="num">0</span>, progress));
+  <span class="kw">const</span> loadedPos = Math.round(clamped * (totalFrames - <span class="num">1</span>));
+  <span class="kw">const</span> sourceIdx = loadedFrameIdx[loadedPos];
+  <span class="kw">if</span> (sourceIdx == <span class="kw">null</span>) <span class="kw">return</span>;
+  drawFrame(sourceIdx);
+}
+
+<span class="cm">// Cover-fit the frame to the canvas on every resize</span>
+<span class="kw">function</span> <span class="fn">drawFrame</span>(i) {
+  <span class="kw">const</span> img = frames[i];
+  <span class="kw">const</span> s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
+  ctx.<span class="fn">drawImage</span>(img,
+    (cw - img.naturalWidth * s) * <span class="num">0.5</span>,
+    (ch - img.naturalHeight * s) * <span class="num">0.5</span>,
+    img.naturalWidth * s, img.naturalHeight * s
+  );
+}</pre>
+        </div>
+
+        <p class="cs-prose" style="margin-top: 2rem;">
+          Loading strategy matters a lot here. Fetching 90 images naively would saturate the network.
+          Instead, the loader uses a <strong>three-phase strategy</strong>:
+        </p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Frame 1 — immediate</div>
+              <div class="cs-feature-desc">The very first frame is fetched with <code>fetchpriority="high"</code> as a preload hint in the HTML head, so it is available before JS even runs. The canvas shows it instantly on paint.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Frames 2–10 — speed probe</div>
+              <div class="cs-feature-desc">The first batch of 10 frames is fetched and timed. If the batch takes over 2 seconds, a skip factor is set so only every Nth remaining frame is loaded — preserving smoothness on slow connections without blocking the page.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Frames 11–90 — background concurrent</div>
+              <div class="cs-feature-desc">The rest load concurrently (6 at a time on fast hardware, 2 on slow) using a worker-pool pattern. Each loaded frame updates a sorted index so the draw function always picks the closest available frame even mid-load.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout" style="margin-top: 2.5rem;">
+          <p>
+            On slow hardware a <strong>32 ms frame-draw throttle</strong> is applied (dropping the effective
+            update rate to ~30 fps) and the device-pixel-ratio is capped at 1× to halve canvas memory.
+            The animation stays smooth even on budget phones.
+          </p>
+        </div>
+      </section>
+
+      <!-- Scroll architecture -->
+      <section class="cs-section" id="scroll">
+        <div class="cs-section-label">04 — Scroll architecture</div>
+        <h2>One timeline,<br><em>many layers.</em></h2>
+        <p class="cs-prose">
+          The hero scroll is a single GSAP timeline scrubbed by ScrollTrigger. It coordinates six
+          simultaneous animations — the name layers exit left and right, the tagline fades, the frame
+          sequence plays in, a phrase reveal animates character-by-character — all locked to the same
+          scroll progress value.
+        </p>
+
+        <div class="cs-two-col" style="margin-top: 2.5rem;">
+          <div>
+            <div class="cs-features" style="margin-top: 0;">
+              <div class="cs-feature">
+                <span class="cs-feature-num">0%–30%</span>
+                <div>
+                  <div class="cs-feature-title">Name exit phase</div>
+                  <div class="cs-feature-desc">The preloader name characters slide off-screen left and right while the tagline and navigation bar fade to zero opacity.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">30%–100%</span>
+                <div>
+                  <div class="cs-feature-title">Reveal phase</div>
+                  <div class="cs-feature-desc">The canvas scales up from zero as the frame sequence plays. A blurred phrase fades in character-by-character using a staggered GSAP tween on individually-wrapped span elements.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">Exit</span>
+                <div>
+                  <div class="cs-feature-title">Section transition</div>
+                  <div class="cs-feature-desc">As the next section scrolls into view, a second ScrollTrigger pushes the canvas upward with a parallax offset and applies a backdrop blur + dark overlay, creating a depth-of-field feel as the about section emerges.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="cs-prose">
+              <strong>Lenis</strong> provides smooth inertia scrolling. It wraps the native scroll events and
+              re-dispatches them with a configurable easing curve, so ScrollTrigger receives fractional
+              progress values even when the user flicks quickly.
+            </p>
+            <p class="cs-prose" style="margin-top: 1.4rem;">
+              The about section's text uses a word-level blur reveal — each word is wrapped in a
+              <code>&lt;span class="word"&gt;</code> by a TreeWalker pass at runtime, then each span gets
+              its own ScrollTrigger that transitions <code>opacity</code> and <code>filter: blur()</code>
+              from 0 to 1 as it scrolls into the viewport center band.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quote -->
+      <div class="cs-quote">
+        <blockquote>
+          "The best animation is the one the user doesn't consciously notice —
+          they just feel like the interface <em>responds</em> to them."
+        </blockquote>
+      </div>
+
+      <!-- Page transitions -->
+      <section class="cs-section" id="transitions">
+        <div class="cs-section-label">05 — Page transitions</div>
+        <h2>Leaving gracefully,<br><em>arriving deliberately.</em></h2>
+        <p class="cs-prose">
+          Navigating between pages uses a two-panel wipe: a dark overlay panel slides up covering the
+          current page, then after the new page loads a red accent panel wipes down to reveal it.
+          This happens on any link marked with <code>data-page-link</code>.
+        </p>
+        <p class="cs-prose">
+          The trick is that the transition timeline starts <em>before</em> the browser navigates.
+          A <code>click</code> listener on those links calls <code>e.preventDefault()</code>, runs the
+          exit animation (~600 ms), then uses <code>window.location.assign()</code> to navigate.
+          On the destination page a <strong>reverse reveal animation</strong> fires on
+          <code>DOMContentLoaded</code>, so both halves of the wipe feel like one fluid motion across
+          the page boundary.
+        </p>
+
+        <div class="cs-code-wrap">
+          <div class="cs-code-bar">
+            <span class="cs-code-filename">gsap-page.js — exit transition</span>
+            <div class="cs-code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <pre class="cs-code"><span class="cm">// Intercept navigation, animate out, then navigate</span>
+document.<span class="fn">querySelectorAll</span>(<span class="str">'[data-page-link]'</span>).<span class="fn">forEach</span>(link => {
+  link.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, e => {
+    e.<span class="fn">preventDefault</span>();
+    <span class="kw">const</span> dest = link.href;
+
+    gsap.<span class="fn">timeline</span>()
+      .<span class="fn">set</span>(<span class="str">'#t-panel-dark'</span>, { scaleY: <span class="num">0</span>, transformOrigin: <span class="str">'bottom'</span> })
+      .<span class="fn">to</span>(<span class="str">'#t-panel-dark'</span>, { scaleY: <span class="num">1</span>, duration: <span class="num">0.55</span>, ease: <span class="str">'power3.inOut'</span> })
+      .<span class="fn">add</span>(() => window.location.<span class="fn">assign</span>(dest));
+  });
+});</pre>
+        </div>
+      </section>
+
+      <!-- Case study overlay -->
+      <section class="cs-section" id="overlay">
+        <div class="cs-section-label">06 — Project overlay</div>
+        <h2>Case studies<br><em>in-place.</em></h2>
+        <p class="cs-prose">
+          Clicking a project on the homepage doesn't navigate away — it opens a full-screen overlay
+          with a flying title animation. The project title element's bounding rect is captured at click
+          time, cloned into a fixed-position layer, then tweened to its destination position in the
+          overlay panel. The result feels like the title <em>travels</em> to become the overlay heading.
+        </p>
+
+        <div class="cs-features" style="margin-top: 2.5rem;">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Flying title</div>
+              <div class="cs-feature-desc">The clicked title's position, font size and line height are read via <code>getBoundingClientRect()</code> and <code>getComputedStyle()</code>. A fixed-position clone is created and GSAP tweens it to the final overlay header position while the overlay fades in behind it.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Cylindrical 3D gallery</div>
+              <div class="cs-feature-desc">Project screenshots in the circle-gallery section are rendered as a cylindrical carousel using pure CSS 3D transforms. Each image is sliced into 10 vertical strips and each strip is rotated around a shared Y-axis with a calculated orbit radius, creating a bent-photograph effect without WebGL.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Scrollable thumbnail strip</div>
+              <div class="cs-feature-desc">The overlay's thumbnail strip uses a custom scroll handler driven by GSAP's <code>quickTo</code> for smooth Y-interpolation. The active thumbnail is determined each frame by measuring distance from the strip's center, and the selected large image updates to match — no click required.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">04</span>
+            <div>
+              <div class="cs-feature-title">3D image tilt</div>
+              <div class="cs-feature-desc">While an overlay is open, the selected project image tracks the mouse position and applies a rotateX/rotateY CSS transform, giving it a parallax card-tilt effect. The tilt values are smoothed with a lerp loop running in the GSAP ticker.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fluid SVG line -->
+      <section class="cs-section" id="svg-line">
+        <div class="cs-section-label">07 — Visual details</div>
+        <h2>The fluid line<br><em>&amp; micro-details.</em></h2>
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose">
+              The decorative SVG curve in the projects section is drawn using a <code>strokeDasharray</code>
+              / <code>strokeDashoffset</code> technique. The path's total length is measured via
+              <code>getTotalLength()</code> at init time, then ScrollTrigger scrubs the
+              <code>strokeDashoffset</code> from the full length to zero as the section scrolls into view —
+              making the line appear to draw itself.
+            </p>
+            <p class="cs-prose" style="margin-top: 1.4rem;">
+              The cursor changes contextually throughout the page. On project images it shows a small
+              circular label. On links it shows a character string. These are implemented as a single
+              custom cursor element repositioned with a lerp loop, switching CSS classes based on the
+              element under the pointer via <code>data-chr</code> and <code>data-cursor-img</code>
+              attributes.
+            </p>
+          </div>
+          <div>
+            <div class="cs-callout">
+              <p>
+                <strong>Frame corners</strong> — those thin L-shaped brackets on images and buttons — are
+                pure CSS. Each is a <code>::before</code> and <code>::after</code> pseudo-element on a
+                <code>.frame-corner</code> span. No images, no SVGs. They transition colour on hover,
+                synced with the image scale transform, giving the impression of a camera viewfinder locking on.
+              </p>
+            </div>
+            <div class="cs-callout" style="margin-top: 1.5rem;">
+              <p>
+                The <strong>site-pet</strong> (the small floating character) lives in its own isolated
+                script and element layer. It uses a sprite-sheet animation loop and reacts to scroll state
+                via a shared <code>window.__hideSitePet</code> flag set by the scroll timeline, so it
+                disappears cleanly during the hero reveal without any direct coupling.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer skate game -->
+      <section class="cs-section" id="footer-game">
+        <div class="cs-section-label">08 — Easter egg</div>
+        <h2>The footer<br><em>skate game.</em></h2>
+        <p class="cs-prose">
+          Hidden in the footer is a playable side-scrolling skate game rendered on a
+          <code>&lt;canvas&gt;</code> element. Press <kbd>Space</kbd> or tap the canvas to jump.
+          It was built as an experiment in keeping the site memorable — something a recruiter or
+          collaborator might discover and actually pause on.
+        </p>
+        <p class="cs-prose">
+          The game loop uses <code>requestAnimationFrame</code> with a fixed timestep and simple
+          AABB collision detection. Obstacles are generated at randomised intervals with a difficulty
+          ramp tied to the score. The player sprite is drawn frame-by-frame from a spritesheet using
+          canvas <code>drawImage</code> with clipping coordinates.
+        </p>
+
+        <div class="cs-features" style="margin-top: 2.5rem;">
+          <div class="cs-feature">
+            <span class="cs-feature-num">Loop</span>
+            <div>
+              <div class="cs-feature-title">requestAnimationFrame + fixed timestep</div>
+              <div class="cs-feature-desc">Physics and collision run at a fixed 60 Hz logical step, decoupled from the render frame rate. This keeps the game consistent on high-refresh displays without speeding up the physics.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">Input</span>
+            <div>
+              <div class="cs-feature-title">Keyboard, pointer &amp; touch</div>
+              <div class="cs-feature-desc">Space, ArrowUp, click and touchstart all trigger a jump. A double-jump is allowed while airborne. The input handler ignores events when the game is over or paused to prevent ghost jumps.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">Render</span>
+            <div>
+              <div class="cs-feature-title">Canvas 2D sprite animation</div>
+              <div class="cs-feature-desc">The skater cycles through animation frames from a spritesheet, switching to a jump frame while airborne and a tumble sequence on death. Background parallax layers scroll at different speeds to create depth.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Performance -->
+      <section class="cs-section" id="performance">
+        <div class="cs-section-label">09 — Performance</div>
+        <h2>Fast by<br><em>design.</em></h2>
+        <p class="cs-prose">
+          A site this animation-heavy can easily become slow. Every architectural decision has a
+          performance consideration attached to it.
+        </p>
+
+        <div class="cs-timeline" style="margin-top: 3rem;">
+          <div class="cs-tl-item">
+            <span class="cs-tl-date">Images</span>
+            <div>
+              <div class="cs-tl-title">AVIF / JPEG with fetchpriority</div>
+              <div class="cs-tl-desc">Project covers are served as AVIF where supported (40–60% smaller than JPEG). The hero frame sequence uses JPEG for maximum decoder compatibility. The first hero frame carries <code>fetchpriority="high"</code> as a preload; all others are <code>loading="lazy"</code>.</div>
+            </div>
+          </div>
+          <div class="cs-tl-item">
+            <span class="cs-tl-date">Canvas</span>
+            <div>
+              <div class="cs-tl-title">DPR capping + throttle on slow hardware</div>
+              <div class="cs-tl-desc">A hardware speed probe runs during the first frame batch load. On slow devices the canvas DPR is fixed at 1× and draw calls are throttled to 32 ms minimum. A <code>navigator.hardwareConcurrency</code> check also reduces image fetch concurrency from 6 to 2.</div>
+            </div>
+          </div>
+          <div class="cs-tl-item">
+            <span class="cs-tl-date">JS</span>
+            <div>
+              <div class="cs-tl-title">Deferred loading cascade</div>
+              <div class="cs-tl-desc">Non-critical scripts (core-renderer, hero-project, page-background) load in a chained cascade after <code>window.load</code> with a 400 ms delay, keeping the main thread free during the initial paint. GSAP and ScrollTrigger load with <code>defer</code>.</div>
+            </div>
+          </div>
+          <div class="cs-tl-item">
+            <span class="cs-tl-date">CSS</span>
+            <div>
+              <div class="cs-tl-title">will-change used surgically</div>
+              <div class="cs-tl-desc"><code>will-change: transform</code> is applied only to the canvas element and the reveal sequence, promoting them to their own compositor layers. It is removed from elements once their animation completes to free GPU memory.</div>
+            </div>
+          </div>
+          <div class="cs-tl-item">
+            <span class="cs-tl-date">Motion</span>
+            <div>
+              <div class="cs-tl-title">prefers-reduced-motion respected</div>
+              <div class="cs-tl-desc">A global <code>prefersReducedMotion</code> check at init disables blur filters and complex stagger animations site-wide. The site remains fully functional and readable with all motion off.</div>
+            </div>
+          </div>
+          <div class="cs-tl-item">
+            <span class="cs-tl-date">Fonts</span>
+            <div>
+              <div class="cs-tl-title">WOFF2 preloaded, OTF fallback</div>
+              <div class="cs-tl-desc">Both custom fonts (Breton, Machine) are declared as <code>&lt;link rel="preload"&gt;</code> in the document head with <code>crossorigin</code> so they are fetched in parallel with HTML parsing and never block render.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Design system -->
+      <section class="cs-section" id="design">
+        <div class="cs-section-label">10 — Design language</div>
+        <h2>Dark, precise,<br><em>intentional.</em></h2>
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose">
+              The colour palette is a near-black background (<code>#05070f</code>) with a single blue
+              accent (<code>#1e6bff</code>) used sparingly — on hover states, active indicators and
+              interactive affordances only. Everything else is white at varying opacities.
+            </p>
+            <p class="cs-prose" style="margin-top: 1.4rem;">
+              Two typefaces do all the work. <strong>Breton</strong> (a geometric display serif) handles
+              headings and body copy at all sizes. <strong>Machine</strong> (a monospaced techno face)
+              appears in the <code>.other-accent</code> class — reserved for dates, version labels,
+              the hero phrase and decorative numerals.
+            </p>
+            <p class="cs-prose" style="margin-top: 1.4rem;">
+              Spacing is viewport-relative throughout. Font sizes use <code>clamp()</code> with a fluid
+              range between a minimum at 320 px and a maximum at 1400 px, so the typographic scale
+              compresses gracefully without any breakpoint-specific overrides for type.
+            </p>
+          </div>
+          <div>
+            <div class="cs-features" style="margin-top: 0;">
+              <div class="cs-feature">
+                <span class="cs-feature-num" style="font-size: 1rem; opacity: 1; color: #f0f0f0;">Aa</span>
+                <div>
+                  <div class="cs-feature-title">Breton — display &amp; body</div>
+                  <div class="cs-feature-desc">Geometric serif, weight 300. Used for headings, project titles, about text and all long-form prose.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num" style="opacity: 1;">Aa</span>
+                <div>
+                  <div class="cs-feature-title">Machine — accent &amp; label</div>
+                  <div class="cs-feature-desc">Monospaced techno face. Used for dates, version labels, the hero phrase, stat numerals and the <em>in motion</em> italic-styled accents.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num" style="color: rgba(255,255,255,0.55); opacity: 1; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-family: Inter, sans-serif; padding-top: 0.4rem;">Inter</span>
+                <div>
+                  <div class="cs-feature-title">Inter — UI &amp; metadata</div>
+                  <div class="cs-feature-desc">System-weight sans-serif. Used only for labels, tags, dates, counters and navigation — never for expressive copy.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lessons & iterations -->
+      <section class="cs-section" id="lessons">
+        <div class="cs-section-label">11 — Lessons</div>
+        <h2>What I'd do<br><em>differently.</em></h2>
+        <div class="cs-features" style="margin-top: 2rem;">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">The frame sequence is fragile on very slow connections</div>
+              <div class="cs-feature-desc">Even with the skip-factor loader, a user on a throttled 3G connection will see partially loaded animation. A future version should fall back to a CSS-animated static visual when the network is too slow, detected via the Network Information API.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">The JS bundle could be split further</div>
+              <div class="cs-feature-desc">The main JS file handles too many concerns in one place. It grew organically section by section. A cleaner architecture would have each section (hero, about, projects, skills) as a separate module loaded on-demand as the user scrolls to that section.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Accessibility needs more attention</div>
+              <div class="cs-feature-desc">Most interactive elements have ARIA labels and keyboard support, but the canvas-based animations have no non-visual equivalents. A future pass should add a fully accessible text-only mode that disables the canvas entirely and presents the site as clean, readable prose.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">04</span>
+            <div>
+              <div class="cs-feature-title">The i18n system is underused</div>
+              <div class="cs-feature-desc">There's an internationalisation module (i18n.js) with translation support built in, but currently only a few strings use it. Either commit to full i18n — adding proper language switching UI — or remove the abstraction and keep the copy in HTML directly.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Closing -->
+      <section class="cs-section" id="closing">
+        <div class="cs-section-label">12 — Closing</div>
+        <h2>A site that<br><em>keeps becoming.</em></h2>
+        <p class="cs-prose">
+          This portfolio is never truly finished. Each project I complete teaches me something that
+          feeds back into how I present work here. The motion language will refine, the copy will
+          sharpen, new projects will replace old ones.
+        </p>
+        <p class="cs-prose">
+          What matters is that it represents how I actually think about design and engineering — not
+          as separate disciplines, but as one continuous act of <strong>deciding what matters and
+          making it felt</strong>.
+        </p>
+        <p class="cs-prose" style="margin-top: 1.4rem; font-style: italic; color: rgba(240,240,240,0.3);">
+          — My own thoughts and process notes will be added here soon.
+        </p>
+      </section>
+
+    </div><!-- /cs-body -->
+
+  </main>
+
+  <!-- ── Footer nav ───────────────────────────────────────────────────── -->
+  <nav class="cs-nav-footer" aria-label="Page navigation">
+    <a class="cs-nav-back" href="index.html">Back to work</a>
+    <a class="cs-nav-live" href="../index.html" target="_blank" rel="noopener noreferrer">View live site</a>
+  </nav>
+
+  <footer class="mini-footer">
+    <a class="work-footer-link" href="../index.html#projects">Work &#8599;</a>
+    <a class="chr-hover" data-chr="sharmaaditya4848@gmail.com" href="mailto:sharmaaditya4848@gmail.com"></a>
+    <span>&#169; 2026 &#8212; ADITYA SHARMA</span>
+  </footer>
+
+  <!-- Scripts -->
+  <script defer src="../js/vendor/gsap.min.js"></script>
+  <script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="../js/gsap-page.js"></script>
+  <script src="../js/site-pet.js"></script>
+  <script>
+    // Scroll progress bar
+    window.addEventListener('scroll', function () {
+      var doc = document.documentElement;
+      var scrolled = doc.scrollTop || document.body.scrollTop;
+      var total = doc.scrollHeight - doc.clientHeight;
+      var pct = total > 0 ? scrolled / total : 0;
+      document.getElementById('cs-progress').style.transform = 'scaleX(' + pct + ')';
+    }, { passive: true });
+  </script>
+</body>
+</html>
