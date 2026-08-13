@@ -6,148 +6,342 @@
     {
       label: 'Games',
       items: [
-        { title: 'Hollow Knight',          sub: '2017 · Team Cherry',           cover: '../assets/images/projects/Covers/Zenith.avif',        thought: 'Every room feels handcrafted. The silence teaches you more than any tutorial.' },
-        { title: 'Ori & the Blind Forest', sub: '2015 · Moon Studios',          cover: '../assets/images/projects/Covers/Echo.avif',          thought: 'Proof that motion design and game feel are the same discipline.' },
-        { title: 'Celeste',                sub: '2018 · Maddy Makes Games',     cover: '../assets/images/projects/Covers/Portfolio.jpg',      thought: "The hardest game I've finished. The story made it worth every death." },
-        { title: 'Hades',                  sub: '2020 · Supergiant Games',      cover: '../assets/images/projects/Covers/cyberDiag_web.avif', thought: 'Loop design at its absolute peak. Every run teaches you something new.' },
+        {
+          title: 'Final Fantasy VII',
+          cover: '../assets/images/projects/Covers/Zenith.avif',
+          thought: 'The story that defined JRPGs forever. Midgar alone is a masterclass in world-building — every corner feels lived-in and political.'
+        },
+        {
+          title: 'Final Fantasy XVI',
+          cover: '../assets/images/projects/Covers/Echo.avif',
+          thought: 'Yoshi-P took a massive swing going full action RPG and it mostly lands. Clive\'s arc is genuinely one of the best in the series.'
+        },
+        {
+          title: 'Persona 3 Reload',
+          cover: '../assets/images/projects/Covers/CyberDiag.avif',
+          thought: 'The remake we deserved. The themes of mortality hit completely different now. Strega was always underrated as antagonists.'
+        },
+        {
+          title: 'Nier Automata',
+          cover: '../assets/images/projects/Covers/cyberDiag_web.avif',
+          thought: 'Play it three times, cry three times. Yoko Taro uses the game format itself as a narrative weapon. Nothing else does this.'
+        },
       ],
     },
     {
       label: 'Anime',
       items: [
-        { title: 'Mushishi',               sub: '2005 · Artland',               cover: '../assets/images/projects/Covers/Zenith.avif',        thought: 'Slow, quiet, and utterly beautiful. Resets your pace every episode.' },
-        { title: 'Ping Pong the Animation',sub: '2014 · Tatsunoko',             cover: '../assets/images/projects/Covers/Echo.avif',          thought: "The most honest sports anime ever made. It's really about finding yourself." },
-        { title: 'Vinland Saga',           sub: '2019 · Wit Studio',            cover: '../assets/images/projects/Covers/Portfolio.jpg',      thought: 'Started as action, became a meditation on violence and purpose.' },
-        { title: 'Frieren',                sub: '2023 · Madhouse',              cover: '../assets/images/projects/Covers/cyberDiag_web.avif', thought: 'Grief and time handled better than most literary fiction.' },
+        {
+          title: 'One Piece',
+          cover: '../assets/images/projects/Covers/Anima.avif',
+          thought: 'The most ambitious long-form story in any medium. Oda plants seeds 500 chapters before they bloom. The payoffs are unmatched.'
+        },
+        {
+          title: 'Code Geass',
+          cover: '../assets/images/projects/Covers/Echo.avif',
+          thought: 'Lelouch\'s ending is still the most emotionally gutting finale I\'ve ever watched. The chess metaphor is earned, not decorative.'
+        },
+        {
+          title: 'Kaguya-sama',
+          cover: '../assets/images/projects/Covers/ChromaBlock.avif',
+          thought: 'Comedy that secretly morphs into one of the most wholesome love stories out there. Ishigami\'s arc in S3 is genuinely moving.'
+        },
+        {
+          title: 'Steins;Gate',
+          cover: '../assets/images/projects/Covers/Symphony.avif',
+          thought: 'The slow burn first half is intentional and essential. When the shift happens it\'s devastating. Okabe is one of the all-time greats.'
+        },
       ],
     },
     {
       label: 'Manga',
       items: [
-        { title: 'Berserk',                sub: 'Kentaro Miura',                cover: '../assets/images/projects/Covers/Zenith.avif',        thought: 'The panels alone are a masterclass in composition and negative space.' },
-        { title: 'Vagabond',               sub: 'Takehiko Inoue',              cover: '../assets/images/projects/Covers/Echo.avif',          thought: 'Every page looks like it belongs in an art gallery.' },
-        { title: 'Dungeon Meshi',          sub: 'Ryoko Kui',                   cover: '../assets/images/projects/Covers/Portfolio.jpg',      thought: 'Worldbuilding through food. Deceptively deep beneath its cozy surface.' },
-        { title: 'Goodnight Punpun',       sub: 'Inio Asano',                  cover: '../assets/images/projects/Covers/cyberDiag_web.avif', thought: "The most uncomfortable thing I've ever read. Couldn't put it down." },
+        {
+          title: 'Sakamoto Days',
+          cover: '../assets/images/projects/Covers/Zenith.avif',
+          thought: 'Peak action comedy. The fight choreography on paper is absurdly good. Sakamoto communicating purely through expressions is genius.'
+        },
+        {
+          title: 'Blue Lock',
+          cover: '../assets/images/projects/Covers/CyberDiag.avif',
+          thought: 'Recontextualises football through ego and philosophy. Every match is a character study. Isagi\'s growth is genuinely compelling.'
+        },
+        {
+          title: 'Tokyo Ghoul',
+          cover: '../assets/images/projects/Covers/Echo.avif',
+          thought: 'The original manga is a masterpiece. Kaneki\'s identity crisis is handled with real depth — the themes of otherness still resonate hard.'
+        },
+        {
+          title: 'Tokyo Revengers',
+          cover: '../assets/images/projects/Covers/cyberDiag_web.avif',
+          thought: 'The time-loop mechanic used to explore trauma and regret is genuinely clever. The gang dynamics and loyalty themes hit surprisingly hard.'
+        },
       ],
     },
     {
       label: 'Movies',
       items: [
-        { title: 'Blade Runner 2049',      sub: '2017 · Denis Villeneuve',     cover: '../assets/images/projects/Covers/Zenith.avif',        thought: 'Roger Deakins framed every single shot like a painting. The pacing is a choice.' },
-        { title: 'Spirited Away',          sub: '2001 · Hayao Miyazaki',       cover: '../assets/images/projects/Covers/Echo.avif',          thought: 'No movie has ever made me feel wonder like this one. Still holds up completely.' },
-        { title: 'Parasite',               sub: '2019 · Bong Joon-ho',         cover: '../assets/images/projects/Covers/Portfolio.jpg',      thought: 'The architecture of the script mirrors the architecture of the house.' },
-        { title: 'Perfect Blue',           sub: '1997 · Satoshi Kon',          cover: '../assets/images/projects/Covers/cyberDiag_web.avif', thought: 'Kon was playing with unreliable perception decades before it was trendy.' },
+        {
+          title: 'Maze Runner',
+          cover: '../assets/images/projects/Covers/Anima.avif',
+          thought: 'The Glade as a self-contained society is a fascinating setup. The first film nails the tension of a world with rules you don\'t understand yet.'
+        },
+        {
+          title: 'Harry Potter',
+          cover: '../assets/images/projects/Covers/Portfolio.jpg',
+          thought: 'Prisoner of Azkaban remains the high point — Cuarón understood that the magic needed shadow. The time-turner sequence is perfect filmmaking.'
+        },
+        {
+          title: 'Spider-Man: Into the Spider-Verse',
+          cover: '../assets/images/projects/Covers/ChromaBlock.avif',
+          thought: 'The most visually innovative animated film ever made, full stop. Every frame is a deliberate artistic choice. Changed what animation could be.'
+        },
+        {
+          title: 'Star Wars',
+          cover: '../assets/images/projects/Covers/SkymcDB.avif',
+          thought: 'Empire Strikes Back is the blueprint for a sequel that deepens rather than repeats. The father reveal still lands because Vader earned it.'
+        },
       ],
     },
     {
       label: 'Series',
       items: [
-        { title: 'Breaking Bad',           sub: '2008–2013 · AMC',             cover: '../assets/images/projects/Covers/Zenith.avif',        thought: 'The only show where I was rooting against the protagonist by the end. Perfect arc.' },
-        { title: 'Severance',              sub: '2022 · Apple TV+',            cover: '../assets/images/projects/Covers/Echo.avif',          thought: 'Production design as storytelling. Every frame says something about the concept.' },
-        { title: 'Dark',                   sub: '2017–2020 · Netflix',         cover: '../assets/images/projects/Covers/Portfolio.jpg',      thought: "The most ambitious narrative structure I've seen on screen. German, obviously." },
-        { title: 'Succession',             sub: '2018–2023 · HBO',             cover: '../assets/images/projects/Covers/cyberDiag_web.avif', thought: 'Dialogue so sharp it feels dangerous. Every character is irredeemable and fascinating.' },
+        {
+          title: 'Dark',
+          cover: '../assets/images/projects/Covers/Symphony.avif',
+          thought: 'The most rigorously constructed sci-fi narrative on television. The family trees across three timelines reward obsessive attention.'
+        },
+        {
+          title: 'Moon Knight',
+          cover: '../assets/images/projects/Covers/Zenith.avif',
+          thought: 'Oscar Isaac carrying two personalities simultaneously is one of the great MCU performances. The Egyptian mythology is used with real care.'
+        },
+        {
+          title: 'Breaking Bad',
+          cover: '../assets/images/projects/Covers/Echo.avif',
+          thought: 'The only show where I was actively rooting against the protagonist by the end. The transformation is so gradual you miss the exact moment it happens.'
+        },
+        {
+          title: 'Game of Thrones',
+          cover: '../assets/images/projects/Covers/cyberDiag_web.avif',
+          thought: 'Seasons 1–4 are some of the finest television ever made. The Red Wedding remains the most effective single episode of shock storytelling in TV history.'
+        },
       ],
     },
     {
       label: 'Books',
       items: [
-        { title: 'Flowers for Algernon',         sub: 'Daniel Keyes',      cover: '../assets/images/projects/Covers/Zenith.avif',        thought: 'The prose structure itself tells the story. I think about it constantly.' },
-        { title: 'The Design of Everyday Things', sub: 'Don Norman',       cover: '../assets/images/projects/Covers/Echo.avif',          thought: 'Made me unable to use a bad door handle without getting annoyed.' },
-        { title: 'Never Let Me Go',               sub: 'Kazuo Ishiguro',   cover: '../assets/images/projects/Covers/Portfolio.jpg',      thought: 'So quiet and so devastating. The restraint is what makes it hit so hard.' },
-        { title: 'Thinking, Fast and Slow',       sub: 'Daniel Kahneman',  cover: '../assets/images/projects/Covers/cyberDiag_web.avif', thought: 'Changed how I think about decision-making in design and in life.' },
-      ],
-    },
-    {
-      label: 'Songs',
-      items: [
-        { title: 'Motion Picture Soundtrack', sub: 'Radiohead · Kid A',          cover: '../assets/images/projects/Covers/Zenith.avif',        thought: "Sounds like the end of something. I've never heard silence used so well in music." },
-        { title: 'Nude',                      sub: 'Radiohead · In Rainbows',    cover: '../assets/images/projects/Covers/Echo.avif',          thought: 'The bassline lives in my head permanently. Pure tension with no release.' },
-        { title: "Comptine d'un autre été",   sub: 'Yann Tiersen',               cover: '../assets/images/projects/Covers/Portfolio.jpg',      thought: 'Learned this on piano. Some pieces just belong to certain hours of the day.' },
-        { title: 'Redbone',                   sub: 'Childish Gambino · Awaken',  cover: '../assets/images/projects/Covers/cyberDiag_web.avif', thought: 'The production is so warm it feels physical. Nothing else sounds like this.' },
+        {
+          title: 'Yumi and the Nightmare Painter',
+          cover: '../assets/images/projects/Covers/Anima.avif',
+          thought: 'Sanderson at his most intimate. The dual-world structure is elegant and the central relationship is the warmest thing he\'s ever written.'
+        },
+        {
+          title: 'The Way of Kings',
+          cover: '../assets/images/projects/Covers/CyberDiag.avif',
+          thought: 'The worldbuilding density is staggering but it never feels like homework. Kaladin\'s arc in the first book alone justifies the length of the series.'
+        },
+        {
+          title: 'The Design of Everyday Things',
+          cover: '../assets/images/projects/Covers/Portfolio.jpg',
+          thought: 'Made me unable to use a bad door handle without getting annoyed. Don Norman gave me a framework for frustration I use every single day as a designer.'
+        },
+        {
+          title: 'Steal Like an Artist',
+          cover: '../assets/images/projects/Covers/Symphony.avif',
+          thought: 'Short enough to read in one sitting, dense enough to change how you think about creativity. The permission it gives you is real and necessary.'
+        },
       ],
     },
   ];
 
   // ── DOM refs ─────────────────────────────────────────────────────────────
-  const tabBar  = document.getElementById('fav-tabs');
-  const grid    = document.getElementById('fav-grid');
-  const catWord = document.querySelector('.fav-cat-word');
+  const sliderNav = document.getElementById('fav-slider-nav');
+  const grid      = document.getElementById('fav-grid');
+  const catWord   = document.querySelector('.fav-cat-word');
+  const prevBtn   = document.getElementById('fav-prev');
+  const nextBtn   = document.getElementById('fav-next');
+  const catLabel  = document.getElementById('fav-cat-label');
+  const catIndex  = document.getElementById('fav-cat-index');
 
-  if (!tabBar || !grid) return;
+  if (!grid || !prevBtn || !nextBtn) return;
 
   let current = 0;
 
-  // ── Build tab bar ────────────────────────────────────────────────────────
-  CATEGORIES.forEach(function (cat, i) {
-    const btn = document.createElement('button');
-    btn.className = 'fav-tab' + (i === 0 ? ' fav-tab--active' : '');
-    btn.textContent = cat.label;
-    btn.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-    btn.addEventListener('click', function () { showCategory(i); });
-    tabBar.appendChild(btn);
-  });
+  // ── Update nav state ─────────────────────────────────────────────────────
+  function updateNav() {
+    const cat = CATEGORIES[current];
+    if (catLabel)  catLabel.textContent  = cat.label;
+    if (catIndex)  catIndex.textContent  = (current + 1).toString().padStart(2, '0') + ' / ' + CATEGORIES.length.toString().padStart(2, '0');
+    if (catWord)   catWord.textContent   = cat.label.toLowerCase() + '.';
+
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === CATEGORIES.length - 1;
+
+    // Update dot indicators
+    if (sliderNav) {
+      sliderNav.querySelectorAll('.fav-dot').forEach(function (dot, i) {
+        dot.classList.toggle('fav-dot--active', i === current);
+      });
+    }
+  }
 
   // ── Build a single card ───────────────────────────────────────────────────
-  function buildCard(item, catLabel) {
+  function buildCard(item) {
     const card = document.createElement('div');
     card.className = 'favorite-card';
     card.innerHTML =
       '<img src="' + item.cover + '" alt="' + item.title + '" loading="lazy" decoding="async">' +
       '<div class="fav-card-overlay"></div>' +
-      '<span class="fav-card-label">' + catLabel + '</span>' +
-      '<div class="fav-card-body">' +
-        '<div class="fav-card-title">' + item.title +
-          '<span class="fav-card-sub-title">' + item.sub + '</span>' +
-        '</div>' +
-        '<div class="fav-card-thought">' + item.thought + '</div>' +
+      '<div class="fav-card-title">' + item.title + '</div>' +
+      '<div class="fav-card-thought">' +
+        '<p>' + item.thought + '</p>' +
       '</div>';
     return card;
   }
 
   // ── Render a category ────────────────────────────────────────────────────
-  function showCategory(index) {
-    if (index === current) return;
-
-    // Update tabs
-    const tabs = tabBar.querySelectorAll('.fav-tab');
-    tabs[current].classList.remove('fav-tab--active');
-    tabs[current].setAttribute('aria-pressed', 'false');
-    tabs[index].classList.add('fav-tab--active');
-    tabs[index].setAttribute('aria-pressed', 'true');
-
-    // Fade grid out, swap content, fade back in — pure CSS class toggle
-    grid.classList.add('fav-grid--out');
-
-    // Wait for the CSS opacity transition (150 ms) then swap
-    setTimeout(function () {
-      renderGrid(index);
-      grid.classList.remove('fav-grid--out');
-      current = index;
-    }, 150);
-  }
-
-  // ── Populate grid ─────────────────────────────────────────────────────────
   function renderGrid(index) {
     const cat = CATEGORIES[index];
     grid.innerHTML = '';
     cat.items.forEach(function (item) {
-      grid.appendChild(buildCard(item, cat.label));
+      grid.appendChild(buildCard(item));
     });
-    if (catWord) catWord.textContent = cat.label.toLowerCase() + '.';
   }
 
-  // ── Keyboard navigation on the tab bar ───────────────────────────────────
-  tabBar.addEventListener('keydown', function (e) {
-    if (e.key === 'ArrowRight') {
-      showCategory((current + 1) % CATEGORIES.length);
-      tabBar.querySelectorAll('.fav-tab')[current].focus();
-    } else if (e.key === 'ArrowLeft') {
-      showCategory((current - 1 + CATEGORIES.length) % CATEGORIES.length);
-      tabBar.querySelectorAll('.fav-tab')[current].focus();
-    }
+  // ── Switch category ──────────────────────────────────────────────────────
+  function showCategory(index) {
+    if (index < 0 || index >= CATEGORIES.length) return;
+
+    grid.classList.add('fav-grid--out');
+
+    setTimeout(function () {
+      current = index;
+      renderGrid(current);
+      updateNav();
+      grid.classList.remove('fav-grid--out');
+    }, 160);
+  }
+
+  // ── Dot nav builder ───────────────────────────────────────────────────────
+  if (sliderNav) {
+    CATEGORIES.forEach(function (cat, i) {
+      const dot = document.createElement('button');
+      dot.className = 'fav-dot' + (i === 0 ? ' fav-dot--active' : '');
+      dot.setAttribute('aria-label', cat.label);
+      dot.setAttribute('title', cat.label);
+      dot.addEventListener('click', function () { showCategory(i); });
+      sliderNav.appendChild(dot);
+    });
+  }
+
+  // ── Arrow buttons ─────────────────────────────────────────────────────────
+  prevBtn.addEventListener('click', function () { showCategory(current - 1); });
+  nextBtn.addEventListener('click', function () { showCategory(current + 1); });
+
+  // ── Keyboard navigation ───────────────────────────────────────────────────
+  document.addEventListener('keydown', function (e) {
+    const favSection = document.querySelector('.about-favorites');
+    if (!favSection) return;
+    const rect = favSection.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!inView) return;
+
+    if (e.key === 'ArrowRight') showCategory(current + 1);
+    if (e.key === 'ArrowLeft')  showCategory(current - 1);
   });
 
   // ── Initial render ────────────────────────────────────────────────────────
   renderGrid(0);
+  updateNav();
+
+}());
+
+// ── About hero: spotlight, word cycle, entrance animations ───────────────
+(function () {
+  'use strict';
+
+  const section    = document.getElementById('about-intro');
+  const spotlight  = document.getElementById('intro-spotlight');
+  const roleWord   = document.getElementById('intro-role-word');
+
+  if (!section) return;
+
+  // ── Cursor spotlight ──────────────────────────────────────────────────────
+  if (spotlight) {
+    section.addEventListener('mousemove', function (e) {
+      const r = section.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width  * 100).toFixed(2) + '%';
+      const y = ((e.clientY - r.top)  / r.height * 100).toFixed(2) + '%';
+      spotlight.style.setProperty('--mx', x);
+      spotlight.style.setProperty('--my', y);
+    });
+  }
+
+  // ── Role word cycling ─────────────────────────────────────────────────────
+  const WORDS = ['curiosity.', 'intention.', 'obsession.', 'craft.'];
+  let wi = 0;
+
+  if (roleWord) {
+    function nextWord() {
+      // fade out
+      roleWord.classList.add('role-out');
+      setTimeout(function () {
+        wi = (wi + 1) % WORDS.length;
+        roleWord.textContent = WORDS[wi];
+        roleWord.classList.remove('role-out');
+        roleWord.classList.add('role-in');
+        // tiny frame to let the browser paint the "in" state
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            roleWord.classList.remove('role-in');
+          });
+        });
+      }, 380);
+    }
+    setInterval(nextWord, 2800);
+  }
+
+  // ── Entrance animations (GSAP if available, CSS fallback otherwise) ───────
+  function runEntranceGSAP() {
+    const tl = gsap.timeline({ delay: 0.55 });
+
+    tl.to('.intro-eyebrow', {
+      opacity: 1, y: 0, duration: .7, ease: 'power3.out'
+    })
+    .to('.intro-bio', {
+      opacity: 1, y: 0, duration: .7, ease: 'power3.out'
+    }, '<0.1')
+    .to('.intro-name-label', {
+      opacity: 1, y: 0, duration: .6, ease: 'power3.out'
+    }, '-=0.4')
+    .to('.intro-name', {
+      opacity: 1, y: 0, duration: .9, ease: 'power3.out'
+    }, '-=0.45')
+    .to('.intro-meta', {
+      opacity: 1, y: 0, duration: .7, ease: 'power3.out'
+    }, '-=0.5');
+  }
+
+  function runEntranceCSS() {
+    var els = ['.intro-eyebrow', '.intro-bio', '.intro-name-label',
+               '.intro-name', '.intro-meta'];
+    els.forEach(function (sel, i) {
+      var el = document.querySelector(sel);
+      if (!el) return;
+      el.style.transition = 'opacity .7s ease ' + (0.55 + i * 0.1) + 's, transform .7s ease ' + (0.55 + i * 0.1) + 's';
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    });
+  }
+
+  // Wait for page wipe to finish (~1.1 s) then trigger
+  setTimeout(function () {
+    if (window.gsap) {
+      runEntranceGSAP();
+    } else {
+      runEntranceCSS();
+    }
+  }, 100);
 
 }());

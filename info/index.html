@@ -18,31 +18,43 @@
 </header>
 
 <main>
-<section class="about-intro">
-  <div class="intro-copy">
+<section class="about-intro" id="about-intro">
 
-    <h1 class="hero-split-title">
-      <span class="hst-line">Designer</span>
-      <span class="hst-line hst-em"><em>with a</em></span>
-      <span class="hst-line hst-em"><em>developer's</em></span>
-      <span class="hst-line">brain.</span>
-    </h1>
-    <p class="intro-lede">I design digital products by moving between <span>structure, visuals and interaction</span> — then use code to understand how the idea actually behaves.</p>
+  <!-- cursor spotlight -->
+  <div class="intro-spotlight" id="intro-spotlight"></div>
+
+  <!-- top strip: eyebrow left, bio right -->
+  <div class="intro-top-bar">
+    <div class="eyebrow intro-eyebrow"><i></i> About</div>
+    <p class="intro-bio">
+      A CS student exploring the space between<br>
+      technology, design, and interactive experiences.<br>
+      <span>I take ideas from rough concept to something<br>real, functional, and worth experiencing.</span>
+    </p>
   </div>
-  <div class="intro-identity">
-    <div class="identity-roles">
-      <span class="role-outline">Design</span>
-      <span class="role-outline">Code</span>
-      <span class="role-outline">Ship</span>
+
+  <!-- centre: animated cycling role word -->
+  <div class="intro-role-wrap" aria-hidden="true">
+    <span class="intro-role-word" id="intro-role-word">curiosity.</span>
+  </div>
+
+  <!-- bottom: name slammed left, stats right -->
+  <div class="intro-floor">
+    <div class="intro-name-block">
+      <span class="intro-name-label">I build things with</span>
+      <h1 class="intro-name">Aditya<br>Sharma</h1>
     </div>
-    <div class="identity-divider"></div>
-    <div class="identity-stats">
+    <div class="intro-meta">
       <div class="istat"><b>CS</b><span>Background</span></div>
       <div class="istat"><b>Product</b><span>Focus</span></div>
       <div class="istat"><b>Mumbai</b><span>India</span></div>
+      <div class="intro-scroll-cue">
+        <svg width="14" height="24" viewBox="0 0 14 24" fill="none"><rect x="1" y="1" width="12" height="22" rx="6" stroke="rgba(255,255,255,0.3)" stroke-width="1.2"/><circle class="scroll-dot" cx="7" cy="7" r="2.5" fill="rgba(255,255,255,0.55)"/></svg>
+        <span>Scroll</span>
+      </div>
     </div>
   </div>
-  <div class="intro-bottom"><span>Scroll to explore</span><span>↓</span></div>
+
 </section>
 
 <section class="about-manifesto">
@@ -76,9 +88,23 @@
 <section class="about-favorites">
   <div class="fav-title-row">
     <h2>Some of my favourite <em class="fav-cat-word">games.</em></h2>
-    <nav class="fav-tabs" id="fav-tabs" aria-label="Favourite categories"></nav>
+    <div class="fav-slider-controls">
+      <div class="fav-slider-meta">
+        <span class="fav-cat-label" id="fav-cat-label">Games</span>
+        <span class="fav-cat-index" id="fav-cat-index">01 / 06</span>
+      </div>
+      <nav class="fav-dots" id="fav-slider-nav" aria-label="Favourite categories"></nav>
+    </div>
   </div>
-  <div class="favorite-grid" id="fav-grid"></div>
+  <div class="fav-grid-wrap">
+    <button class="fav-arrow fav-arrow--side" id="fav-prev" aria-label="Previous category">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 14L6 9L11 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="favorite-grid" id="fav-grid"></div>
+    <button class="fav-arrow fav-arrow--side" id="fav-next" aria-label="Next category">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M7 4L12 9L7 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
 </section>
 
 <section class="about-end">
