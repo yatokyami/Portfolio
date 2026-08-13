@@ -851,13 +851,20 @@ function setupProjectsSection() {
 
     ScrollTrigger.create({
       trigger: article,
-      start: 'top 80%',
+      start: 'top 85%',
       once: true,
       onEnter: () => {
         gsap.to(media, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out' });
         gsap.to(info, { opacity: 1, y: 0, duration: 0.9, delay: 0.14, ease: 'power3.out' });
       },
     });
+
+    // Fallback: if already in view on load, animate immediately
+    const rect = article.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      gsap.to(media, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out' });
+      gsap.to(info, { opacity: 1, y: 0, duration: 0.9, delay: 0.14, ease: 'power3.out' });
+    }
   });
 
   
@@ -1765,51 +1772,29 @@ function setupProjectsSection() {
   const isEn = window.__I18N_LANG === 'en';
 
   const PROJECTS = {
-    'curanet': {
-      desc: "Real-time hospital & emergency management platform with bed tracking, OPD queues, blood bank management, inventory monitoring and emergency response. Role-based dashboards for patients, doctors and admins, built with a responsive React front-end and live updates for operational visibility.",
-      category: isEn ? 'Web Application' : 'Application Web', year: '2025', tags: ['React', 'Real-time Dashboards', 'Healthcare'],
-      images: ['assets/images/projects/Covers/cyberDiag_web.avif'],
-    },
-    'traffic-prediction': {
-      desc: "Web-based platform predicting traffic congestion using historical data, live feeds and weather reports. Interactive dashboards with real-time monitoring, predictive analytics, alerts and alternate route suggestions to optimize commuting and assist city authorities.",
-      category: isEn ? 'Web Application' : 'Application Web', year: '2025', tags: ['Predictive Analytics', 'Dashboards', 'Data Visualization'],
+    'zomato-group-ordering': {
+      desc: "Designed a shared group cart and automatic bill-split flow for food delivery apps — eliminating the WhatsApp coordination tax. Research, scope definition, two design iterations and 6 final high-fidelity screens.",
+      category: 'Product Design', year: '2025', tags: ['UX Research', 'Figma', 'Prototyping'],
       images: ['assets/images/projects/Covers/Anima.avif'],
-    },
-    'performace': {
-      desc: "Python-based performance management & tracking application with a Tkinter GUI, consolidating individual performance metrics, automating event notifications and generating reports. Integrates Matplotlib for data visualization, TkCalendar for scheduling and MySQL for centralized data management.",
-      category: isEn ? 'Desktop App' : 'Application Desktop', year: '2025', tags: ['Python', 'Tkinter', 'MySQL'],
-      images: ['assets/images/projects/Covers/CyberDiag.avif'],
-    },
-    'zenith': {
-      desc: isEn ? "Innovative web browser focused on privacy and performance, featuring a built-in ad blocker, optimized tab management, and extensive customization." : "Navigateur web innovant axé sur la confidentialité et la performance, avec bloqueur de publicités intégré, gestion optimisée des onglets et personnalisation poussée.",
-      category: isEn ? 'Desktop App' : 'Application Desktop', year: '2026', tags: ['Electron', 'JavaScript', 'Three.js'],
-      images: ['assets/images/projects/Zenith/image1.png', 'assets/images/projects/Zenith/image2.png', 'assets/images/projects/Zenith/image3.png'],
-    },
-    'skymcdb': {
-      desc: isEn ? "A powerful and intuitive tool designed to manage, organize, and optimize your Minecraft building projects, developed specifically for builders." : "Un outil puissant et intuitif conçu pour gérer, organiser et optimiser vos projets de construction Minecraft, développé spécifiquement pour les builders.",
-      category: isEn ? 'Desktop App' : 'Application Desktop', year: '2024', tags: ['Java', 'JavaFX', 'CSS'],
-      images: ['assets/images/projects/skymcdb/image.png', 'assets/images/projects/skymcdb/image2.png', 'assets/images/projects/skymcdb/image3.png', 'assets/images/projects/skymcdb/image4.png'],
-    },
-    'chromablock': {
-      desc: isEn ? "Web adaptation of SkymcDB to reach a wider audience, introducing brand new features for Minecraft builders." : "Adaptation web de SkymcDB, pour élargir l'audience, permettant des fonctionnalités inédites dans le domaine du build Minecraft.",
-      category: 'Web Application', year: '2024', tags: ['JavaScript', 'HTML', 'CSS'],
-      images: ['assets/images/projects/chromablock/image1.png', 'assets/images/projects/chromablock/image2.png', 'assets/images/projects/chromablock/image3.png'],
-    },
-    'symphony': {
-      desc: isEn ? "Web application allowing users to host and stream their music, as well as discover music published by others on the platform." : "Application web permettant aux utilisateurs d'héberger et lire leurs musiques ainsi que celles publiées par d'autres utilisateurs sur la plateforme.",
-      category: 'Web Application', year: '2024', tags: ['Netlify Functions', 'JavaScript', 'HTML/CSS'],
-      images: ['assets/images/projects/symphony/image2.png', 'assets/images/projects/symphony/image.png', 'assets/images/projects/symphony/image3.png'],
-    },
-    'echo': {
-      desc: isEn ? "Web interface to interact and chat with a local Artificial Intelligence (Qwen). Smooth and private conversational experience." : "Interface web permettant d'interagir et discuter avec une intelligence artificielle fonctionnant en local (Qwen). Expérience conversationnelle fluide et privée.",
-      category: isEn ? 'AI / Web' : 'IA / Web', year: '2024', tags: ['JavaScript', 'HTML/CSS', 'AI Local'],
-      images: ['assets/images/projects/echo/image.png'],
+      caseStudyUrl: 'works/zomato-case-study.html',
     },
     'portfolio': {
-      desc: "This site — a personal portfolio built from scratch with vanilla HTML, CSS and JavaScript, powered by GSAP ScrollTrigger. Features a 90-frame hero image sequence driven by scroll, a custom preloader, smooth page transitions, a scroll-synced fluid SVG line, a cylindrical 3D image carousel, an interactive canvas-based footer skate game, a floating site-pet, and a full project case-study overlay — all without any framework.",
+      desc: "This site — a personal portfolio built from scratch with vanilla HTML, CSS and JavaScript, powered by GSAP ScrollTrigger. Features a 90-frame hero image sequence driven by scroll, a custom preloader, smooth page transitions, a cylindrical 3D image carousel, an interactive canvas-based footer skate game, and full project case-study pages — all without any framework.",
       category: 'Website / GSAP', year: '2026', tags: ['HTML/CSS', 'JavaScript', 'GSAP'],
       images: ['assets/images/projects/Covers/Portfolio.jpg'],
       caseStudyUrl: 'works/portfolio-case-study.html',
+    },
+    'webtoonhub': {
+      desc: "Full-stack digital comic reading and publishing platform with immersive reader, reading progress tracking, CBZ bulk upload, publisher analytics and content scheduling — built on React, TypeScript and Supabase with role-based access control.",
+      category: 'Web Application', year: '2025', tags: ['React', 'TypeScript', 'Supabase'],
+      images: ['assets/images/projects/Covers/ChromaBlock.avif'],
+      caseStudyUrl: 'works/webtoon-case-study.html',
+    },
+    'curanet': {
+      desc: "Real-time hospital management platform with live bed tracking, smart OPD queue system, blood bank inventory, patient admissions and emergency response. Role-based dashboards for patients, doctors, nurses and admins with instant Firebase sync.",
+      category: 'Web Application', year: '2025', tags: ['React', 'Firebase', 'Real-time'],
+      images: ['assets/images/projects/Covers/cyberDiag_web.avif'],
+      caseStudyUrl: 'works/curanet-case-study.html',
     },
   };
 

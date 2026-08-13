@@ -1601,7 +1601,7 @@ a.chr-hover {
   overflow: hidden;
   z-index: 20008;
   visibility: hidden;
-  background: #0a0a0a;
+  background: #05070f;
 }
 
 .footer-bg {
@@ -1610,6 +1610,8 @@ a.chr-hover {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  /* Fade from page bg at the very top so there's no hard seam */
+  background: linear-gradient(to bottom, #05070f 0%, transparent 18%);
 }
 
 .footer-content {

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuraNet — Case Study · Aditya Sharma</title>
+  <meta name="description" content="Full-stack case study: building CuraNet, a real-time hospital management system with Firebase, React and role-based dashboards.">
+  <link rel="icon" href="../assets/favicon/favicon.ico">
+  <link rel="preload" href="../assets/fonts/Breton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/Machine.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="../styles/works-new.css">
+  <link rel="stylesheet" href="../styles/site-pet.css">
+  <style>
+    @font-face{font-family:'other';src:url('../assets/fonts/Machine.otf') format('opentype');font-display:swap}
+    :root{--blue:#1e6bff;--blue-dim:rgba(30,107,255,0.12);--text:#f0f0f0;--text-dim:rgba(240,240,240,0.48);--text-faint:rgba(240,240,240,0.22);--border:rgba(255,255,255,0.1);--bg:#05070f}
+    .cs-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 7vh;overflow:hidden}
+    .cs-hero-cover{position:absolute;inset:0;background:url('../assets/images/projects/Covers/cyberDiag_web.avif') center center/cover no-repeat;filter:brightness(0.2) saturate(0.45);z-index:0}
+    .cs-hero-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#05070f 0%,transparent 60%)}
+    .cs-hero-content{position:relative;z-index:2;max-width:72rem}
+    .cs-eyebrow{font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1.6rem;display:flex;align-items:center;gap:0.7rem}
+    .cs-eyebrow::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--blue)}
+    .cs-hero h1{font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(3.2rem,8vw,9rem);line-height:0.95;letter-spacing:-0.03em;color:var(--text);margin:0 0 3rem}
+    .cs-hero h1 em{font-style:normal;font-family:'other',sans-serif;font-size:0.78em;color:rgba(240,240,240,0.55)}
+    .cs-hero-meta{display:flex;flex-wrap:wrap;gap:3rem;border-top:1px solid var(--border);padding-top:2rem}
+    .cs-meta-group{display:flex;flex-direction:column;gap:0.4rem}
+    .cs-meta-label{font-family:'Inter',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-faint)}
+    .cs-meta-value{font-family:'Breton',sans-serif;font-size:0.95rem;color:var(--text-dim);line-height:1.5}
+    .cs-body{max-width:72rem;margin:0 auto;padding:10vh 8vw 16vh}
+    .cs-section{margin-top:12vh}
+    .cs-section-label{font-family:'Inter',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1.4rem;display:flex;align-items:center;gap:0.7rem}
+    .cs-section-label::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--blue)}
+    .cs-section h2{font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.2;letter-spacing:-0.02em;color:var(--text);margin:0 0 2.4rem}
+    .cs-section h2 em{font-style:normal;font-family:'other',sans-serif;font-size:0.82em;color:rgba(240,240,240,0.5)}
+    .cs-prose{font-family:'Breton',sans-serif;font-size:clamp(1rem,1.15vw,1.12rem);line-height:1.85;color:var(--text-dim);max-width:60ch}
+    .cs-prose+.cs-prose{margin-top:1.4rem}
+    .cs-prose strong{color:var(--text);font-weight:500}
+    .cs-prose code{font-family:'Courier New',monospace;font-size:0.85em;color:#7faeff;background:rgba(30,107,255,0.1);padding:0.15em 0.4em}
+    .cs-two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,5rem);align-items:start;margin-top:3rem}
+    .cs-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1.5px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
+    .cs-stat{background:var(--bg);padding:2rem 1.8rem}
+    .cs-stat-num{font-family:'other',sans-serif;font-size:clamp(2.4rem,4vw,3.8rem);color:var(--text);line-height:1;margin-bottom:0.5rem}
+    .cs-stat-num span{font-size:0.6em;color:var(--blue)}
+    .cs-stat-desc{font-family:'Breton',sans-serif;font-size:0.88rem;color:var(--text-dim);line-height:1.5}
+    .cs-features{display:flex;flex-direction:column;gap:0;margin-top:3rem;border:1px solid var(--border)}
+    .cs-feature{display:grid;grid-template-columns:3.5rem 1fr;gap:1.5rem;padding:2rem;border-bottom:1px solid var(--border);transition:background 0.3s}
+    .cs-feature:last-child{border-bottom:none}
+    .cs-feature:hover{background:rgba(255,255,255,0.02)}
+    .cs-feature-num{font-family:'other',sans-serif;font-size:0.85rem;color:var(--blue);padding-top:0.2rem;opacity:0.7}
+    .cs-feature-title{font-family:'Breton',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:0.5rem}
+    .cs-feature-desc{font-family:'Breton',sans-serif;font-size:0.9rem;line-height:1.75;color:var(--text-dim)}
+    .cs-callout{margin-top:2.5rem;border-left:2px solid var(--blue);padding:1.4rem 1.8rem;background:var(--blue-dim)}
+    .cs-callout p{font-family:'Breton',sans-serif;font-size:1rem;line-height:1.7;color:var(--text-dim);margin:0}
+    .cs-callout p strong{color:var(--text)}
+    .cs-stack{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:2rem}
+    .cs-stack-chip{padding:0.55em 1em;border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);transition:border-color 0.35s,color 0.35s}
+    .cs-stack-chip:hover{border-color:rgba(30,107,255,0.4);color:var(--text)}
+    .cs-stack-chip.highlight{border-color:rgba(30,107,255,0.5);color:#7faeff;background:rgba(30,107,255,0.07)}
+    .cs-roles{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
+    .cs-role{background:var(--bg);padding:2rem}
+    .cs-role-tag{font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:0.6rem;opacity:0.8}
+    .cs-role-title{font-family:'Breton',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:0.7rem}
+    .cs-role-desc{font-family:'Breton',sans-serif;font-size:0.88rem;line-height:1.65;color:var(--text-dim)}
+    .cs-code-wrap{margin-top:2rem;border:1px solid var(--border);background:rgba(255,255,255,0.025)}
+    .cs-code-bar{display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1.2rem;border-bottom:1px solid var(--border)}
+    .cs-code-filename{font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint)}
+    .cs-code-dots{display:flex;gap:0.4rem}
+    .cs-code-dots span{width:10px;height:10px;border-radius:50%;background:var(--border)}
+    .cs-code-dots span:first-child{background:rgba(255,95,86,0.5)}
+    .cs-code-dots span:nth-child(2){background:rgba(255,189,46,0.5)}
+    .cs-code-dots span:last-child{background:rgba(39,201,63,0.5)}
+    pre.cs-code{margin:0;padding:1.4rem 1.6rem;font-family:'Courier New',Courier,monospace;font-size:0.82rem;line-height:1.75;color:rgba(240,240,240,0.7);overflow-x:auto;white-space:pre}
+    pre.cs-code .kw{color:#b39ddb}pre.cs-code .fn{color:#80cbc4}pre.cs-code .str{color:#a5d6a7}pre.cs-code .cm{color:rgba(240,240,240,0.28);font-style:italic}pre.cs-code .num{color:#ffcc80}pre.cs-code .tp{color:#ffab91}
+    .cs-quote{margin-top:8vh;padding:6vh 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .cs-quote blockquote{margin:0;font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(1.5rem,2.8vw,2.6rem);line-height:1.45;letter-spacing:-0.01em;color:var(--text)}
+    .cs-quote blockquote em{font-style:normal;font-family:'other',sans-serif;font-size:0.85em;color:rgba(240,240,240,0.45)}
+    .cs-timeline{margin-top:3rem;display:flex;flex-direction:column;gap:0}
+    .cs-tl-item{display:grid;grid-template-columns:8rem 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+    .cs-tl-item:first-child{border-top:1px solid var(--border)}
+    .cs-tl-date{font-family:'other',sans-serif;font-size:0.78rem;color:var(--blue);padding-top:0.25rem;opacity:0.7}
+    .cs-tl-title{font-family:'Breton',sans-serif;font-size:1rem;color:var(--text);margin-bottom:0.4rem}
+    .cs-tl-desc{font-family:'Breton',sans-serif;font-size:0.88rem;line-height:1.7;color:var(--text-dim)}
+    .cs-nav-footer{display:flex;align-items:center;justify-content:space-between;padding:3rem 8vw 4rem;border-top:1px solid var(--border);gap:2rem}
+    .cs-nav-footer a{font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.3s;display:flex;align-items:center;gap:0.6rem}
+    .cs-nav-footer a:hover{color:var(--text)}
+    .cs-nav-footer .cs-nav-back::before{content:'←';color:var(--blue)}
+    .cs-nav-footer .cs-nav-live::after{content:'↗';color:var(--blue)}
+    .cs-progress{position:fixed;top:0;left:0;height:2px;background:var(--blue);z-index:9999;transform-origin:left;transform:scaleX(0);transition:transform 0.1s linear}
+    @media(max-width:900px){.cs-hero{padding:0 6vw 6vh}.cs-body{padding:8vh 6vw 12vh}.cs-two-col{grid-template-columns:1fr}.cs-roles{grid-template-columns:1fr}.cs-tl-item{grid-template-columns:1fr;gap:0.4rem}.cs-nav-footer{flex-direction:column;align-items:flex-start}}
+    @media(max-width:600px){.cs-stats{grid-template-columns:1fr}.cs-hero-meta{gap:1.8rem}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+  </style>
+</head>
+<body>
+
+  <div class="cs-progress" id="cs-progress"></div>
+  <div class="page-fade" id="page-fade"></div>
+
+  <header class="page-header">
+    <a href="index.html" class="back-btn chr-hover" data-chr="Back" id="back-btn"></a>
+    <span class="work-counter">Case Study</span>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="cs-hero">
+      <div class="cs-hero-cover" aria-hidden="true"></div>
+      <div class="cs-hero-content">
+        <div class="cs-eyebrow">Case Study &mdash; Full-Stack Web Application</div>
+        <h1>CuraNet<br><em>Real-time hospital</em><br><em>management.</em></h1>
+        <div class="cs-hero-meta">
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Timeline</span>
+            <span class="cs-meta-value">Jan 2025</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Role</span>
+            <span class="cs-meta-value">Full-Stack Development</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Stack</span>
+            <span class="cs-meta-value">React · Firebase · Node.js · Socket.io</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Status</span>
+            <span class="cs-meta-value">Live &mdash; v2.0.0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body -->
+    <div class="cs-body">
+
+      <!-- Overview -->
+      <section class="cs-section" id="overview">
+        <div class="cs-section-label">01 &mdash; Overview</div>
+        <h2>A hospital&rsquo;s entire<br><em>operation. Live.</em></h2>
+        <p class="cs-prose">
+          CuraNet is a comprehensive real-time hospital management system built to replace the patchwork of disconnected tools that most hospital operations rely on. Bed tracking, OPD queue management, blood bank inventory, patient admissions, medical supplies &mdash; all of it unified in a single dashboard, with live updates across every device on the network.
+        </p>
+        <p class="cs-prose">
+          The core premise was that hospital staff shouldn&rsquo;t be chasing each other for status updates. Every change &mdash; a bed becoming available, a patient admitted, a blood unit requested &mdash; should propagate instantly to every role that needs to know about it.
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <div class="cs-stat-num">4<span>roles</span></div>
+            <div class="cs-stat-desc">Admin, Doctor, Nurse and Patient &mdash; each with a tailored dashboard and scoped data access</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">RT<span>updates</span></div>
+            <div class="cs-stat-desc">Firebase Realtime Database + Socket.io keep every dashboard live without manual refresh</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">8<span>modules</span></div>
+            <div class="cs-stat-desc">OPD queues, beds, blood bank, admissions, inventory, analytics, emergency response and patient portal</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">v2<span>.0.0</span></div>
+            <div class="cs-stat-desc">Current version &mdash; full Firebase integration with predictive resource allocation added in v2</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem -->
+      <section class="cs-section" id="problem">
+        <div class="cs-section-label">02 &mdash; The Problem</div>
+        <h2>Hospital operations<br><em>are fragmented.</em></h2>
+        <p class="cs-prose">
+          Hospital operations typically involve a dozen disconnected systems: a separate bed management tool, a manual OPD token queue, a spreadsheet for blood bank inventory, and a patient records system that nobody can access from the ward. Staff spend time chasing each other and second-guessing data that&rsquo;s already stale.
+        </p>
+        <p class="cs-prose">
+          The cost of bad information in a healthcare environment isn&rsquo;t a slow feature &mdash; it&rsquo;s a delayed bed assignment, a missed blood unit, a patient waiting in the wrong queue. CuraNet was built to make the real-time state of a hospital floor legible to every person who needs to act on it.
+        </p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">No shared source of truth</div>
+              <div class="cs-feature-desc">Each department maintains its own records independently. A bed listed as occupied in one system might show as available in another. Nurses spend time on phone calls to verify what a dashboard should just show them.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Manual queue management</div>
+              <div class="cs-feature-desc">OPD tokens are typically paper-based or managed in a basic POS system with no digital visibility. Patients have no way to know their wait time, and doctors have no way to see queue depth without walking to the reception desk.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Reactive rather than predictive</div>
+              <div class="cs-feature-desc">Hospitals react to resource shortages rather than anticipating them. Blood inventory runs low before an order is placed. Beds fill up before wards are staffed up. The data to predict these events exists &mdash; it just isn&rsquo;t connected anywhere.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Roles -->
+      <section class="cs-section" id="roles">
+        <div class="cs-section-label">03 &mdash; Role-Based Dashboards</div>
+        <h2>One system.<br><em>Four perspectives.</em></h2>
+        <p class="cs-prose">
+          Every role in CuraNet sees a completely different interface, scoped to what they actually need to do. This wasn&rsquo;t a design flourish &mdash; showing a nurse the admin billing interface, or a patient the blood bank management screen, would be actively harmful. Role boundaries are enforced at both the UI level and the Firebase RLS level.
+        </p>
+
+        <div class="cs-roles">
+          <div class="cs-role">
+            <div class="cs-role-tag">Admin</div>
+            <div class="cs-role-title">Full system oversight</div>
+            <div class="cs-role-desc">Hospital-wide statistics, user management, resource allocation controls, financial analytics and system configuration. The admin dashboard is the only surface with write access to every module.</div>
+          </div>
+          <div class="cs-role">
+            <div class="cs-role-tag">Doctor</div>
+            <div class="cs-role-title">Clinical workflow</div>
+            <div class="cs-role-desc">Patient list for the current shift, OPD queue for their department, prescription and note entry, bed assignment for admissions, lab result access. No billing, no inventory, no blood bank.</div>
+          </div>
+          <div class="cs-role">
+            <div class="cs-role-tag">Nurse</div>
+            <div class="cs-role-title">Ward management</div>
+            <div class="cs-role-desc">Live bed status for their ward, patient vitals entry, medication administration records, shift handover notes. Nurses can see OPD queue depth but cannot modify it.</div>
+          </div>
+          <div class="cs-role">
+            <div class="cs-role-tag">Patient</div>
+            <div class="cs-role-title">Personal portal</div>
+            <div class="cs-role-desc">Appointment booking, personal medical records, prescription viewing, lab results, payment history. Read-only on everything except appointment creation. Zero access to other patients&rsquo; data.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="cs-section" id="architecture">
+        <div class="cs-section-label">04 &mdash; Architecture</div>
+        <h2>Firebase at the<br><em>centre.</em></h2>
+        <p class="cs-prose">
+          The core data model lives in Firebase Realtime Database. Every module that needs live updates &mdash; beds, OPD queues, blood bank &mdash; is a Firebase listener. Changes written by any client propagate to all connected dashboards in under 200 ms without polling.
+        </p>
+        <p class="cs-prose">
+          A Node.js/Express backend sits in front of Firebase for operations that require server-side logic: authentication token validation, complex aggregations for the analytics dashboard, SMS notification dispatch and the predictive resource allocation calculations that run on a schedule.
+        </p>
+
+        <div class="cs-code-wrap">
+          <div class="cs-code-bar">
+            <span class="cs-code-filename">bedService.js — real-time bed listener</span>
+            <div class="cs-code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <pre class="cs-code"><span class="cm">// Single listener keeps the entire bed map in sync across all clients</span>
+<span class="kw">export function</span> <span class="fn">subscribeToBeds</span>(wardId, callback) {
+  <span class="kw">const</span> ref = db.<span class="fn">ref</span>(<span class="str">`beds/${wardId}`</span>);
+
+  ref.<span class="fn">on</span>(<span class="str">'value'</span>, snapshot => {
+    <span class="kw">const</span> beds = snapshot.<span class="fn">val</span>() ?? {};
+    <span class="cm">// Normalise to array, attach ward metadata</span>
+    callback(<span class="fn">Object.entries</span>(beds).<span class="fn">map</span>(([id, data]) => ({
+      id,
+      ...data,
+      wardId,
+      isOccupied: data.status === <span class="str">'occupied'</span>
+    })));
+  });
+
+  <span class="cm">// Return unsubscribe so React effects can clean up</span>
+  <span class="kw">return</span> () => ref.<span class="fn">off</span>(<span class="str">'value'</span>);
+}</pre>
+        </div>
+
+        <div class="cs-stack" style="margin-top:2.5rem">
+          <span class="cs-stack-chip highlight">React 18</span>
+          <span class="cs-stack-chip highlight">TypeScript</span>
+          <span class="cs-stack-chip highlight">Firebase</span>
+          <span class="cs-stack-chip highlight">Node.js</span>
+          <span class="cs-stack-chip highlight">Express.js</span>
+          <span class="cs-stack-chip highlight">Socket.io</span>
+          <span class="cs-stack-chip">MongoDB</span>
+          <span class="cs-stack-chip">Tailwind CSS</span>
+          <span class="cs-stack-chip">shadcn/ui</span>
+          <span class="cs-stack-chip">Recharts</span>
+          <span class="cs-stack-chip">JWT</span>
+          <span class="cs-stack-chip">Vite</span>
+        </div>
+      </section>
+
+      <!-- Key modules -->
+      <section class="cs-section" id="modules">
+        <div class="cs-section-label">05 &mdash; Key Modules</div>
+        <h2>Eight systems.<br><em>One interface.</em></h2>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Smart OPD system</div>
+              <div class="cs-feature-desc">Token-based queue with department-wise organisation. Tokens are issued digitally and patients receive SMS updates with estimated wait times. Doctors see their queue depth in real time and can mark patients as &ldquo;called&rdquo; or &ldquo;no-show&rdquo; from their dashboard.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Real-time bed management</div>
+              <div class="cs-feature-desc">Live grid view of every bed in every ward. Status colours: available (green), occupied (red), cleaning (amber), maintenance (grey). Patient assignment, transfer and discharge all update the grid instantly via Firebase. Bed utilisation analytics are aggregated per ward.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Blood bank management</div>
+              <div class="cs-feature-desc">Inventory tracking by blood type and unit count, with expiry date monitoring. Donation camp management. Emergency allocation flow that surfaces nearest available units matching a request. Low stock automatically triggers a reorder notification to the admin.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">04</span>
+            <div>
+              <div class="cs-feature-title">Emergency response</div>
+              <div class="cs-feature-desc">Ambulance location detection (placeholder for GPS integration), outbreak monitoring tied to admission diagnosis codes. City-wide heatmap visualisation showing regional healthcare demand, built on aggregated anonymised admission data.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">05</span>
+            <div>
+              <div class="cs-feature-title">Analytics dashboard</div>
+              <div class="cs-feature-desc">Hospital performance metrics: patient flow, bed occupancy rate, average length of stay, OPD throughput, inventory burn rate. All visualised with Recharts, backed by Postgres aggregation views that run on a 15-minute refresh schedule.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Firebase data structure -->
+      <section class="cs-section" id="data">
+        <div class="cs-section-label">06 &mdash; Data Structure</div>
+        <h2>Schema designed<br><em>for real-time reads.</em></h2>
+        <p class="cs-prose">
+          Firebase Realtime Database is a JSON tree, not a relational database. Schema design required thinking in terms of read patterns first, because deep nesting or large objects will always return more data than you need. The top-level keys map one-to-one with the modules in the UI.
+        </p>
+
+        <div class="cs-code-wrap">
+          <div class="cs-code-bar">
+            <span class="cs-code-filename">firebase — top-level schema</span>
+            <div class="cs-code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <pre class="cs-code">{
+  <span class="str">"patients"</span>: {
+    <span class="str">"patientId"</span>: {
+      <span class="str">"personalInfo"</span>: { ... },
+      <span class="str">"medicalHistory"</span>: { ... },
+      <span class="str">"appointments"</span>: { ... }
+    }
+  },
+  <span class="str">"opdQueue"</span>: {
+    <span class="str">"tokens"</span>: [
+      { <span class="str">"tokenNumber"</span>: <span class="str">"A101"</span>, <span class="str">"patientId"</span>: <span class="str">"p123"</span>,
+        <span class="str">"status"</span>: <span class="str">"waiting"</span>, <span class="str">"department"</span>: <span class="str">"General Medicine"</span> }
+    ]
+  },
+  <span class="str">"beds"</span>: {
+    <span class="str">"bedId"</span>: {
+      <span class="str">"status"</span>: <span class="str">"occupied"</span>, <span class="str">"patientId"</span>: <span class="str">"p123"</span>,
+      <span class="str">"ward"</span>: <span class="str">"ICU"</span>, <span class="str">"bedNumber"</span>: <span class="str">"A-101"</span>
+    }
+  },
+  <span class="str">"bloodBank"</span>: {
+    <span class="str">"inventory"</span>: {
+      <span class="str">"A+"</span>: { <span class="str">"units"</span>: <span class="num">25</span>, <span class="str">"lastUpdated"</span>: <span class="str">"2025-01-01"</span> }
+    }
+  }
+}</pre>
+        </div>
+
+        <div class="cs-callout" style="margin-top:2.5rem">
+          <p><strong>Denormalisation is intentional.</strong> Patient name is stored on the bed node even though it&rsquo;s also on the patient node. This means reading the bed grid requires exactly one Firebase read &mdash; no joins, no secondary lookups, sub-50 ms render for a 200-bed ward view.</p>
+        </div>
+      </section>
+
+      <!-- Quote -->
+      <div class="cs-quote">
+        <blockquote>
+          "Real-time isn&rsquo;t a feature. It&rsquo;s the entire point.
+          A hospital dashboard that&rsquo;s <em>30 seconds stale</em> is useless."
+        </blockquote>
+      </div>
+
+      <!-- Challenges -->
+      <section class="cs-section" id="challenges">
+        <div class="cs-section-label">07 &mdash; Challenges</div>
+        <h2>What pushed<br><em>back.</em></h2>
+
+        <div class="cs-two-col">
+          <div>
+            <div class="cs-features" style="margin-top:0">
+              <div class="cs-feature">
+                <span class="cs-feature-num">01</span>
+                <div>
+                  <div class="cs-feature-title">Firebase listener cleanup</div>
+                  <div class="cs-feature-desc">Forgetting to detach Firebase listeners when React components unmount creates memory leaks that accumulate silently. Centralising all listener subscriptions in custom hooks with cleanup functions returned from <code>useEffect</code> solved this, but it required auditing every component that had a live subscription.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">02</span>
+                <div>
+                  <div class="cs-feature-title">Concurrent writes to the queue</div>
+                  <div class="cs-feature-desc">Two receptionists issuing tokens simultaneously could assign the same token number if both read the current counter before either had written. Firebase transactions (atomic read-modify-write) fixed this, but they required restructuring the token assignment flow to use server-side logic rather than client-computed values.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cs-features" style="margin-top:0">
+              <div class="cs-feature">
+                <span class="cs-feature-num">03</span>
+                <div>
+                  <div class="cs-feature-title">Role enforcement across two backends</div>
+                  <div class="cs-feature-desc">Firebase Security Rules enforce role access at the database level, but the Node.js API also needs to enforce roles for aggregation queries. Keeping both rule sets in sync as the schema evolved was tedious. A shared constants file for role names was a small fix that prevented a class of subtle bugs.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">04</span>
+                <div>
+                  <div class="cs-feature-title">Offline behaviour</div>
+                  <div class="cs-feature-desc">Firebase&rsquo;s offline persistence is on by default, which means reads still work when the network drops &mdash; but writes queue locally and sync when reconnected. For a hospital environment, stale reads can be dangerous. Implementing connection state detection and showing a clear &ldquo;offline&rdquo; banner took priority over any other UX refinement.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Version history -->
+      <section class="cs-section" id="versions">
+        <div class="cs-section-label">08 &mdash; Version History</div>
+        <h2>How it got<br><em>to v2.0.0</em></h2>
+
+        <div class="cs-timeline">
+          <div class="cs-tl-item">
+            <div class="cs-tl-date">v1.0.0</div>
+            <div>
+              <div class="cs-tl-title">Core hospital management</div>
+              <div class="cs-tl-desc">Initial release with bed tracking, OPD queue, blood bank inventory and basic patient admissions. Static data; no real-time sync. Role-based routing in place but enforced only on the frontend.</div>
+            </div>
+          </div>
+          <div class="cs-tl-item">
+            <div class="cs-tl-date">v1.5.0</div>
+            <div>
+              <div class="cs-tl-title">Smart OPD + patient portal</div>
+              <div class="cs-tl-desc">OPD queue rebuilt with token generation and department routing. Patient portal added with appointment booking and record access. Firebase Realtime Database introduced for the queue module only.</div>
+            </div>
+          </div>
+          <div class="cs-tl-item">
+            <div class="cs-tl-date">v2.0.0</div>
+            <div>
+              <div class="cs-tl-title">Full Firebase integration + real-time everywhere</div>
+              <div class="cs-tl-desc">All modules migrated to Firebase. Socket.io added for instant push notifications. Emergency response module and city-wide heatmap added. Predictive resource allocation introduced using rolling 30-day admission averages. Backend separated into Express service with JWT auth.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reflection -->
+      <section class="cs-section" id="reflection">
+        <div class="cs-section-label">09 &mdash; What I&rsquo;d Do Differently</div>
+        <h2>Honest<br><em>retrospective.</em></h2>
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose"><strong>Firebase Security Rules from day one.</strong> In v1, role enforcement existed only in the frontend. A user who inspected the Firebase URL could read any node. The v2 migration added proper Security Rules, but retrofitting them onto an existing schema is harder than writing them alongside it.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>Design system before components.</strong> The four role dashboards were built sequentially, so the early modules look subtly different from the later ones. A shared component library would have kept them visually consistent without the manual audit pass that v2 required.</p>
+          </div>
+          <div>
+            <p class="cs-prose"><strong>Separate read and write models.</strong> The Firebase schema was optimised for reads (denormalised, flat), which made writes complex &mdash; updating a patient&rsquo;s name requires touching 4 different nodes. A CQRS-style separation would have kept the read model fast while keeping writes simple.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>Test the offline case explicitly.</strong> Offline behaviour was discovered by accident when a demo was run on a flaky conference WiFi. It worked because Firebase handles it, but the UX for degraded state should have been designed deliberately, not stumbled into.</p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /cs-body -->
+
+  </main>
+
+  <nav class="cs-nav-footer">
+    <a href="index.html" class="cs-nav-back">Back to work</a>
+    <a href="../index.html" class="cs-nav-live">View live site</a>
+  </nav>
+
+  <footer class="mini-footer">
+    <a class="work-footer-link" href="../index.html#projects">Work &#8599;</a>
+    <a class="chr-hover" data-chr="sharmaaditya4848@gmail.com" href="mailto:sharmaaditya4848@gmail.com"></a>
+    <span>&#169; 2026 &#8212; ADITYA SHARMA</span>
+  </footer>
+
+  <script defer src="../js/vendor/gsap.min.js"></script>
+  <script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="../js/gsap-page.js"></script>
+  <script src="../js/site-pet.js"></script>
+  <script>
+    const bar = document.getElementById('cs-progress');
+    if (bar) {
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        bar.style.transform = 'scaleX(' + (h.scrollTop / (h.scrollHeight - h.clientHeight)) + ')';
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

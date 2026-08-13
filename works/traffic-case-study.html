@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic Congestion Prediction — Case Study · Aditya Sharma</title>
+  <meta name="description" content="Full-stack case study: building a traffic congestion prediction and analytics platform with real-time monitoring, ML-driven forecasts and interactive dashboards.">
+  <link rel="icon" href="../assets/favicon/favicon.ico">
+  <link rel="preload" href="../assets/fonts/Breton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/Machine.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="../styles/works-new.css">
+  <link rel="stylesheet" href="../styles/site-pet.css">
+  <style>
+    @font-face{font-family:'other';src:url('../assets/fonts/Machine.otf') format('opentype');font-display:swap}
+    :root{--blue:#1e6bff;--blue-dim:rgba(30,107,255,0.12);--text:#f0f0f0;--text-dim:rgba(240,240,240,0.48);--text-faint:rgba(240,240,240,0.22);--border:rgba(255,255,255,0.1);--bg:#05070f}
+    .cs-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 7vh;overflow:hidden}
+    .cs-hero-cover{position:absolute;inset:0;background:url('../assets/images/projects/Covers/CyberDiag.avif') center center/cover no-repeat;filter:brightness(0.2) saturate(0.5);z-index:0}
+    .cs-hero-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#05070f 0%,transparent 60%)}
+    .cs-hero-content{position:relative;z-index:2;max-width:72rem}
+    .cs-eyebrow{font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1.6rem;display:flex;align-items:center;gap:0.7rem}
+    .cs-eyebrow::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--blue)}
+    .cs-hero h1{font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(3.2rem,8vw,9rem);line-height:0.95;letter-spacing:-0.03em;color:var(--text);margin:0 0 3rem}
+    .cs-hero h1 em{font-style:normal;font-family:'other',sans-serif;font-size:0.78em;color:rgba(240,240,240,0.55)}
+    .cs-hero-meta{display:flex;flex-wrap:wrap;gap:3rem;border-top:1px solid var(--border);padding-top:2rem}
+    .cs-meta-group{display:flex;flex-direction:column;gap:0.4rem}
+    .cs-meta-label{font-family:'Inter',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-faint)}
+    .cs-meta-value{font-family:'Breton',sans-serif;font-size:0.95rem;color:var(--text-dim);line-height:1.5}
+    .cs-body{max-width:72rem;margin:0 auto;padding:10vh 8vw 16vh}
+    .cs-section{margin-top:12vh}
+    .cs-section-label{font-family:'Inter',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1.4rem;display:flex;align-items:center;gap:0.7rem}
+    .cs-section-label::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--blue)}
+    .cs-section h2{font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.2;letter-spacing:-0.02em;color:var(--text);margin:0 0 2.4rem}
+    .cs-section h2 em{font-style:normal;font-family:'other',sans-serif;font-size:0.82em;color:rgba(240,240,240,0.5)}
+    .cs-prose{font-family:'Breton',sans-serif;font-size:clamp(1rem,1.15vw,1.12rem);line-height:1.85;color:var(--text-dim);max-width:60ch}
+    .cs-prose+.cs-prose{margin-top:1.4rem}
+    .cs-prose strong{color:var(--text);font-weight:500}
+    .cs-prose code{font-family:'Courier New',monospace;font-size:0.85em;color:#7faeff;background:rgba(30,107,255,0.1);padding:0.15em 0.4em}
+    .cs-two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,5rem);align-items:start;margin-top:3rem}
+    .cs-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1.5px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
+    .cs-stat{background:var(--bg);padding:2rem 1.8rem}
+    .cs-stat-num{font-family:'other',sans-serif;font-size:clamp(2.4rem,4vw,3.8rem);color:var(--text);line-height:1;margin-bottom:0.5rem}
+    .cs-stat-num span{font-size:0.6em;color:var(--blue)}
+    .cs-stat-desc{font-family:'Breton',sans-serif;font-size:0.88rem;color:var(--text-dim);line-height:1.5}
+    .cs-features{display:flex;flex-direction:column;gap:0;margin-top:3rem;border:1px solid var(--border)}
+    .cs-feature{display:grid;grid-template-columns:3.5rem 1fr;gap:1.5rem;padding:2rem;border-bottom:1px solid var(--border);transition:background 0.3s}
+    .cs-feature:last-child{border-bottom:none}
+    .cs-feature:hover{background:rgba(255,255,255,0.02)}
+    .cs-feature-num{font-family:'other',sans-serif;font-size:0.85rem;color:var(--blue);padding-top:0.2rem;opacity:0.7}
+    .cs-feature-title{font-family:'Breton',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:0.5rem}
+    .cs-feature-desc{font-family:'Breton',sans-serif;font-size:0.9rem;line-height:1.75;color:var(--text-dim)}
+    .cs-callout{margin-top:2.5rem;border-left:2px solid var(--blue);padding:1.4rem 1.8rem;background:var(--blue-dim)}
+    .cs-callout p{font-family:'Breton',sans-serif;font-size:1rem;line-height:1.7;color:var(--text-dim);margin:0}
+    .cs-callout p strong{color:var(--text)}
+    .cs-stack{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:2rem}
+    .cs-stack-chip{padding:0.55em 1em;border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);transition:border-color 0.35s,color 0.35s}
+    .cs-stack-chip:hover{border-color:rgba(30,107,255,0.4);color:var(--text)}
+    .cs-stack-chip.highlight{border-color:rgba(30,107,255,0.5);color:#7faeff;background:rgba(30,107,255,0.07)}
+    .cs-code-wrap{margin-top:2rem;border:1px solid var(--border);background:rgba(255,255,255,0.025)}
+    .cs-code-bar{display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1.2rem;border-bottom:1px solid var(--border)}
+    .cs-code-filename{font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint)}
+    .cs-code-dots{display:flex;gap:0.4rem}
+    .cs-code-dots span{width:10px;height:10px;border-radius:50%;background:var(--border)}
+    .cs-code-dots span:first-child{background:rgba(255,95,86,0.5)}
+    .cs-code-dots span:nth-child(2){background:rgba(255,189,46,0.5)}
+    .cs-code-dots span:last-child{background:rgba(39,201,63,0.5)}
+    pre.cs-code{margin:0;padding:1.4rem 1.6rem;font-family:'Courier New',Courier,monospace;font-size:0.82rem;line-height:1.75;color:rgba(240,240,240,0.7);overflow-x:auto;white-space:pre}
+    pre.cs-code .kw{color:#b39ddb}pre.cs-code .fn{color:#80cbc4}pre.cs-code .str{color:#a5d6a7}pre.cs-code .cm{color:rgba(240,240,240,0.28);font-style:italic}pre.cs-code .num{color:#ffcc80}pre.cs-code .tp{color:#ffab91}
+    .cs-pipeline{display:flex;align-items:stretch;gap:0;margin-top:3rem;border:1px solid var(--border);overflow:hidden}
+    .cs-pipe-step{flex:1;padding:1.8rem 1.4rem;border-right:1px solid var(--border);position:relative}
+    .cs-pipe-step:last-child{border-right:none}
+    .cs-pipe-num{font-family:'other',sans-serif;font-size:0.75rem;color:var(--blue);opacity:0.7;margin-bottom:0.5rem}
+    .cs-pipe-title{font-family:'Breton',sans-serif;font-size:0.95rem;color:var(--text);margin-bottom:0.5rem}
+    .cs-pipe-desc{font-family:'Breton',sans-serif;font-size:0.82rem;line-height:1.6;color:var(--text-dim)}
+    .cs-quote{margin-top:8vh;padding:6vh 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .cs-quote blockquote{margin:0;font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(1.5rem,2.8vw,2.6rem);line-height:1.45;letter-spacing:-0.01em;color:var(--text)}
+    .cs-quote blockquote em{font-style:normal;font-family:'other',sans-serif;font-size:0.85em;color:rgba(240,240,240,0.45)}
+    .cs-nav-footer{display:flex;align-items:center;justify-content:space-between;padding:3rem 8vw 4rem;border-top:1px solid var(--border);gap:2rem}
+    .cs-nav-footer a{font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.3s;display:flex;align-items:center;gap:0.6rem}
+    .cs-nav-footer a:hover{color:var(--text)}
+    .cs-nav-footer .cs-nav-back::before{content:'←';color:var(--blue)}
+    .cs-nav-footer .cs-nav-live::after{content:'↗';color:var(--blue)}
+    .cs-progress{position:fixed;top:0;left:0;height:2px;background:var(--blue);z-index:9999;transform-origin:left;transform:scaleX(0);transition:transform 0.1s linear}
+    @media(max-width:900px){.cs-hero{padding:0 6vw 6vh}.cs-body{padding:8vh 6vw 12vh}.cs-two-col{grid-template-columns:1fr}.cs-pipeline{flex-direction:column}.cs-pipe-step{border-right:none;border-bottom:1px solid var(--border)}.cs-pipe-step:last-child{border-bottom:none}.cs-nav-footer{flex-direction:column;align-items:flex-start}}
+    @media(max-width:600px){.cs-stats{grid-template-columns:1fr}.cs-hero-meta{gap:1.8rem}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+  </style>
+</head>
+<body>
+
+  <div class="cs-progress" id="cs-progress"></div>
+  <div class="page-fade" id="page-fade"></div>
+
+  <header class="page-header">
+    <a href="index.html" class="back-btn chr-hover" data-chr="Back" id="back-btn"></a>
+    <span class="work-counter">Case Study</span>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="cs-hero">
+      <div class="cs-hero-cover" aria-hidden="true"></div>
+      <div class="cs-hero-content">
+        <div class="cs-eyebrow">Case Study &mdash; Web Application / Analytics</div>
+        <h1>Traffic<br><em>Congestion</em><br><em>Prediction.</em></h1>
+        <div class="cs-hero-meta">
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Timeline</span>
+            <span class="cs-meta-value">Jun 2025</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Role</span>
+            <span class="cs-meta-value">Full-Stack Development</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Stack</span>
+            <span class="cs-meta-value">React · Python · Node.js · Mapbox</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Type</span>
+            <span class="cs-meta-value">Predictive Analytics / Data Viz</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body -->
+    <div class="cs-body">
+
+      <!-- Overview -->
+      <section class="cs-section" id="overview">
+        <div class="cs-section-label">01 &mdash; Overview</div>
+        <h2>Predict congestion.<br><em>Not just report it.</em></h2>
+        <p class="cs-prose">
+          Most traffic applications tell you what is happening right now. This project was about building a system that tells you what is going to happen in the next 30 to 90 minutes &mdash; with enough confidence and specificity to be actionable for both individual commuters and city traffic management authorities.
+        </p>
+        <p class="cs-prose">
+          The system fuses three data streams &mdash; historical traffic patterns, live sensor feeds and weather reports &mdash; and passes them through a prediction pipeline to produce congestion forecasts displayed on an interactive map dashboard with route alternatives and configurable alert thresholds.
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <div class="cs-stat-num">3<span>data streams</span></div>
+            <div class="cs-stat-desc">Historical patterns, live traffic feeds and weather reports fused into a single prediction input</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">90<span>min horizon</span></div>
+            <div class="cs-stat-desc">Congestion forecasts generated up to 90 minutes ahead, updated every 5 minutes</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">2<span>audiences</span></div>
+            <div class="cs-stat-desc">Individual commuters and city traffic management authorities &mdash; different views on the same data</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">RT<span>alerts</span></div>
+            <div class="cs-stat-desc">Configurable threshold alerts dispatched via WebSocket the moment a corridor is predicted to exceed target congestion</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem -->
+      <section class="cs-section" id="problem">
+        <div class="cs-section-label">02 &mdash; The Problem</div>
+        <h2>Traffic data exists.<br><em>Prediction doesn&rsquo;t.</em></h2>
+        <p class="cs-prose">
+          Cities generate enormous volumes of traffic data from sensors, cameras and GPS traces. Very little of it is used predictively. Navigation apps report current conditions; some estimate arrival time based on typical patterns. But granular, near-term congestion forecasts &mdash; &ldquo;this corridor will become severely congested in 40 minutes based on the current rate of inflow&rdquo; &mdash; aren&rsquo;t available to commuters or city planners at the resolution that would make a material difference.
+        </p>
+
+        <div class="cs-two-col">
+          <div>
+            <div class="cs-features" style="margin-top:0">
+              <div class="cs-feature">
+                <span class="cs-feature-num">C</span>
+                <div>
+                  <div class="cs-feature-title">Commuter perspective</div>
+                  <div class="cs-feature-desc">By the time a navigation app tells you a route is congested, you&rsquo;re already in it. A 30-minute forecast lets you make a route decision before you leave, not after you&rsquo;re stuck.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">A</span>
+                <div>
+                  <div class="cs-feature-title">Authority perspective</div>
+                  <div class="cs-feature-desc">Traffic management centres react to incidents. Predictive congestion data lets them proactively adjust signal timing, deploy traffic officers and update variable message signs before a bottleneck forms rather than after.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cs-callout">
+              <p><strong>The core technical challenge</strong> was not the ML model itself &mdash; there is significant literature on traffic forecasting. The challenge was building a pipeline that keeps the model fed with clean, normalised data from heterogeneous sources in near-real-time, and surfacing the output in a dashboard that actually communicates uncertainty rather than projecting false precision.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data pipeline -->
+      <section class="cs-section" id="pipeline">
+        <div class="cs-section-label">03 &mdash; Data Pipeline</div>
+        <h2>Three sources.<br><em>One clean feed.</em></h2>
+        <p class="cs-prose">
+          The prediction model is only as good as its inputs. Before any ML work, the majority of development time went into building a reliable ingestion and normalisation pipeline that could handle the inconsistency of real-world data sources.
+        </p>
+
+        <div class="cs-pipeline">
+          <div class="cs-pipe-step">
+            <div class="cs-pipe-num">01</div>
+            <div class="cs-pipe-title">Ingest</div>
+            <div class="cs-pipe-desc">Historical CSVs loaded on startup. Live feeds polled every 60 s via REST. Weather data fetched every 15 min from OpenWeatherMap.</div>
+          </div>
+          <div class="cs-pipe-step">
+            <div class="cs-pipe-num">02</div>
+            <div class="cs-pipe-title">Normalise</div>
+            <div class="cs-pipe-desc">Timestamps aligned to UTC. Speed values normalised to km/h. Missing sensor readings filled with rolling 5-minute averages. Outliers clipped at 3σ.</div>
+          </div>
+          <div class="cs-pipe-step">
+            <div class="cs-pipe-num">03</div>
+            <div class="cs-pipe-title">Feature engineering</div>
+            <div class="cs-pipe-desc">Time-of-day, day-of-week and holiday flags added. Weather severity score computed from precipitation + visibility + temperature delta. Rolling 15-min average speed per corridor computed.</div>
+          </div>
+          <div class="cs-pipe-step">
+            <div class="cs-pipe-num">04</div>
+            <div class="cs-pipe-title">Predict</div>
+            <div class="cs-pipe-desc">Gradient-boosted model (XGBoost) trained on 6 months of historical data. Inference runs every 5 minutes. Outputs congestion level (0–4) and confidence interval per corridor per time step.</div>
+          </div>
+          <div class="cs-pipe-step">
+            <div class="cs-pipe-num">05</div>
+            <div class="cs-pipe-title">Serve</div>
+            <div class="cs-pipe-desc">Predictions stored in Redis with a 6-minute TTL. Express API serves map tiles and forecast data. WebSocket pushes threshold alerts to connected dashboards.</div>
+          </div>
+        </div>
+
+        <div class="cs-code-wrap" style="margin-top:2.5rem">
+          <div class="cs-code-bar">
+            <span class="cs-code-filename">predictor.py — inference call</span>
+            <div class="cs-code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <pre class="cs-code"><span class="kw">def</span> <span class="fn">predict_corridor</span>(corridor_id: <span class="tp">str</span>, horizon_steps: <span class="tp">int</span> = <span class="num">18</span>) -> <span class="tp">list[CongestionForecast]</span>:
+    <span class="cm">"""
+    Returns a list of CongestionForecast objects, one per 5-min step up to
+    horizon_steps (default 18 = 90 min ahead).
+    """</span>
+    features = feature_store.<span class="fn">get_latest</span>(corridor_id)
+    forecasts = []
+
+    <span class="kw">for</span> step <span class="kw">in</span> <span class="fn">range</span>(horizon_steps):
+        X = <span class="fn">build_feature_vector</span>(features, step)
+        level = model.<span class="fn">predict</span>(X)[<span class="num">0</span>]
+        confidence = model.<span class="fn">predict_proba</span>(X).<span class="fn">max</span>()
+        forecasts.<span class="fn">append</span>(CongestionForecast(
+            corridor=corridor_id,
+            t_plus_min=(step + <span class="num">1</span>) * <span class="num">5</span>,
+            level=<span class="tp">int</span>(level),
+            confidence=<span class="fn">round</span>(<span class="tp">float</span>(confidence), <span class="num">3</span>)
+        ))
+
+    <span class="kw">return</span> forecasts</pre>
+        </div>
+      </section>
+
+      <!-- Dashboard -->
+      <section class="cs-section" id="dashboard">
+        <div class="cs-section-label">04 &mdash; Dashboard Design</div>
+        <h2>Two audiences.<br><em>Two views.</em></h2>
+        <p class="cs-prose">
+          The commuter view and the city authority view share the same underlying data but present it at different scales. Commuters need route-level information: &ldquo;is my route going to be clear in 30 minutes?&rdquo; Authorities need corridor-level aggregation: &ldquo;where should we adjust signal timing in the next hour?&rdquo;
+        </p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Interactive map (Mapbox GL)</div>
+              <div class="cs-feature-desc">Corridors are colour-coded by predicted congestion level: green (free flow), amber (moderate), red (congested), dark red (severe). A time scrubber lets users step through the forecast window 5 minutes at a time. Selecting a corridor shows the confidence interval as a shaded band on the forecast chart.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Commuter route planner</div>
+              <div class="cs-feature-desc">Enter origin and destination. The system calculates 3 candidate routes and shows the predicted travel time for each at your chosen departure time, including congestion risk as a probability band. Alternate route suggestions surface automatically when the primary route is predicted to be severely congested.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Authority alert dashboard</div>
+              <div class="cs-feature-desc">Threshold-based alerts with configurable severity and corridor scope. Authorities set a congestion level and a time window; the system sends a WebSocket push the moment a predicted value crosses the threshold. Alert history is logged with confidence score and actual outcome for model calibration.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">04</span>
+            <div>
+              <div class="cs-feature-title">Historical analytics</div>
+              <div class="cs-feature-desc">Recharts visualisations of corridor performance over time: weekly and monthly congestion patterns, worst-performing corridors, prediction accuracy vs. actual outcomes. The accuracy charts are important &mdash; they make the model&rsquo;s confidence levels legible to non-technical users.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quote -->
+      <div class="cs-quote">
+        <blockquote>
+          "The model was the easy part.
+          Getting three messy data sources to agree on <em>what time it is</em> took longer."
+        </blockquote>
+      </div>
+
+      <!-- Stack -->
+      <section class="cs-section" id="stack">
+        <div class="cs-section-label">05 &mdash; Tech Stack</div>
+        <h2>Chosen for the<br><em>problem, not the hype.</em></h2>
+
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose"><strong>Python for the ML pipeline.</strong> The data science ecosystem (pandas, scikit-learn, XGBoost) is simply the best tooling for this problem. The prediction service runs as a standalone Python process with a lightweight Flask API, keeping the ML code completely decoupled from the Node.js backend.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>Redis for forecast caching.</strong> Predictions run every 5 minutes. Serving them from Redis means the API response time is sub-10 ms even under load, and the prediction service isn&rsquo;t hammered by every map interaction.</p>
+          </div>
+          <div>
+            <p class="cs-prose"><strong>Mapbox GL JS for the map.</strong> Colour-coding thousands of corridor segments in real time requires vector tiles and GPU-accelerated rendering. Leaflet wasn&rsquo;t fast enough. Mapbox GL&rsquo;s data-driven styling means corridor colours update with a single <code>setFeatureState</code> call &mdash; no re-render, no DOM manipulation.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>WebSockets for alerts.</strong> Polling a &ldquo;check alerts&rdquo; endpoint every 30 seconds would have been simpler, but for the authority dashboard a 30-second delay on a congestion alert is unacceptable. Socket.io with room-based subscriptions means each authority only receives alerts for the corridors they manage.</p>
+          </div>
+        </div>
+
+        <div class="cs-stack" style="margin-top:2.5rem">
+          <span class="cs-stack-chip highlight">React 18</span>
+          <span class="cs-stack-chip highlight">TypeScript</span>
+          <span class="cs-stack-chip highlight">Python</span>
+          <span class="cs-stack-chip highlight">XGBoost</span>
+          <span class="cs-stack-chip highlight">Node.js / Express</span>
+          <span class="cs-stack-chip highlight">Socket.io</span>
+          <span class="cs-stack-chip">Mapbox GL JS</span>
+          <span class="cs-stack-chip">Redis</span>
+          <span class="cs-stack-chip">PostgreSQL</span>
+          <span class="cs-stack-chip">Recharts</span>
+          <span class="cs-stack-chip">Flask</span>
+          <span class="cs-stack-chip">pandas / scikit-learn</span>
+        </div>
+      </section>
+
+      <!-- Challenges -->
+      <section class="cs-section" id="challenges">
+        <div class="cs-section-label">06 &mdash; Challenges</div>
+        <h2>What didn&rsquo;t go<br><em>to plan.</em></h2>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Weather data lag</div>
+              <div class="cs-feature-desc">OpenWeatherMap&rsquo;s free tier updates every 10 minutes, but the paid tier updates every 1 minute. The model was trained on 10-minute weather data, but the live feed sometimes arrived stale due to API caching on their end. When weather was changing rapidly, the forecast accuracy dropped noticeably. The fix was to weight the weather feature down when its freshness exceeded 12 minutes.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Sensor drop-outs</div>
+              <div class="cs-feature-desc">Real traffic sensor networks have drop-outs &mdash; sensors go offline, report zeros, or report the same value repeatedly. A naive pipeline treating dropped sensors as valid readings would produce prediction spikes. Adding a sensor health check that flags readings as suspect when they deviate more than 3σ from the rolling corridor mean eliminated the worst outliers.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Communicating uncertainty</div>
+              <div class="cs-feature-desc">The model outputs a confidence score alongside the predicted congestion level. Early dashboard designs just showed the congestion level and ignored the confidence, which meant users were treating a 55% confidence &ldquo;moderate congestion&rdquo; prediction the same as a 92% one. Adding a confidence band to the corridor tooltip and greying out low-confidence predictions on the map changed how people used the data.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout" style="margin-top:2.5rem">
+          <p><strong>Model accuracy on test data: ~83% correct congestion level at t+30 min, ~71% at t+90 min.</strong> These numbers are presented alongside the forecast on the authority dashboard so operators can calibrate their trust in the output rather than treating it as ground truth.</p>
+        </div>
+      </section>
+
+      <!-- Reflection -->
+      <section class="cs-section" id="reflection">
+        <div class="cs-section-label">07 &mdash; Reflection</div>
+        <h2>What I&rsquo;d build<br><em>differently.</em></h2>
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose"><strong>Start with a simpler model.</strong> XGBoost was chosen early because it&rsquo;s well-understood for tabular data, but a simpler baseline (linear regression on rolling averages) would have been faster to validate and almost as accurate in the 0&ndash;30 minute window. Complex models should follow a working simple model, not precede it.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>Abstract the data sources earlier.</strong> The first version had OpenWeatherMap API calls scattered across the pipeline. When the provider rate-limited the app during a demo, every module that touched weather data broke simultaneously. A centralised data source registry with fallback behaviour would have been 2 hours of work upfront that would have saved an embarrassing demo moment.</p>
+          </div>
+          <div>
+            <p class="cs-prose"><strong>Design the alert UX before the alert system.</strong> The threshold alert feature was built technically before anyone had decided what the alert UI should look like. The result was a technically functional alert system with a confusing UI that required two redesigns. The interface should be prototyped before the backend is built &mdash; not the other way around.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>Ship the commuter view first.</strong> The authority dashboard was built in parallel with the commuter view, which doubled the UI surface area before either was fully tested. Shipping the commuter view alone, getting feedback, then building the authority view on top of a stable base would have been faster overall.</p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /cs-body -->
+
+  </main>
+
+  <nav class="cs-nav-footer">
+    <a href="index.html" class="cs-nav-back">Back to work</a>
+    <a href="../index.html" class="cs-nav-live">View live site</a>
+  </nav>
+
+  <footer class="mini-footer">
+    <a class="work-footer-link" href="../index.html#projects">Work &#8599;</a>
+    <a class="chr-hover" data-chr="sharmaaditya4848@gmail.com" href="mailto:sharmaaditya4848@gmail.com"></a>
+    <span>&#169; 2026 &#8212; ADITYA SHARMA</span>
+  </footer>
+
+  <script defer src="../js/vendor/gsap.min.js"></script>
+  <script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="../js/gsap-page.js"></script>
+  <script src="../js/site-pet.js"></script>
+  <script>
+    const bar = document.getElementById('cs-progress');
+    if (bar) {
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        bar.style.transform = 'scaleX(' + (h.scrollTop / (h.scrollHeight - h.clientHeight)) + ')';
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

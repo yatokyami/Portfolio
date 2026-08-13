@@ -100,10 +100,14 @@
   cursor: pointer;
   touch-action: manipulation;
   outline: none;
+  /* Fade top edge into footer background — kills the hard horizontal line */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 8%);
 }
 
 .skate-game__course:focus-visible {
-  box-shadow: inset 0 0 0 2px var(--skate-blue);
+  box-shadow: inset 0 0 0 2px rgba(30, 107, 255, 0.6);
+  outline: none;
 }
 
 .skate-game__course::before {
@@ -114,7 +118,7 @@
     linear-gradient(90deg, transparent 0 49.9%, rgba(255,255,255,.035) 50%, transparent 50.1%),
     linear-gradient(0deg, transparent 0 49.9%, rgba(255,255,255,.03) 50%, transparent 50.1%);
   background-size: 13vw 100%, 100% 9rem;
-  mask-image: linear-gradient(to bottom, transparent, #000 72%);
+  mask-image: linear-gradient(to bottom, transparent 0%, transparent 12%, #000 85%);
   pointer-events: none;
 }
 

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Ordering — Case Study · Aditya Sharma</title>
+  <meta name="description" content="Product design case study: designing a shared group cart and automatic bill-split flow for food delivery apps like Swiggy and Zomato.">
+  <link rel="icon" href="../assets/favicon/favicon.ico">
+  <link rel="preload" href="../assets/fonts/Breton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/Machine.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="../styles/works-new.css">
+  <link rel="stylesheet" href="../styles/site-pet.css">
+  <style>
+    @font-face { font-family: 'other'; src: url('../assets/fonts/Machine.otf') format('opentype'); font-display: swap; }
+    :root {
+      --blue: #1e6bff; --blue-dim: rgba(30,107,255,0.12);
+      --text: #f0f0f0; --text-dim: rgba(240,240,240,0.48);
+      --text-faint: rgba(240,240,240,0.22); --border: rgba(255,255,255,0.1); --bg: #05070f;
+    }
+    .cs-hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 8vw 7vh; overflow:hidden; }
+    .cs-hero-cover { position:absolute; inset:0; background:url('../assets/images/projects/Covers/Anima.avif') center center/cover no-repeat; filter:brightness(0.2) saturate(0.5); z-index:0; }
+    .cs-hero-cover::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,#05070f 0%,transparent 60%); }
+    .cs-hero-content { position:relative; z-index:2; max-width:72rem; }
+    .cs-eyebrow { font-family:'Inter',sans-serif; font-size:0.68rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--blue); margin-bottom:1.6rem; display:flex; align-items:center; gap:0.7rem; }
+    .cs-eyebrow::before { content:''; display:inline-block; width:2rem; height:1px; background:var(--blue); }
+    .cs-hero h1 { font-family:'Breton',sans-serif; font-weight:300; font-size:clamp(3.2rem,8vw,9rem); line-height:0.95; letter-spacing:-0.03em; color:var(--text); margin:0 0 3rem; }
+    .cs-hero h1 em { font-style:normal; font-family:'other',sans-serif; font-size:0.78em; color:rgba(240,240,240,0.55); }
+    .cs-hero-meta { display:flex; flex-wrap:wrap; gap:3rem; border-top:1px solid var(--border); padding-top:2rem; }
+    .cs-meta-group { display:flex; flex-direction:column; gap:0.4rem; }
+    .cs-meta-label { font-family:'Inter',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); }
+    .cs-meta-value { font-family:'Breton',sans-serif; font-size:0.95rem; color:var(--text-dim); line-height:1.5; }
+    .cs-body { max-width:72rem; margin:0 auto; padding:10vh 8vw 16vh; }
+    .cs-section { margin-top:12vh; }
+    .cs-section-label { font-family:'Inter',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.18em; text-transform:uppercase; color:var(--blue); margin-bottom:1.4rem; display:flex; align-items:center; gap:0.7rem; }
+    .cs-section-label::before { content:''; display:inline-block; width:1.5rem; height:1px; background:var(--blue); }
+    .cs-section h2 { font-family:'Breton',sans-serif; font-weight:300; font-size:clamp(2rem,3.5vw,3.2rem); line-height:1.2; letter-spacing:-0.02em; color:var(--text); margin:0 0 2.4rem; }
+    .cs-section h2 em { font-style:normal; font-family:'other',sans-serif; font-size:0.82em; color:rgba(240,240,240,0.5); }
+    .cs-prose { font-family:'Breton',sans-serif; font-size:clamp(1rem,1.15vw,1.12rem); line-height:1.85; color:var(--text-dim); max-width:60ch; }
+    .cs-prose+.cs-prose { margin-top:1.4rem; }
+    .cs-prose strong { color:var(--text); font-weight:500; }
+    .cs-two-col { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,4vw,5rem); align-items:start; margin-top:3rem; }
+    .cs-stats { display:grid; grid-template-columns:repeat(auto-fill,minmax(14rem,1fr)); gap:1.5px; margin-top:3rem; background:var(--border); border:1px solid var(--border); }
+    .cs-stat { background:var(--bg); padding:2rem 1.8rem; }
+    .cs-stat-num { font-family:'other',sans-serif; font-size:clamp(2.4rem,4vw,3.8rem); color:var(--text); line-height:1; margin-bottom:0.5rem; }
+    .cs-stat-num span { font-size:0.6em; color:var(--blue); }
+    .cs-stat-desc { font-family:'Breton',sans-serif; font-size:0.88rem; color:var(--text-dim); line-height:1.5; }
+    .cs-features { display:flex; flex-direction:column; gap:0; margin-top:3rem; border:1px solid var(--border); }
+    .cs-feature { display:grid; grid-template-columns:3.5rem 1fr; gap:1.5rem; padding:2rem; border-bottom:1px solid var(--border); transition:background 0.3s; }
+    .cs-feature:last-child { border-bottom:none; }
+    .cs-feature:hover { background:rgba(255,255,255,0.02); }
+    .cs-feature-num { font-family:'other',sans-serif; font-size:0.85rem; color:var(--blue); padding-top:0.2rem; opacity:0.7; }
+    .cs-feature-title { font-family:'Breton',sans-serif; font-size:1.05rem; color:var(--text); margin-bottom:0.5rem; }
+    .cs-feature-desc { font-family:'Breton',sans-serif; font-size:0.9rem; line-height:1.75; color:var(--text-dim); }
+    .cs-callout { margin-top:2.5rem; border-left:2px solid var(--blue); padding:1.4rem 1.8rem; background:var(--blue-dim); }
+    .cs-callout p { font-family:'Breton',sans-serif; font-size:1rem; line-height:1.7; color:var(--text-dim); margin:0; }
+    .cs-callout p strong { color:var(--text); }
+    .cs-stack { display:flex; flex-wrap:wrap; gap:0.6rem; margin-top:2rem; }
+    .cs-stack-chip { padding:0.55em 1em; border:1px solid var(--border); font-family:'Inter',sans-serif; font-size:0.68rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-dim); transition:border-color 0.35s,color 0.35s; }
+    .cs-stack-chip:hover { border-color:rgba(30,107,255,0.4); color:var(--text); }
+    .cs-stack-chip.highlight { border-color:rgba(30,107,255,0.5); color:#7faeff; background:rgba(30,107,255,0.07); }
+    .cs-table { width:100%; border-collapse:collapse; margin-top:2.5rem; }
+    .cs-table th { font-family:'Inter',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-faint); padding:0.8rem 1.2rem; border-bottom:1px solid var(--border); text-align:left; }
+    .cs-table td { font-family:'Breton',sans-serif; font-size:0.9rem; color:var(--text-dim); padding:1.1rem 1.2rem; border-bottom:1px solid rgba(255,255,255,0.06); line-height:1.6; }
+    .cs-table td strong { color:var(--text); }
+    .cs-quote { margin-top:8vh; padding:6vh 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .cs-quote blockquote { margin:0; font-family:'Breton',sans-serif; font-weight:300; font-size:clamp(1.5rem,2.8vw,2.6rem); line-height:1.45; letter-spacing:-0.01em; color:var(--text); }
+    .cs-quote cite { display:block; margin-top:1.2rem; font-family:'Inter',sans-serif; font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-faint); font-style:normal; }
+    .cs-persona { border:1px solid var(--border); padding:2.5rem; margin-top:3rem; background:rgba(255,255,255,0.015); }
+    .cs-persona-name { font-family:'Breton',sans-serif; font-size:1.4rem; color:var(--text); margin-bottom:0.3rem; }
+    .cs-persona-role { font-family:'Inter',sans-serif; font-size:0.65rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue); margin-bottom:1.6rem; }
+    .cs-persona-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-top:1.5rem; }
+    .cs-persona-col h4 { font-family:'Inter',sans-serif; font-size:0.62rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-faint); margin-bottom:0.8rem; }
+    .cs-persona-col ul { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.5rem; }
+    .cs-persona-col li { font-family:'Breton',sans-serif; font-size:0.9rem; color:var(--text-dim); padding-left:1rem; position:relative; }
+    .cs-persona-col li::before { content:'—'; position:absolute; left:0; color:var(--blue); opacity:0.6; }
+    .cs-figma-embed { width:100%; aspect-ratio:16/9; border:1px solid var(--border); margin-top:3rem; background:#0a0e18; }
+    .cs-figma-embed iframe { width:100%; height:100%; border:none; display:block; }
+    .cs-nav-footer { display:flex; align-items:center; justify-content:space-between; padding:3rem 8vw 4rem; border-top:1px solid var(--border); gap:2rem; }
+    .cs-nav-footer a { font-family:'Inter',sans-serif; font-size:0.68rem; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-dim); text-decoration:none; transition:color 0.3s; display:flex; align-items:center; gap:0.6rem; }
+    .cs-nav-footer a:hover { color:var(--text); }
+    .cs-nav-footer .cs-nav-back::before { content:'←'; color:var(--blue); }
+    .cs-nav-footer .cs-nav-live::after { content:'↗'; color:var(--blue); }
+    .cs-progress { position:fixed; top:0; left:0; height:2px; background:var(--blue); z-index:9999; transform-origin:left; transform:scaleX(0); transition:transform 0.1s linear; }
+    @media(max-width:900px){.cs-hero{padding:0 6vw 6vh}.cs-body{padding:8vh 6vw 12vh}.cs-two-col{grid-template-columns:1fr}.cs-stats{grid-template-columns:1fr 1fr}.cs-persona-grid{grid-template-columns:1fr}.cs-nav-footer{flex-direction:column;align-items:flex-start}}
+    @media(max-width:600px){.cs-stats{grid-template-columns:1fr}.cs-hero-meta{gap:1.8rem}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+  </style>
+</head>
+<body>
+
+  <div class="cs-progress" id="cs-progress"></div>
+  <div class="page-fade" id="page-fade"></div>
+
+  <header class="page-header">
+    <a href="index.html" class="back-btn chr-hover" data-chr="Back" id="back-btn"></a>
+    <span class="work-counter">Case Study</span>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="cs-hero">
+      <div class="cs-hero-cover" aria-hidden="true"></div>
+      <div class="cs-hero-content">
+        <div class="cs-eyebrow">Case Study &mdash; Product Design</div>
+        <h1>Ordering together,<br><em>without the</em><br><em>WhatsApp chaos.</em></h1>
+        <div class="cs-hero-meta">
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Timeline</span>
+            <span class="cs-meta-value">2 weeks</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Role</span>
+            <span class="cs-meta-value">Product Design (Solo)</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Tools</span>
+            <span class="cs-meta-value">Figma · Google Forms · User Interviews</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Type</span>
+            <span class="cs-meta-value">Feature Design / UX Research</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Live Prototype</span>
+            <span class="cs-meta-value">
+              <a href="https://fluid-tusk-18922611.figma.site/" target="_blank" rel="noopener noreferrer" style="color:#1e6bff;text-decoration:none;border-bottom:1px solid rgba(30,107,255,0.35);transition:border-color .3s;">View in Figma ↗</a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body -->
+    <div class="cs-body">
+
+      <!-- Live Prototype — featured at top -->
+      <section class="cs-section" id="prototype-top" style="margin-top:6vh;">
+        <div class="cs-section-label">Live Prototype</div>
+        <h2>Try the flow<br><em>yourself.</em></h2>
+        <p class="cs-prose">Click through the full interactive prototype — from starting a group order to individual payment confirmation. Built in Figma with real interactions.</p>
+
+        <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;">
+          <a href="https://fluid-tusk-18922611.figma.site/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:.6rem;padding:.9em 1.6em;border:1px solid rgba(30,107,255,0.55);background:rgba(30,107,255,0.1);color:#fff;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:background .3s,border-color .3s;">Open prototype <span style="color:#1e6bff;font-size:1rem;">↗</span></a>
+        </div>
+
+        <!-- Prototype embed -->
+        <div class="cs-figma-embed" style="margin-top:2rem;">
+          <iframe
+            src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Ffluid-tusk-18922611.figma.site%2F"
+            allowfullscreen
+            loading="lazy"
+            title="Group Ordering Flow — Figma Prototype">
+          </iframe>
+        </div>
+
+        <div class="cs-callout" style="margin-top:2rem;">
+          <p>If the embed doesn't load due to browser restrictions, <a href="https://fluid-tusk-18922611.figma.site/" target="_blank" rel="noopener noreferrer" style="color:#1e6bff;text-decoration:none;border-bottom:1px solid rgba(30,107,255,0.3);">open the prototype directly ↗</a></p>
+        </div>
+      </section>
+
+      <!-- Overview -->
+      <section class="cs-section" id="overview">
+        <div class="cs-section-label">01 &mdash; Overview</div>
+        <h2>A shared cart.<br><em>No middleman.</em></h2>
+        <p class="cs-prose">
+          Group food orders almost always start the same way: someone creates a WhatsApp group, everyone types out what they want, and one unlucky person manually adds 4&ndash;5 people&rsquo;s orders into a single cart. It works, barely &mdash; and it quietly costs the app money every time it happens.
+        </p>
+        <p class="cs-prose">
+          This project explores what it would look like if Swiggy or Zomato let a group build one shared cart inside the app itself, with the bill splitting automatically at checkout. No coordination outside the app. No manual math after the food arrives.
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <div class="cs-stat-num">5<span>interviews</span></div>
+            <div class="cs-stat-desc">Informal user interviews with people who order in groups at least twice a month</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">2<span>iterations</span></div>
+            <div class="cs-stat-desc">The bill-split screen was tested, critiqued, and redesigned based on real usability feedback</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">6<span>screens</span></div>
+            <div class="cs-stat-desc">Final high-fidelity screens covering the complete end-to-end group ordering flow</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">1<span>metric</span></div>
+            <div class="cs-stat-desc">Average order value on group orders vs. solo orders — the primary success signal</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem -->
+      <section class="cs-section" id="problem">
+        <div class="cs-section-label">02 &mdash; The Problem</div>
+        <h2>Coordination<br><em>outside the app.</em></h2>
+        <p class="cs-prose">
+          When a group orders from a single restaurant, there is no way to combine everyone&rsquo;s items inside the app. Coordination happens entirely outside it &mdash; and it is messier than it sounds.
+        </p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">The WhatsApp collect</div>
+              <div class="cs-feature-desc">Someone creates a group or sends a voice note asking what everyone wants. People reply at different times, often with edits (&ldquo;actually skip the naan&rdquo;). There is no audit trail, no structure.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">The manual cart build</div>
+              <div class="cs-feature-desc">One person retypes every order into a single cart. This person becomes the unofficial &ldquo;order admin&rdquo; &mdash; a role nobody volunteered for and that nobody wants twice in a row.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">The post-delivery math</div>
+              <div class="cs-feature-desc">After the food arrives, someone calculates who owes what. Delivery fees and add-ons get glossed over. Someone always ends up overpaying or underpaying. A UPI request gets sent eventually.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">04</span>
+            <div>
+              <div class="cs-feature-title">Why this matters for the business</div>
+              <div class="cs-feature-desc">Group orders likely carry a higher average order value than solo orders. If the in-app group ordering experience were smoother, groups that currently order individually might start ordering together &mdash; and groups already ordering together might do it more often.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Research -->
+      <section class="cs-section" id="research">
+        <div class="cs-section-label">03 &mdash; Research</div>
+        <h2>Five conversations.<br><em>One clear pattern.</em></h2>
+        <p class="cs-prose">
+          I ran 5 informal interviews (15&ndash;20 minutes each) with people who order food in groups at least twice a month &mdash; roommates, coworkers ordering lunch, friend groups. I used a Google Form to screen participants, then took notes during calls rather than recording them. Lower friction; people talked more openly.
+        </p>
+
+        <table class="cs-table">
+          <thead>
+            <tr>
+              <th>Finding</th>
+              <th>Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Coordination happens outside the app</strong></td><td>All 5 participants use WhatsApp or voice notes to collect orders before opening the delivery app</td></tr>
+            <tr><td><strong>One person becomes the order admin</strong></td><td>4 of 5 said the same person usually ends up typing everyone&rsquo;s order manually into the cart</td></tr>
+            <tr><td><strong>Bill splitting is done after the fact</strong></td><td>All 5 calculate who owes what only after the food arrives, via mental math or a UPI request sent later</td></tr>
+            <tr><td><strong>Trust in automatic splitting is mixed</strong></td><td>3 of 5 would trust an even split, but were sceptical of accurate item-level splitting</td></tr>
+            <tr><td><strong>Forgotten items are common</strong></td><td>3 of 5 recalled at least one instance where someone&rsquo;s item was left out of the cart</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Quote -->
+      <div class="cs-quote">
+        <blockquote>
+          &ldquo;I always end up typing everyone&rsquo;s order into one cart myself. It&rsquo;s so annoying, because by the time I&rsquo;m done, someone&rsquo;s changed their mind about what they wanted.&rdquo;
+          <cite>&mdash; Participant, 22. Shares an apartment with 3 roommates.</cite>
+        </blockquote>
+      </div>
+
+      <!-- Persona -->
+      <section class="cs-section" id="persona">
+        <div class="cs-section-label">04 &mdash; Persona</div>
+        <h2>Who we&rsquo;re<br><em>designing for.</em></h2>
+        <p class="cs-prose">
+          Patterns from the five interviews converged on a single archetype: someone who orders in groups regularly and keeps ending up as the person who organises everything.
+        </p>
+
+        <div class="cs-persona">
+          <div class="cs-persona-name">Priya, 23</div>
+          <div class="cs-persona-role">Marketing Executive &mdash; Orders with 3 roommates ~2&times; a week</div>
+          <p class="cs-prose">
+            Priya orders food with her roommates on weeknights when nobody wants to cook. She&rsquo;s often the one who ends up coordinating because she&rsquo;s fastest on the app. She doesn&rsquo;t mind splitting bills manually, but finds it tedious enough that she sometimes just orders her own food separately to avoid the hassle &mdash; which means the group orders less often than they otherwise would.
+          </p>
+          <div class="cs-persona-grid">
+            <div class="cs-persona-col">
+              <h4>Goals</h4>
+              <ul>
+                <li>Order with her roommates without becoming the unofficial &ldquo;order admin&rdquo; every time</li>
+                <li>Know the bill is split fairly without doing the math herself</li>
+                <li>Place the order quickly before everyone gets too hungry to agree</li>
+              </ul>
+            </div>
+            <div class="cs-persona-col">
+              <h4>Frustrations</h4>
+              <ul>
+                <li>Retyping orders she didn&rsquo;t place herself</li>
+                <li>Chasing people for money after the food arrives</li>
+                <li>Items getting missed because someone replied late</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Defining the solution -->
+      <section class="cs-section" id="solution">
+        <div class="cs-section-label">05 &mdash; Defining the Solution</div>
+        <h2>Before Figma.<br><em>A mini PRD.</em></h2>
+        <p class="cs-prose">
+          Before opening Figma I wrote this out like a product requirements document. The structure of a feature matters before the pixels do.
+        </p>
+
+        <div class="cs-two-col">
+          <div>
+            <div class="cs-callout">
+              <p><strong>Problem statement</strong><br>Groups ordering food together have no in-app way to combine orders or split costs, forcing manual coordination outside the app and discouraging some groups from ordering together at all.</p>
+            </div>
+            <div class="cs-callout" style="margin-top:1.2rem;">
+              <p><strong>Success metric</strong><br>Average order value on orders tagged as &ldquo;group orders,&rdquo; measured against solo orders from the same users. Secondary: frequency of group orders per user per month, pre- and post-launch.</p>
+            </div>
+          </div>
+          <div>
+            <div class="cs-features" style="margin-top:0;">
+              <div class="cs-feature">
+                <span class="cs-feature-num">v1</span>
+                <div>
+                  <div class="cs-feature-title">In scope</div>
+                  <div class="cs-feature-desc">Shareable link that opens a shared cart &middot; Live updates as members add items &middot; Automatic bill split by item + even split for shared fees &middot; &ldquo;Lock order&rdquo; step to prevent indefinite changes</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">v2</span>
+                <div>
+                  <div class="cs-feature-title">Out of scope (later)</div>
+                  <div class="cs-feature-desc">In-app group chat &middot; Saved recurring groups &middot; Group order history &middot; Multi-restaurant group orders</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Wireframes -->
+      <section class="cs-section" id="wireframes">
+        <div class="cs-section-label">06 &mdash; Wireframes</div>
+        <h2>Structure first,<br><em>pixels second.</em></h2>
+        <p class="cs-prose">
+          Before any colour or final UI, I sketched the three core screens in low fidelity to nail the structure. Deliberately gray boxes and placeholder text &mdash; the goal was only to confirm the layout made sense before committing to design.
+        </p>
+        <p class="cs-prose">
+          I walked 2 of the original interview participants through the wireframes verbally and asked them to react to each screen. Their main feedback: the bill split screen needed to show an item-level breakdown, otherwise it wouldn&rsquo;t feel trustworthy. I built that into the first high-fidelity version.
+        </p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">W1</span>
+            <div>
+              <div class="cs-feature-title">Start group order</div>
+              <div class="cs-feature-desc">Entry point from the restaurant page &mdash; a single button that creates a shareable cart alongside the regular &ldquo;add to cart&rdquo; button. The action is additive, not a replacement.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">W2</span>
+            <div>
+              <div class="cs-feature-title">Live group cart</div>
+              <div class="cs-feature-desc">Shows who&rsquo;s joined, what they&rsquo;ve added, and a way to add your own items. Each person&rsquo;s additions are colour-coded so the cart doesn&rsquo;t feel like a single undifferentiated list.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">W3</span>
+            <div>
+              <div class="cs-feature-title">Bill split</div>
+              <div class="cs-feature-desc">Shown after the order is locked. Breaking down what each person owes. This was the screen that required the most iteration between wireframe and final design.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Iteration -->
+      <section class="cs-section" id="iteration">
+        <div class="cs-section-label">07 &mdash; Design Iteration</div>
+        <h2>Testing taught<br><em>more than assuming.</em></h2>
+
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose"><strong>Version 1</strong> of the bill split screen listed every single item next to the person who added it, followed by a subtotal per person. This matched the wireframe feedback about wanting to see item-level detail.</p>
+            <div class="cs-callout" style="margin-top:1.6rem;">
+              <p>&ldquo;I trust it more seeing the items, but honestly I just want to know the number I owe &mdash; I don&rsquo;t need to scroll through everyone&rsquo;s order to find mine.&rdquo;</p>
+            </div>
+          </div>
+          <div>
+            <p class="cs-prose"><strong>Version 2</strong> keeps the item breakdown, but moves it behind a &ldquo;tap to see items&rdquo; interaction. The default view shows only the final amount owed per person. The trust-building detail is still available &mdash; it just doesn&rsquo;t dominate the screen.</p>
+            <p class="cs-prose" style="margin-top:1.4rem;">This is a small change, but it reflects real feedback rather than an assumption &mdash; which is the point of testing a first draft at all.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final screens -->
+      <section class="cs-section" id="final">
+        <div class="cs-section-label">08 &mdash; Final Screens</div>
+        <h2>Six screens.<br><em>One complete flow.</em></h2>
+        <p class="cs-prose">The final design is a 6-screen flow that handles the entire group ordering lifecycle &mdash; from initiation to individual payment confirmation.</p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Restaurant page</div>
+              <div class="cs-feature-desc">&ldquo;Start group order&rdquo; entry point sits alongside the regular &ldquo;add to cart&rdquo; button. It&rsquo;s additive &mdash; the existing flow is untouched for solo users.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Invite screen</div>
+              <div class="cs-feature-desc">A shareable link plus a live list of who&rsquo;s joined and what they&rsquo;re currently doing (&ldquo;Aisha is adding items&rdquo;). Presence indicators reduce anxiety about whether people have seen the invite.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Live group cart</div>
+              <div class="cs-feature-desc">Each person adds their own items, visible to everyone in real time. Items are attributed by name. The cart shows a running total as items are added.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">04</span>
+            <div>
+              <div class="cs-feature-title">Lock order</div>
+              <div class="cs-feature-desc">A deliberate step before checkout. Prevents the cart from changing once people are ready. Creates a clear &ldquo;this is final&rdquo; moment that mirrors how real-world group decisions actually work.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">05</span>
+            <div>
+              <div class="cs-feature-title">Bill split (v2)</div>
+              <div class="cs-feature-desc">Default view shows the amount each person owes. Item detail is available on tap for anyone who wants to verify. Delivery fees and platform charges are split evenly and labelled clearly.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">06</span>
+            <div>
+              <div class="cs-feature-title">Payment confirmation</div>
+              <div class="cs-feature-desc">Each person pays their individual share rather than one person fronting the full amount. The order proceeds once all payments are confirmed.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live prototype (full section) -->
+      <section class="cs-section" id="prototype">
+        <div class="cs-section-label">09 &mdash; Live Prototype</div>
+        <h2>Explore the<br><em>interactive flow.</em></h2>
+        <p class="cs-prose">Same prototype as above — scroll back up or open it in a new tab for the best experience on mobile.</p>
+
+        <div class="cs-figma-embed">
+          <iframe
+            src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Ffluid-tusk-18922611.figma.site%2F"
+            allowfullscreen
+            loading="lazy"
+            title="Group Ordering Flow — Figma Prototype">
+          </iframe>
+        </div>
+
+        <div class="cs-callout" style="margin-top:2.5rem;">
+          <p>Prototype built in Figma with interactive components, overlay transitions and a realistic mobile frame. <a href="https://fluid-tusk-18922611.figma.site/" target="_blank" rel="noopener noreferrer" style="color:var(--blue);text-decoration:none;border-bottom:1px solid rgba(30,107,255,0.3);">View full prototype in new tab ↗</a></p>
+        </div>
+      </section>
+
+      <!-- What I'd test next -->
+      <section class="cs-section" id="next">
+        <div class="cs-section-label">10 &mdash; What I&rsquo;d Test Next</div>
+        <h2>This shipped<br><em>as a concept.</em></h2>
+        <p class="cs-prose">
+          This was a personal project. There is no live usage data to report &mdash; I want to be direct about that rather than imply this shipped. What I have is directional signal from 5 interviews and 2 rounds of testing on the bill split screen specifically. If this were a real roadmap item:
+        </p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Test the invite step specifically</div>
+              <div class="cs-feature-desc">The invite step is most likely to cause drop-off &mdash; getting a friend to click a link and add their items before the order locks. Does the link feel trustworthy enough to open, especially for someone without the app installed?</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Decide what happens when someone is slow</div>
+              <div class="cs-feature-desc">The flow assumes everyone adds items promptly. In practice, someone will always be slow. Should there be a soft deadline? Should the order proceed without them? I&rsquo;d want to test a couple of approaches rather than guess.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Validate the AOV hypothesis</div>
+              <div class="cs-feature-desc">The entire business case rests on smoother group ordering increasing average order value or frequency. Before investing further design time, I&rsquo;d want to see if even a lightweight version of this feature (a shareable link with manual splitting) moves those metrics at all.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cs-callout" style="margin-top:3rem;">
+          <p><strong>Resume line for this project: </strong>Designed an end-to-end group ordering flow for food delivery apps; conducted 5 user interviews, defined feature scope and success metrics, and iterated on the bill-split UI based on usability feedback.</p>
+        </div>
+      </section>
+
+    </div><!-- /cs-body -->
+
+  </main>
+
+  <nav class="cs-nav-footer">
+    <a href="index.html" class="cs-nav-back">Back to work</a>
+    <a href="https://fluid-tusk-18922611.figma.site/" target="_blank" rel="noopener noreferrer" class="cs-nav-live">View prototype</a>
+  </nav>
+
+  <footer class="mini-footer">
+    <a class="work-footer-link" href="../index.html#projects">Work &#8599;</a>
+    <a class="chr-hover" data-chr="sharmaaditya4848@gmail.com" href="mailto:sharmaaditya4848@gmail.com"></a>
+    <span>&#169; 2026 &#8212; ADITYA SHARMA</span>
+  </footer>
+
+  <script defer src="../js/vendor/gsap.min.js"></script>
+  <script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="../js/gsap-page.js"></script>
+  <script src="../js/site-pet.js"></script>
+  <script>
+    const bar = document.getElementById('cs-progress');
+    if (bar) {
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        bar.style.transform = 'scaleX(' + (h.scrollTop / (h.scrollHeight - h.clientHeight)) + ')';
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>

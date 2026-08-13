@@ -621,9 +621,9 @@
           no shortcuts.
         </p>
         <p class="cs-prose">
-          Version 3 is a ground-up rebuild. Earlier versions were over-engineered with React and too many
-          dependencies. Stripping back to <strong>vanilla HTML, CSS and JavaScript</strong> turned out to be
-          the right call — faster, more controllable, and honestly more fun to build.
+          This is the third version of the site, rebuilt from scratch. <strong>Vanilla HTML, CSS and JavaScript</strong> —
+          no framework, no build toolchain, no dependencies beyond GSAP. Every system is purpose-built for this
+          specific site, which means nothing is over-engineered and nothing is fighting anything else.
         </p>
 
         <div class="cs-stats">
@@ -633,7 +633,7 @@
           </div>
           <div class="cs-stat">
             <div class="cs-stat-num">0<span>frameworks</span></div>
-            <div class="cs-stat-desc">Pure HTML, CSS and JavaScript — no React, Vue, or build toolchain</div>
+            <div class="cs-stat-desc">Pure HTML, CSS and JavaScript — no framework, no build toolchain, no component library</div>
           </div>
           <div class="cs-stat">
             <div class="cs-stat-num">6<span>systems</span></div>
@@ -646,21 +646,21 @@
         </div>
       </section>
 
-      <!-- Why no framework -->
+      <!-- Why vanilla -->
       <section class="cs-section" id="no-framework">
         <div class="cs-section-label">02 — The decision</div>
-        <h2>Why no<br><em>framework?</em></h2>
+        <h2>Vanilla HTML.<br><em>Deliberately.</em></h2>
         <div class="cs-two-col">
           <div>
             <p class="cs-prose">
-              V2 used React. It came with a fast dev experience but also a 130 KB+ bundle, hydration delays,
-              and the constant friction of mapping animation libraries to component lifecycles. GSAP and React
-              are a workable combination — but they fight each other's mental models.
+              The instinct for a new site build is always to reach for a framework. For a portfolio, that
+              instinct is worth questioning. A framework solves problems of scale — component reuse across
+              hundreds of pages, shared state, complex data fetching. None of those problems exist here.
             </p>
             <p class="cs-prose">
               Going vanilla meant <strong>full control over the DOM</strong>. GSAP's ScrollTrigger works against
               real DOM elements with no virtual-DOM indirection. Transitions happen in plain JS with no
-              re-render cycles. The browser does exactly what I tell it to, nothing more.
+              re-render cycles. The browser does exactly what the code says, nothing more.
             </p>
           </div>
           <div>
@@ -668,7 +668,8 @@
               <p>
                 <strong>The constraint became the feature.</strong> Without a framework's abstractions, every
                 animation, every scroll interaction and every transition had to be explicitly designed.
-                That's what makes the motion feel intentional rather than incidental.
+                That's what makes the motion feel intentional rather than incidental. A framework would
+                have answered questions before I'd thought to ask them.
               </p>
             </div>
             <div class="cs-stack" style="margin-top: 2rem;">

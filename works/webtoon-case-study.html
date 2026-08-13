@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebtoonHub — Case Study · Aditya Sharma</title>
+  <meta name="description" content="Full-stack case study: building WebtoonHub, a digital comic reading and publishing platform with React, TypeScript and Supabase.">
+  <link rel="icon" href="../assets/favicon/favicon.ico">
+  <link rel="preload" href="../assets/fonts/Breton.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/Machine.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="../styles/works-new.css">
+  <link rel="stylesheet" href="../styles/site-pet.css">
+  <style>
+    @font-face { font-family:'other'; src:url('../assets/fonts/Machine.otf') format('opentype'); font-display:swap; }
+    :root {
+      --blue:#1e6bff; --blue-dim:rgba(30,107,255,0.12);
+      --text:#f0f0f0; --text-dim:rgba(240,240,240,0.48);
+      --text-faint:rgba(240,240,240,0.22); --border:rgba(255,255,255,0.1); --bg:#05070f;
+    }
+    .cs-hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 8vw 7vh;overflow:hidden}
+    .cs-hero-cover{position:absolute;inset:0;background:url('../assets/images/projects/Covers/ChromaBlock.avif') center center/cover no-repeat;filter:brightness(0.2) saturate(0.5);z-index:0}
+    .cs-hero-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#05070f 0%,transparent 60%)}
+    .cs-hero-content{position:relative;z-index:2;max-width:72rem}
+    .cs-eyebrow{font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1.6rem;display:flex;align-items:center;gap:0.7rem}
+    .cs-eyebrow::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--blue)}
+    .cs-hero h1{font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(3.2rem,8vw,9rem);line-height:0.95;letter-spacing:-0.03em;color:var(--text);margin:0 0 3rem}
+    .cs-hero h1 em{font-style:normal;font-family:'other',sans-serif;font-size:0.78em;color:rgba(240,240,240,0.55)}
+    .cs-hero-meta{display:flex;flex-wrap:wrap;gap:3rem;border-top:1px solid var(--border);padding-top:2rem}
+    .cs-meta-group{display:flex;flex-direction:column;gap:0.4rem}
+    .cs-meta-label{font-family:'Inter',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--text-faint)}
+    .cs-meta-value{font-family:'Breton',sans-serif;font-size:0.95rem;color:var(--text-dim);line-height:1.5}
+    .cs-body{max-width:72rem;margin:0 auto;padding:10vh 8vw 16vh}
+    .cs-section{margin-top:12vh}
+    .cs-section-label{font-family:'Inter',sans-serif;font-size:0.62rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:1.4rem;display:flex;align-items:center;gap:0.7rem}
+    .cs-section-label::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--blue)}
+    .cs-section h2{font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.2;letter-spacing:-0.02em;color:var(--text);margin:0 0 2.4rem}
+    .cs-section h2 em{font-style:normal;font-family:'other',sans-serif;font-size:0.82em;color:rgba(240,240,240,0.5)}
+    .cs-prose{font-family:'Breton',sans-serif;font-size:clamp(1rem,1.15vw,1.12rem);line-height:1.85;color:var(--text-dim);max-width:60ch}
+    .cs-prose+.cs-prose{margin-top:1.4rem}
+    .cs-prose strong{color:var(--text);font-weight:500}
+    .cs-prose code{font-family:'Courier New',monospace;font-size:0.85em;color:#7faeff;background:rgba(30,107,255,0.1);padding:0.15em 0.4em}
+    .cs-two-col{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,4vw,5rem);align-items:start;margin-top:3rem}
+    .cs-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1.5px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
+    .cs-stat{background:var(--bg);padding:2rem 1.8rem}
+    .cs-stat-num{font-family:'other',sans-serif;font-size:clamp(2.4rem,4vw,3.8rem);color:var(--text);line-height:1;margin-bottom:0.5rem}
+    .cs-stat-num span{font-size:0.6em;color:var(--blue)}
+    .cs-stat-desc{font-family:'Breton',sans-serif;font-size:0.88rem;color:var(--text-dim);line-height:1.5}
+    .cs-features{display:flex;flex-direction:column;gap:0;margin-top:3rem;border:1px solid var(--border)}
+    .cs-feature{display:grid;grid-template-columns:3.5rem 1fr;gap:1.5rem;padding:2rem;border-bottom:1px solid var(--border);transition:background 0.3s}
+    .cs-feature:last-child{border-bottom:none}
+    .cs-feature:hover{background:rgba(255,255,255,0.02)}
+    .cs-feature-num{font-family:'other',sans-serif;font-size:0.85rem;color:var(--blue);padding-top:0.2rem;opacity:0.7}
+    .cs-feature-title{font-family:'Breton',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:0.5rem}
+    .cs-feature-desc{font-family:'Breton',sans-serif;font-size:0.9rem;line-height:1.75;color:var(--text-dim)}
+    .cs-callout{margin-top:2.5rem;border-left:2px solid var(--blue);padding:1.4rem 1.8rem;background:var(--blue-dim)}
+    .cs-callout p{font-family:'Breton',sans-serif;font-size:1rem;line-height:1.7;color:var(--text-dim);margin:0}
+    .cs-callout p strong{color:var(--text)}
+    .cs-stack{display:flex;flex-wrap:wrap;gap:0.6rem;margin-top:2rem}
+    .cs-stack-chip{padding:0.55em 1em;border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);transition:border-color 0.35s,color 0.35s}
+    .cs-stack-chip:hover{border-color:rgba(30,107,255,0.4);color:var(--text)}
+    .cs-stack-chip.highlight{border-color:rgba(30,107,255,0.5);color:#7faeff;background:rgba(30,107,255,0.07)}
+    .cs-arch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;margin-top:3rem;background:var(--border);border:1px solid var(--border)}
+    .cs-arch-cell{background:var(--bg);padding:1.8rem}
+    .cs-arch-cell-label{font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:0.8rem;opacity:0.8}
+    .cs-arch-cell-title{font-family:'Breton',sans-serif;font-size:1.1rem;color:var(--text);margin-bottom:0.6rem}
+    .cs-arch-cell-desc{font-family:'Breton',sans-serif;font-size:0.85rem;line-height:1.65;color:var(--text-dim)}
+    .cs-code-wrap{margin-top:2rem;border:1px solid var(--border);background:rgba(255,255,255,0.025)}
+    .cs-code-bar{display:flex;align-items:center;justify-content:space-between;padding:0.7rem 1.2rem;border-bottom:1px solid var(--border)}
+    .cs-code-filename{font-family:'Inter',sans-serif;font-size:0.65rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-faint)}
+    .cs-code-dots{display:flex;gap:0.4rem}
+    .cs-code-dots span{width:10px;height:10px;border-radius:50%;background:var(--border)}
+    .cs-code-dots span:first-child{background:rgba(255,95,86,0.5)}
+    .cs-code-dots span:nth-child(2){background:rgba(255,189,46,0.5)}
+    .cs-code-dots span:last-child{background:rgba(39,201,63,0.5)}
+    pre.cs-code{margin:0;padding:1.4rem 1.6rem;font-family:'Courier New',Courier,monospace;font-size:0.82rem;line-height:1.75;color:rgba(240,240,240,0.7);overflow-x:auto;white-space:pre}
+    pre.cs-code .kw{color:#b39ddb}
+    pre.cs-code .fn{color:#80cbc4}
+    pre.cs-code .str{color:#a5d6a7}
+    pre.cs-code .cm{color:rgba(240,240,240,0.28);font-style:italic}
+    pre.cs-code .num{color:#ffcc80}
+    pre.cs-code .tp{color:#ffab91}
+    .cs-quote{margin-top:8vh;padding:6vh 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .cs-quote blockquote{margin:0;font-family:'Breton',sans-serif;font-weight:300;font-size:clamp(1.5rem,2.8vw,2.6rem);line-height:1.45;letter-spacing:-0.01em;color:var(--text)}
+    .cs-quote blockquote em{font-style:normal;font-family:'other',sans-serif;font-size:0.85em;color:rgba(240,240,240,0.45)}
+    .cs-nav-footer{display:flex;align-items:center;justify-content:space-between;padding:3rem 8vw 4rem;border-top:1px solid var(--border);gap:2rem}
+    .cs-nav-footer a{font-family:'Inter',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);text-decoration:none;transition:color 0.3s;display:flex;align-items:center;gap:0.6rem}
+    .cs-nav-footer a:hover{color:var(--text)}
+    .cs-nav-footer .cs-nav-back::before{content:'←';color:var(--blue)}
+    .cs-nav-footer .cs-nav-live::after{content:'↗';color:var(--blue)}
+    .cs-progress{position:fixed;top:0;left:0;height:2px;background:var(--blue);z-index:9999;transform-origin:left;transform:scaleX(0);transition:transform 0.1s linear}
+    @media(max-width:900px){.cs-hero{padding:0 6vw 6vh}.cs-body{padding:8vh 6vw 12vh}.cs-two-col{grid-template-columns:1fr}.cs-arch-grid{grid-template-columns:1fr}.cs-nav-footer{flex-direction:column;align-items:flex-start}}
+    @media(max-width:600px){.cs-stats{grid-template-columns:1fr}.cs-hero-meta{gap:1.8rem}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
+  </style>
+</head>
+<body>
+
+  <div class="cs-progress" id="cs-progress"></div>
+  <div class="page-fade" id="page-fade"></div>
+
+  <header class="page-header">
+    <a href="index.html" class="back-btn chr-hover" data-chr="Back" id="back-btn"></a>
+    <span class="work-counter">Case Study</span>
+  </header>
+
+  <main>
+
+    <!-- Hero -->
+    <section class="cs-hero">
+      <div class="cs-hero-cover" aria-hidden="true"></div>
+      <div class="cs-hero-content">
+        <div class="cs-eyebrow">Case Study &mdash; Full-Stack Web App</div>
+        <h1>WebtoonHub<br><em>Digital comics,</em><br><em>built right.</em></h1>
+        <div class="cs-hero-meta">
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Timeline</span>
+            <span class="cs-meta-value">2025</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Role</span>
+            <span class="cs-meta-value">Full-Stack Development</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Stack</span>
+            <span class="cs-meta-value">React · TypeScript · Supabase · Vite</span>
+          </div>
+          <div class="cs-meta-group">
+            <span class="cs-meta-label">Status</span>
+            <span class="cs-meta-value">Live</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body -->
+    <div class="cs-body">
+
+      <!-- Overview -->
+      <section class="cs-section" id="overview">
+        <div class="cs-section-label">01 &mdash; Overview</div>
+        <h2>A platform for readers<br><em>and creators.</em></h2>
+        <p class="cs-prose">
+          WebtoonHub is a full-stack digital comic platform that handles both sides of the content relationship: readers get an immersive reading experience with progress tracking and personalised discovery, and publishers get a full content management dashboard with analytics, scheduling and bulk upload support.
+        </p>
+        <p class="cs-prose">
+          The challenge was building two very different product surfaces &mdash; one optimised for consumption, one for creation &mdash; on top of a single shared backend, without either side feeling like an afterthought.
+        </p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <div class="cs-stat-num">2<span>surfaces</span></div>
+            <div class="cs-stat-desc">Reader experience and publisher dashboard built on one shared Supabase backend</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">4<span>roles</span></div>
+            <div class="cs-stat-desc">Reader, Publisher, Moderator and Admin — each with scoped access and tailored UI</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">CBZ<span>support</span></div>
+            <div class="cs-stat-desc">Bulk upload with CBZ file parsing — standard format used by every major comic management tool</div>
+          </div>
+          <div class="cs-stat">
+            <div class="cs-stat-num">RQ<span>caching</span></div>
+            <div class="cs-stat-desc">React Query handles all server state — stale-while-revalidate caching keeps the UI fast without manual cache management</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Problem -->
+      <section class="cs-section" id="problem">
+        <div class="cs-section-label">02 &mdash; The Problem</div>
+        <h2>Existing platforms<br><em>split the experience.</em></h2>
+        <p class="cs-prose">
+          Most digital comic platforms are either reader-focused (optimised for consumption, no creator tools) or creator-focused (CMS-heavy, poor reading UX). Platforms that try to do both tend to bolt one side on as a secondary feature &mdash; you can feel it in the seams.
+        </p>
+        <p class="cs-prose">
+          The goal was to design both surfaces from first principles, with a shared data model that made the publisher&rsquo;s content decisions immediately visible to the reader without any synchronisation lag or manual publishing steps.
+        </p>
+
+        <div class="cs-two-col">
+          <div class="cs-features" style="margin-top:0">
+            <div class="cs-feature">
+              <span class="cs-feature-num">R</span>
+              <div>
+                <div class="cs-feature-title">Reader needs</div>
+                <div class="cs-feature-desc">Smooth chapter-by-chapter reading with zoom and gesture support &middot; Progress that syncs across sessions &middot; Bookmarking and favourites &middot; Discovery of trending and new releases</div>
+              </div>
+            </div>
+            <div class="cs-feature">
+              <span class="cs-feature-num">P</span>
+              <div>
+                <div class="cs-feature-title">Publisher needs</div>
+                <div class="cs-feature-desc">Fast bulk upload with CBZ parsing &middot; Episode management with scheduling &middot; Engagement analytics per title &middot; Content moderation tools</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cs-callout">
+              <p><strong>The design constraint:</strong> both surfaces had to feel like first-class products. The reading experience couldn&rsquo;t look like a viewer bolted onto a CMS, and the publisher dashboard couldn&rsquo;t look like a reader with admin buttons added.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture -->
+      <section class="cs-section" id="architecture">
+        <div class="cs-section-label">03 &mdash; Architecture</div>
+        <h2>One backend.<br><em>Two surfaces.</em></h2>
+        <p class="cs-prose">
+          The entire backend runs on Supabase: PostgreSQL for structured data, Row Level Security for role-based access control, Supabase Auth for user management and Supabase Storage for comic assets. This kept operational complexity near zero while giving full relational database capabilities.
+        </p>
+
+        <div class="cs-arch-grid">
+          <div class="cs-arch-cell">
+            <div class="cs-arch-cell-label">Frontend</div>
+            <div class="cs-arch-cell-title">React 18 + TypeScript</div>
+            <div class="cs-arch-cell-desc">Component architecture with Framer Motion for animations, shadcn/ui for base components, Tailwind for utility styling. React Query manages all async state.</div>
+          </div>
+          <div class="cs-arch-cell">
+            <div class="cs-arch-cell-label">Backend</div>
+            <div class="cs-arch-cell-title">Supabase</div>
+            <div class="cs-arch-cell-desc">PostgreSQL database with RLS policies scoped per role. Auth handles email/OAuth. Storage handles CBZ uploads and image serving with automatic CDN distribution.</div>
+          </div>
+          <div class="cs-arch-cell">
+            <div class="cs-arch-cell-label">Build</div>
+            <div class="cs-arch-cell-title">Vite + Vercel</div>
+            <div class="cs-arch-cell-desc">Vite for fast local dev with HMR. Production deploys to Vercel with environment variables managed in the dashboard. Preview deployments on every PR branch.</div>
+          </div>
+        </div>
+
+        <div class="cs-stack" style="margin-top:2.5rem">
+          <span class="cs-stack-chip highlight">React 18</span>
+          <span class="cs-stack-chip highlight">TypeScript</span>
+          <span class="cs-stack-chip highlight">Supabase</span>
+          <span class="cs-stack-chip highlight">React Query</span>
+          <span class="cs-stack-chip highlight">Framer Motion</span>
+          <span class="cs-stack-chip">Tailwind CSS</span>
+          <span class="cs-stack-chip">shadcn/ui</span>
+          <span class="cs-stack-chip">Vite</span>
+          <span class="cs-stack-chip">Vercel</span>
+          <span class="cs-stack-chip">PostgreSQL</span>
+          <span class="cs-stack-chip">React Hook Form</span>
+          <span class="cs-stack-chip">Recharts</span>
+        </div>
+      </section>
+
+      <!-- Reader experience -->
+      <section class="cs-section" id="reader">
+        <div class="cs-section-label">04 &mdash; Reader Experience</div>
+        <h2>Reading first.<br><em>Everything else second.</em></h2>
+        <p class="cs-prose">
+          The reader interface is built around zero distraction. The chrome disappears when you start scrolling and reappears on pause or mouse movement. On mobile, swipe gestures advance chapters and pinch-to-zoom works natively without any gesture library.
+        </p>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">Immersive reader</div>
+              <div class="cs-feature-desc">Auto-scroll mode advances the page at a configurable reading speed. Zoom state is persisted per-session so you don&rsquo;t have to re-zoom every chapter. The reader viewport is sized to the comic frame, not the browser window.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Progress tracking</div>
+              <div class="cs-feature-desc">Reading position is written to Supabase on every chapter completion, not on every scroll event. This keeps write volume manageable while still resuming accurately at the chapter level. Last-read position is shown on the series card in the library.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Discovery</div>
+              <div class="cs-feature-desc">Trending is calculated from read counts in a rolling 7-day window. New releases are ordered by publication date with a &ldquo;new&rdquo; badge that expires after 14 days. Both feeds use React Query with a 5-minute stale time, so they stay fresh without polling on every render.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Publisher dashboard -->
+      <section class="cs-section" id="publisher">
+        <div class="cs-section-label">05 &mdash; Publisher Dashboard</div>
+        <h2>Upload once.<br><em>Track everything.</em></h2>
+        <p class="cs-prose">
+          The publisher dashboard is a separate route tree guarded by a role check on the Supabase session. Publishers see a different navigation structure entirely &mdash; library management, episode scheduling, analytics &mdash; with none of the reader-facing UI visible.
+        </p>
+
+        <div class="cs-code-wrap">
+          <div class="cs-code-bar">
+            <span class="cs-code-filename">usePublisherGuard.ts — route protection</span>
+            <div class="cs-code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <pre class="cs-code"><span class="cm">// Role is stored in the Supabase user metadata on signup</span>
+<span class="kw">export function</span> <span class="fn">usePublisherGuard</span>() {
+  <span class="kw">const</span> { user, isLoading } = <span class="fn">useAuth</span>();
+
+  <span class="fn">useEffect</span>(() => {
+    <span class="kw">if</span> (!isLoading && user?.role !== <span class="str">'publisher'</span> && user?.role !== <span class="str">'admin'</span>) {
+      <span class="fn">navigate</span>(<span class="str">'/'</span>, { replace: <span class="kw">true</span> });
+    }
+  }, [user, isLoading]);
+
+  <span class="kw">return</span> { isAuthorised: user?.role === <span class="str">'publisher'</span> || user?.role === <span class="str">'admin'</span> };
+}</pre>
+        </div>
+
+        <div class="cs-two-col" style="margin-top:2.5rem">
+          <div>
+            <div class="cs-features" style="margin-top:0">
+              <div class="cs-feature">
+                <span class="cs-feature-num">01</span>
+                <div>
+                  <div class="cs-feature-title">CBZ bulk upload</div>
+                  <div class="cs-feature-desc">Publishers drag a CBZ archive onto the upload zone. The client parses it in a Web Worker, extracts page images, generates thumbnails and uploads to Supabase Storage in parallel batches of 4.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">02</span>
+                <div>
+                  <div class="cs-feature-title">Episode scheduling</div>
+                  <div class="cs-feature-desc">Episodes can be drafted and given a future publish date. A Supabase Edge Function runs on a cron schedule to flip draft episodes to published when their timestamp is reached.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="cs-features" style="margin-top:0">
+              <div class="cs-feature">
+                <span class="cs-feature-num">03</span>
+                <div>
+                  <div class="cs-feature-title">Analytics dashboard</div>
+                  <div class="cs-feature-desc">Per-title read counts, completion rates and bookmark counts visualised with Recharts. Data is aggregated in a Postgres view so the frontend query is a single fast SELECT.</div>
+                </div>
+              </div>
+              <div class="cs-feature">
+                <span class="cs-feature-num">04</span>
+                <div>
+                  <div class="cs-feature-title">Content moderation</div>
+                  <div class="cs-feature-desc">Flagged episodes surface in a moderation queue with inline preview. Moderators can approve, reject or escalate without leaving the dashboard. All actions are logged to an audit table.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data model -->
+      <section class="cs-section" id="data">
+        <div class="cs-section-label">06 &mdash; Data Model</div>
+        <h2>Schema designed<br><em>for both sides.</em></h2>
+        <p class="cs-prose">
+          The database schema is the foundation everything else rests on. Getting it right upfront meant both the reader queries and the publisher queries could be written simply, without complex joins or denormalisation workarounds.
+        </p>
+
+        <div class="cs-code-wrap">
+          <div class="cs-code-bar">
+            <span class="cs-code-filename">schema — core tables</span>
+            <div class="cs-code-dots"><span></span><span></span><span></span></div>
+          </div>
+          <pre class="cs-code"><span class="cm">-- Series: one row per comic title</span>
+<span class="kw">CREATE TABLE</span> series (
+  id          <span class="tp">uuid</span> <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  publisher   <span class="tp">uuid</span> <span class="kw">REFERENCES</span> users(id),
+  title       <span class="tp">text</span> <span class="kw">NOT NULL</span>,
+  status      <span class="tp">text</span> <span class="kw">CHECK</span>(status <span class="kw">IN</span> (<span class="str">'ongoing'</span>, <span class="str">'completed'</span>, <span class="str">'hiatus'</span>)),
+  created_at  <span class="tp">timestamptz</span> <span class="kw">DEFAULT</span> now()
+);
+
+<span class="cm">-- Episodes: chapters belong to a series</span>
+<span class="kw">CREATE TABLE</span> episodes (
+  id           <span class="tp">uuid</span> <span class="kw">PRIMARY KEY DEFAULT</span> gen_random_uuid(),
+  series_id    <span class="tp">uuid</span> <span class="kw">REFERENCES</span> series(id) <span class="kw">ON DELETE CASCADE</span>,
+  chapter_num  <span class="tp">int</span> <span class="kw">NOT NULL</span>,
+  publish_at   <span class="tp">timestamptz</span>,           <span class="cm">-- null = draft</span>
+  page_urls    <span class="tp">text[]</span> <span class="kw">NOT NULL</span>
+);
+
+<span class="cm">-- Reading progress: one row per user per series</span>
+<span class="kw">CREATE TABLE</span> reading_progress (
+  user_id      <span class="tp">uuid</span> <span class="kw">REFERENCES</span> users(id),
+  series_id    <span class="tp">uuid</span> <span class="kw">REFERENCES</span> series(id),
+  last_episode <span class="tp">uuid</span> <span class="kw">REFERENCES</span> episodes(id),
+  updated_at   <span class="tp">timestamptz</span> <span class="kw">DEFAULT</span> now(),
+  <span class="kw">PRIMARY KEY</span>  (user_id, series_id)
+);</pre>
+        </div>
+
+        <div class="cs-callout" style="margin-top:2.5rem">
+          <p><strong>Row Level Security</strong> on every table means the API client can query directly from the browser without a server layer. Readers can only read published episodes. Publishers can only write to their own series. Admins bypass all RLS. Zero custom auth middleware required.</p>
+        </div>
+      </section>
+
+      <!-- Quote -->
+      <div class="cs-quote">
+        <blockquote>
+          "The backend shouldn&rsquo;t be the reason the frontend is complicated.
+          A well-designed schema means the UI code can be <em>obvious.</em>"
+        </blockquote>
+      </div>
+
+      <!-- Challenges -->
+      <section class="cs-section" id="challenges">
+        <div class="cs-section-label">07 &mdash; Challenges</div>
+        <h2>What was harder<br><em>than expected.</em></h2>
+
+        <div class="cs-features">
+          <div class="cs-feature">
+            <span class="cs-feature-num">01</span>
+            <div>
+              <div class="cs-feature-title">CBZ parsing in the browser</div>
+              <div class="cs-feature-desc">CBZ files are ZIP archives. Parsing them synchronously blocked the main thread and froze the upload UI. Moving the extraction to a Web Worker was straightforward but required re-architecting the upload state to handle messages asynchronously. The result is a responsive progress indicator even on large files.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">02</span>
+            <div>
+              <div class="cs-feature-title">Optimistic UI for bookmarks</div>
+              <div class="cs-feature-desc">Toggling a bookmark should feel instant. React Query&rsquo;s <code>useMutation</code> onMutate hook lets you update the local cache before the server responds, then roll back on error. Getting the rollback logic right with nested query keys took more iteration than expected.</div>
+            </div>
+          </div>
+          <div class="cs-feature">
+            <span class="cs-feature-num">03</span>
+            <div>
+              <div class="cs-feature-title">Image loading on slow connections</div>
+              <div class="cs-feature-desc">Comic pages are large. On mobile on a slow connection, blank white space between page loads destroys the reading experience. A skeleton loader tied to the native <code>onLoad</code> event, combined with Supabase Storage&rsquo;s image transform API for responsive sizes, kept pages feeling fast without reducing quality.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What I'd do differently -->
+      <section class="cs-section" id="reflection">
+        <div class="cs-section-label">08 &mdash; Reflection</div>
+        <h2>What I&rsquo;d do<br><em>differently.</em></h2>
+        <div class="cs-two-col">
+          <div>
+            <p class="cs-prose"><strong>Start with the data model.</strong> I wrote the first version of the React components before the schema was finalised. When the schema changed (it always does), I had to rewrite components that had already been tested. Schema-first development would have saved time here.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>Feature flags earlier.</strong> The publisher dashboard was built in a feature branch and merged all at once. A feature flag on the role check would have let me ship incrementally and test individual dashboard sections in production with a small group.</p>
+          </div>
+          <div>
+            <p class="cs-prose"><strong>Abstract the Supabase client sooner.</strong> Direct Supabase client calls were scattered across components before I centralised them into custom hooks. The refactor was worth it &mdash; the hooks are testable and the components became much simpler &mdash; but it would have been easier to start with that pattern.</p>
+            <p class="cs-prose" style="margin-top:1.4rem"><strong>Accessibility from the start.</strong> The reader keyboard navigation (next/previous chapter, zoom) was added after the fact. It worked, but threading <code>aria-</code> attributes and focus management through an existing component tree was messier than building it in from the beginning.</p>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /cs-body -->
+
+  </main>
+
+  <nav class="cs-nav-footer">
+    <a href="index.html" class="cs-nav-back">Back to work</a>
+    <a href="https://github.com/Pranshu1018/WebtoonHub" target="_blank" rel="noopener noreferrer" class="cs-nav-live">View on GitHub</a>
+  </nav>
+
+  <footer class="mini-footer">
+    <a class="work-footer-link" href="../index.html#projects">Work &#8599;</a>
+    <a class="chr-hover" data-chr="sharmaaditya4848@gmail.com" href="mailto:sharmaaditya4848@gmail.com"></a>
+    <span>&#169; 2026 &#8212; ADITYA SHARMA</span>
+  </footer>
+
+  <script defer src="../js/vendor/gsap.min.js"></script>
+  <script defer src="../js/vendor/ScrollTrigger.min.js"></script>
+  <script defer src="../js/gsap-page.js"></script>
+  <script src="../js/site-pet.js"></script>
+  <script>
+    const bar = document.getElementById('cs-progress');
+    if (bar) {
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        bar.style.transform = 'scaleX(' + (h.scrollTop / (h.scrollHeight - h.clientHeight)) + ')';
+      }, { passive: true });
+    }
+  </script>
+</body>
+</html>
