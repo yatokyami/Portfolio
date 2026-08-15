@@ -281,6 +281,45 @@ body {
   opacity: 0;
 }
 
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+  opacity: 1;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.hero-scroll-cue svg {
+  display: block;
+}
+
+.hero-scroll-cue span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
+
+.scroll-dot {
+  animation: scroll-bounce 1.8s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
 
 .chr-hover {
   display: inline-flex;
