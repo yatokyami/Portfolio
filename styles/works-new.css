@@ -57,8 +57,8 @@ main{position:relative;z-index:5}
 .work-meta{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1.2rem}
 .work-date,.work-breadcrumb{font:600 .7rem Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);white-space:nowrap}
 .work-breadcrumb{text-align:right}
-.work-title{font:300 clamp(2rem,2.6vw,2.7rem)/1.25 Breton,sans-serif;letter-spacing:-.01em;color:#f0f0f0;overflow:hidden}
-.work-title span{display:block;transform:translateY(100%)}
+.work-title{font:300 clamp(2rem,2.6vw,2.7rem)/1.25 Breton,sans-serif;letter-spacing:-.01em;color:#f0f0f0}
+.work-title span{display:block}
 .work-brief{font:400 clamp(.9rem,1.05vw,1.02rem)/1.8 Breton,sans-serif;color:rgba(255,255,255,.48);margin-top:1.2rem}
 .work-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
 .work-tags span{padding:.55em .9em;border:1px solid rgba(255,255,255,.13);border-radius:999px;font:600 .66rem Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.55);transition:border-color .35s ease,color .35s ease}

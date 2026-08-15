@@ -2062,7 +2062,7 @@ a.chr-hover {
   font-size: clamp(1rem, 2vw, 1.5rem);
   color: rgba(255, 255, 255, 0.3);
   transition: color 0.4s ease;
-  cursor: none;
+  cursor: default;
   z-index: 1;
 }
 .award-item::before {

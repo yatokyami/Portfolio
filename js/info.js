@@ -8,22 +8,22 @@
       items: [
         {
           title: 'Final Fantasy VII',
-          cover: '../assets/images/projects/Covers/Zenith.avif',
+          cover: '../assets/images/favourites/finalfantasy7.jpg',
           thought: 'The story that defined JRPGs forever. Midgar alone is a masterclass in world-building — every corner feels lived-in and political.'
         },
         {
           title: 'Final Fantasy XVI',
-          cover: '../assets/images/projects/Covers/Echo.avif',
+          cover: '../assets/images/favourites/finalfantasy16.jpg',
           thought: 'Yoshi-P took a massive swing going full action RPG and it mostly lands. Clive\'s arc is genuinely one of the best in the series.'
         },
         {
           title: 'Persona 3 Reload',
-          cover: '../assets/images/projects/Covers/CyberDiag.avif',
+          cover: '../assets/images/favourites/persona3reload.jpg',
           thought: 'The remake we deserved. The themes of mortality hit completely different now. Strega was always underrated as antagonists.'
         },
         {
           title: 'Nier Automata',
-          cover: '../assets/images/projects/Covers/cyberDiag_web.avif',
+          cover: '../assets/images/favourites/nierautomata.jpg',
           thought: 'Play it three times, cry three times. Yoko Taro uses the game format itself as a narrative weapon. Nothing else does this.'
         },
       ],
@@ -33,22 +33,22 @@
       items: [
         {
           title: 'One Piece',
-          cover: '../assets/images/projects/Covers/Anima.avif',
+          cover: '../assets/images/favourites/onepiece.jpg',
           thought: 'The most ambitious long-form story in any medium. Oda plants seeds 500 chapters before they bloom. The payoffs are unmatched.'
         },
         {
           title: 'Code Geass',
-          cover: '../assets/images/projects/Covers/Echo.avif',
+          cover: '../assets/images/favourites/codegeass.jpg',
           thought: 'Lelouch\'s ending is still the most emotionally gutting finale I\'ve ever watched. The chess metaphor is earned, not decorative.'
         },
         {
           title: 'Kaguya-sama',
-          cover: '../assets/images/projects/Covers/ChromaBlock.avif',
+          cover: '../assets/images/favourites/loveiswar.jpg',
           thought: 'Comedy that secretly morphs into one of the most wholesome love stories out there. Ishigami\'s arc in S3 is genuinely moving.'
         },
         {
           title: 'Steins;Gate',
-          cover: '../assets/images/projects/Covers/Symphony.avif',
+          cover: '../assets/images/favourites/steinsgate.jpg',
           thought: 'The slow burn first half is intentional and essential. When the shift happens it\'s devastating. Okabe is one of the all-time greats.'
         },
       ],
@@ -58,22 +58,22 @@
       items: [
         {
           title: 'Sakamoto Days',
-          cover: '../assets/images/projects/Covers/Zenith.avif',
+          cover: '../assets/images/favourites/sakamotodays.jpg',
           thought: 'Peak action comedy. The fight choreography on paper is absurdly good. Sakamoto communicating purely through expressions is genius.'
         },
         {
           title: 'Blue Lock',
-          cover: '../assets/images/projects/Covers/CyberDiag.avif',
+          cover: '../assets/images/favourites/bluelock.jpg',
           thought: 'Recontextualises football through ego and philosophy. Every match is a character study. Isagi\'s growth is genuinely compelling.'
         },
         {
           title: 'Tokyo Ghoul',
-          cover: '../assets/images/projects/Covers/Echo.avif',
+          cover: '../assets/images/favourites/tokyoghoul.jpg',
           thought: 'The original manga is a masterpiece. Kaneki\'s identity crisis is handled with real depth — the themes of otherness still resonate hard.'
         },
         {
           title: 'Tokyo Revengers',
-          cover: '../assets/images/projects/Covers/cyberDiag_web.avif',
+          cover: '../assets/images/favourites/tokyorevengers.jpg',
           thought: 'The time-loop mechanic used to explore trauma and regret is genuinely clever. The gang dynamics and loyalty themes hit surprisingly hard.'
         },
       ],
@@ -83,22 +83,22 @@
       items: [
         {
           title: 'Maze Runner',
-          cover: '../assets/images/projects/Covers/Anima.avif',
+          cover: '../assets/images/favourites/themazerunner.jpg',
           thought: 'The Glade as a self-contained society is a fascinating setup. The first film nails the tension of a world with rules you don\'t understand yet.'
         },
         {
           title: 'Harry Potter',
-          cover: '../assets/images/projects/Covers/Portfolio.jpg',
+          cover: '../assets/images/favourites/harrypotter.jpg',
           thought: 'Prisoner of Azkaban remains the high point — Cuarón understood that the magic needed shadow. The time-turner sequence is perfect filmmaking.'
         },
         {
           title: 'Spider-Man: Into the Spider-Verse',
-          cover: '../assets/images/projects/Covers/ChromaBlock.avif',
+          cover: '../assets/images/favourites/spiderverse.jpg',
           thought: 'The most visually innovative animated film ever made, full stop. Every frame is a deliberate artistic choice. Changed what animation could be.'
         },
         {
           title: 'Star Wars',
-          cover: '../assets/images/projects/Covers/SkymcDB.avif',
+          cover: '../assets/images/favourites/starwars.jpg',
           thought: 'Empire Strikes Back is the blueprint for a sequel that deepens rather than repeats. The father reveal still lands because Vader earned it.'
         },
       ],
@@ -108,22 +108,22 @@
       items: [
         {
           title: 'Dark',
-          cover: '../assets/images/projects/Covers/Symphony.avif',
+          cover: '../assets/images/favourites/dark.jpeg',
           thought: 'The most rigorously constructed sci-fi narrative on television. The family trees across three timelines reward obsessive attention.'
         },
         {
           title: 'Moon Knight',
-          cover: '../assets/images/projects/Covers/Zenith.avif',
+          cover: '../assets/images/favourites/moonknight.jpeg',
           thought: 'Oscar Isaac carrying two personalities simultaneously is one of the great MCU performances. The Egyptian mythology is used with real care.'
         },
         {
-          title: 'Breaking Bad',
-          cover: '../assets/images/projects/Covers/Echo.avif',
+          title: 'Outer Banks',
+          cover: '../assets/images/favourites/outerbanks.jpg',
           thought: 'The only show where I was actively rooting against the protagonist by the end. The transformation is so gradual you miss the exact moment it happens.'
         },
         {
           title: 'Game of Thrones',
-          cover: '../assets/images/projects/Covers/cyberDiag_web.avif',
+          cover: '../assets/images/favourites/gameofthrones.jpg',
           thought: 'Seasons 1–4 are some of the finest television ever made. The Red Wedding remains the most effective single episode of shock storytelling in TV history.'
         },
       ],
@@ -133,22 +133,22 @@
       items: [
         {
           title: 'Yumi and the Nightmare Painter',
-          cover: '../assets/images/projects/Covers/Anima.avif',
+          cover: '../assets/images/favourites/yumiandthenightmarepainter.jpg',
           thought: 'Sanderson at his most intimate. The dual-world structure is elegant and the central relationship is the warmest thing he\'s ever written.'
         },
         {
           title: 'The Way of Kings',
-          cover: '../assets/images/projects/Covers/CyberDiag.avif',
+          cover: '../assets/images/favourites/thewayofkings.jpg',
           thought: 'The worldbuilding density is staggering but it never feels like homework. Kaladin\'s arc in the first book alone justifies the length of the series.'
         },
         {
           title: 'The Design of Everyday Things',
-          cover: '../assets/images/projects/Covers/Portfolio.jpg',
+          cover: '../assets/images/favourites/designofeverydaythings.jpg',
           thought: 'Made me unable to use a bad door handle without getting annoyed. Don Norman gave me a framework for frustration I use every single day as a designer.'
         },
         {
           title: 'Steal Like an Artist',
-          cover: '../assets/images/projects/Covers/Symphony.avif',
+          cover: '../assets/images/favourites/steallikeanartist.jpg',
           thought: 'Short enough to read in one sitting, dense enough to change how you think about creativity. The permission it gives you is real and necessary.'
         },
       ],
@@ -175,8 +175,9 @@
     if (catIndex)  catIndex.textContent  = (current + 1).toString().padStart(2, '0') + ' / ' + CATEGORIES.length.toString().padStart(2, '0');
     if (catWord)   catWord.textContent   = cat.label.toLowerCase() + '.';
 
-    prevBtn.disabled = current === 0;
-    nextBtn.disabled = current === CATEGORIES.length - 1;
+    // Remove disabled states for circular navigation
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
 
     // Update dot indicators
     if (sliderNav) {
@@ -211,7 +212,12 @@
 
   // ── Switch category ──────────────────────────────────────────────────────
   function showCategory(index) {
-    if (index < 0 || index >= CATEGORIES.length) return;
+    // Wrap around for circular navigation
+    if (index < 0) {
+      index = CATEGORIES.length - 1;
+    } else if (index >= CATEGORIES.length) {
+      index = 0;
+    }
 
     grid.classList.add('fav-grid--out');
 
@@ -254,6 +260,40 @@
   // ── Initial render ────────────────────────────────────────────────────────
   renderGrid(0);
   updateNav();
+
+  // ── Scroll-triggered animations ───────────────────────────────────────────
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.15
+  };
+
+  const animationObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, observerOptions);
+
+  // Observe sections for animations
+  const manifestoSection = document.querySelector('.about-manifesto');
+  const toolkitSection = document.querySelector('.about-toolkit');
+  const favoritesSection = document.querySelector('.about-favorites');
+  const favTitleRow = document.querySelector('.fav-title-row');
+
+  if (manifestoSection) animationObserver.observe(manifestoSection);
+  if (toolkitSection) animationObserver.observe(toolkitSection);
+  if (favoritesSection) animationObserver.observe(favoritesSection);
+  if (favTitleRow) animationObserver.observe(favTitleRow);
+
+  // Add loaded class to back button
+  const backBtn = document.getElementById('back-btn');
+  if (backBtn) {
+    setTimeout(function() {
+      backBtn.classList.add('loaded');
+    }, 100);
+  }
 
 }());
 

@@ -1775,7 +1775,7 @@ function setupProjectsSection() {
     'zomato-group-ordering': {
       desc: "Designed a shared group cart and automatic bill-split flow for food delivery apps — eliminating the WhatsApp coordination tax. Research, scope definition, two design iterations and 6 final high-fidelity screens.",
       category: 'Product Design', year: '2025', tags: ['UX Research', 'Figma', 'Prototyping'],
-      images: ['assets/images/projects/Covers/Anima.avif'],
+      images: ['assets/images/projects/Covers/groupordering.jpg'],
       caseStudyUrl: 'works/zomato-case-study.html',
     },
     'portfolio': {
@@ -1787,13 +1787,13 @@ function setupProjectsSection() {
     'webtoonhub': {
       desc: "Full-stack digital comic reading and publishing platform with immersive reader, reading progress tracking, CBZ bulk upload, publisher analytics and content scheduling — built on React, TypeScript and Supabase with role-based access control.",
       category: 'Web Application', year: '2025', tags: ['React', 'TypeScript', 'Supabase'],
-      images: ['assets/images/projects/Covers/ChromaBlock.avif'],
+      images: ['assets/images/projects/Covers/gogomanhwa1.jpeg', 'assets/images/projects/Covers/gogomanhwa2.jpeg', 'assets/images/projects/Covers/gogomanhwa3.jpeg'],
       caseStudyUrl: 'works/webtoon-case-study.html',
     },
     'curanet': {
       desc: "Real-time hospital management platform with live bed tracking, smart OPD queue system, blood bank inventory, patient admissions and emergency response. Role-based dashboards for patients, doctors, nurses and admins with instant Firebase sync.",
       category: 'Web Application', year: '2025', tags: ['React', 'Firebase', 'Real-time'],
-      images: ['assets/images/projects/Covers/cyberDiag_web.avif'],
+      images: ['assets/images/projects/Covers/Curanetmockup.jpg', 'assets/images/projects/Covers/Curanetmockup2.jpeg'],
       caseStudyUrl: 'works/curanet-case-study.html',
     },
   };
@@ -2249,43 +2249,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Custom cursor logic: Show project cover when hovering on award items
-    const awardCursor = document.createElement('img');
-    awardCursor.style.position = 'fixed';
-    awardCursor.style.top = '0';
-    awardCursor.style.left = '0';
-    awardCursor.style.width = '250px';
-    awardCursor.style.height = 'auto';
-    awardCursor.style.borderRadius = '5px';
-    awardCursor.style.pointerEvents = 'none';
-    awardCursor.style.zIndex = '99999';
-    document.body.appendChild(awardCursor);
-    
-    // Set initial bounds via GSAP directly
-    gsap.set(awardCursor, { xPercent: -50, yPercent: -50, scale: 0.8, opacity: 0 });
-
-    let isAwardHovered = false;
-
-    window.addEventListener('mousemove', (e) => {
-      if (isAwardHovered) {
-        gsap.set(awardCursor, { x: e.clientX, y: e.clientY });
-      }
-    });
-
+    // Custom cursor on award items removed — standard cursor used instead
     awardItems.forEach(item => {
-      item.addEventListener('mouseenter', (e) => {
-        isAwardHovered = true;
-        const imgSrc = item.getAttribute('data-cursor-img');
-        if (imgSrc) {
-          awardCursor.src = imgSrc;
-        }
-        gsap.set(awardCursor, { x: e.clientX, y: e.clientY });
-        gsap.to(awardCursor, { opacity: 1, scale: 1, duration: 0.3, overwrite: "auto" });
-      });
-      item.addEventListener('mouseleave', () => {
-        isAwardHovered = false;
-        gsap.to(awardCursor, { opacity: 0, scale: 0.8, duration: 0.3, overwrite: "auto" });
-      });
+      item.style.cursor = 'default';
     });
   }
 });
